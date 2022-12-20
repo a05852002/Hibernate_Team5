@@ -1,21 +1,10 @@
-<%@ page import="meetbothmember.model.UserLoginData"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <! DOCTYPE html>
 <html>
 <head>
-<% 
-	String redirect = request.getContextPath();
-	String redirectPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + redirect
-	+ "/html/MeetBothMember/Login.jsp";
-	UserLoginData user = (UserLoginData)session.getAttribute("user");
-	if(user == null )
-	{
-	  	response.sendRedirect(redirectPath);
-		return;
-	} 
-%>
+
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path

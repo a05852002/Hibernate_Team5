@@ -1,19 +1,6 @@
-<%@page import="meetbothmember.model.UserLoginData"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-UserLoginData user = (UserLoginData) session.getAttribute("user");
-String log = null;
-if (user == null) {
-	log = "<a href=\"MeetBothMember/Login.jsp\"><span class=\"label\">"
-	+ "<i class=\"fa-solid fa-right-to-bracket\"></i></span>登入</a>";
-} else {
-	log = "歡迎您！" + user.getId() + "<a href=\"MeetBothMember/Logout.jsp\"><span class=\"label\">"
-	+ "<i class=\"fa-solid fa-right-from-bracket\"></i></span>登出</a>";
-
-}
-%>
 <%
 String pathAnimation = request.getContextPath();
 String basePathAnimation = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -34,7 +21,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 		+ "/html/images/meatball-200.png";
 %>
 
-<! DOCTYPE html>
+<!DOCTYPE html>
 <!--
 	Editorial by HTML5 UP
 	html5up.net | @ajlkn
@@ -172,7 +159,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<!-- 								class="label">Snapchat</span></a></li> -->
 						<!-- 						<li><a href="#" class="icon brands fa-instagram"><span -->
 						<!-- 								class="label">Instagram</span></a></li> -->
-						<li id="logincontroll"><%=log%></li>
+<%-- 						<li id="logincontroll"><%=log%></li> --%>
 					</ul>
 
 				</header>
