@@ -1,28 +1,64 @@
 package _01_member.model;
 
+import java.io.Serializable;
 import java.sql.Blob;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "Member")
-public class MemberBean {
+public class MemberBean implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "memberID")
 	private int memberID;
+	
+	@Column(name = "account")
 	private String account = "";
+		
+	@Column(name = "password")
 	private String password = "";
+		
+	@Column(name = "idnumber")
 	private String idNumber = "";
+		
+	@Column(name = "memname")
 	private String memName = "";
+		
+	@Column(name = "memnickname")
 	private String memNickName = "";
+		
+	@Column(name = "memold")
 	private int memOld;
+		
+	@Column(name = "membirth")
 	private String memBirth  = "";
+	
+	@Column(name = "memgender")
 	private String memGender = "";
+		
+	@Column(name = "email")
 	private String eMail = "";
+		
+	@Column(name = "phone")
 	private int phone;
+		
+	@Column(name = "photo")
 	private Blob photo;
+		
+	@Column(name = "address")
 	private String address = "";
+		
+	@Column(name = "registime")
 	private String registime = "";
 	
 	public MemberBean() {

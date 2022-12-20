@@ -32,7 +32,7 @@
         <mapping resource="tw/hibernatedemo/model/CompanyBean.hbm.xml"/>
         
         <!--  class mapping -->
-        <mapping class="tw.hibernatedemo.model.Department"/>
+        <mapping class="_01_member.model.MemberBean"/>
         
         
         
