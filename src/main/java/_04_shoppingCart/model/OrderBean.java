@@ -33,15 +33,15 @@ public class OrderBean {
 	@Column(name = "shippingAddress")
 	private String shippingAddress; // 收件地址
 	@Column(name = "ordStstus")
-	private String ordStstus; // 訂單狀態 處理中(預設)/備貨中
+	private String ordStstus ="處理中"; // 訂單狀態 處理中(預設)/備貨中
 	@Column(name = "paymentStstus")
-	private String paymentStstus; // 付款狀態 未付款(預設)/已付款/退款中/已退款
+	private String paymentStstus = "未付款"; // 付款狀態 未付款(預設)/已付款/退款中/已退款
 	@Column(name = "deliveryStstus")
-	private String deliveryStstus; // 送貨狀態 null/備貨中/已發貨/已取貨/退貨中/已退貨
+	private String deliveryStstus ="無"; // 送貨狀態 無/備貨中/已發貨/已取貨/退貨中/已退貨
 	@Column(name = "totalAmount")
-	private Double totalAmount; // 總金額 0處理中(預設)
-	private String cancelTag; // 取消
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItem", cascade = CascadeType.ALL)
+	private Double totalAmount = 0.0; // 總金額 0處理中(預設)
+//	private String cancelTag; // 取消
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderbean",cascade = CascadeType.ALL)
 	@OrderBy("seqno desc") //拿資料的順序自己決定用,增加下一個排序
 	private Set<OrderItemBean> items = new LinkedHashSet<OrderItemBean>(); // itemsList
 
@@ -58,7 +58,7 @@ public class OrderBean {
 		this.paymentStstus = paymentStstus;
 		this.deliveryStstus = deliveryStstus;
 		this.totalAmount = totalAmount;
-		this.cancelTag = cancelTag;
+//		this.cancelTag = cancelTag;
 		this.items = items;
 	}
 
@@ -105,6 +105,10 @@ public class OrderBean {
 	public void setTotalAmount(Double totalAmount) {
 		this.totalAmount = totalAmount;
 	}
+	
+	public void setTotalAmount() {
+		this.totalAmount = 0.0;
+	}
 
 	public String getShippingAddress() {
 		return shippingAddress;
@@ -123,13 +127,13 @@ public class OrderBean {
 		this.orderDate = orderDate;
 	}
 
-	public String getCancelTag() {
-		return cancelTag;
-	}
-
-	public void setCancelTag(String cancelTag) {
-		this.cancelTag = cancelTag;
-	}
+//	public String getCancelTag() {
+//		return cancelTag;
+//	}
+//
+//	public void setCancelTag(String cancelTag) {
+//		this.cancelTag = cancelTag;
+//	}
 
 	public String getOrdStstus() {
 		return ordStstus;
@@ -146,6 +150,7 @@ public class OrderBean {
 	public void setPaymentStstus(String paymentStstus) {
 		this.paymentStstus = paymentStstus;
 	}
+	
 
 	public String getDeliveryStstus() {
 		return deliveryStstus;
@@ -176,12 +181,10 @@ public class OrderBean {
 		builder.append(deliveryStstus);
 		builder.append(", totalAmount=");
 		builder.append(totalAmount);
-		builder.append(", cancelTag=");
-		builder.append(cancelTag);
-		builder.append(", items=");
-		builder.append(items);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+
 
 }
