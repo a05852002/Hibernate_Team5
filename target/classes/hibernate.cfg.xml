@@ -34,6 +34,10 @@
         <!--  class mapping -->
         <mapping class="tw.hibernatedemo.model.Department"/>
         
+        <!-- class _02_product mapping 商品的bean -->
+        <mapping class="_02_product.model.ProdType"/>
+        <mapping class="_02_product.model.Product"/>
+        
         
         
         
