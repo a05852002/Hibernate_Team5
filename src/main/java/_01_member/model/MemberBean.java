@@ -62,7 +62,7 @@ public class MemberBean implements Serializable {
 	private String address = "";
 		
 	@Column(name = "registime")
-	private String registime = "";
+	private Date registime = new Date();
 	
 	public MemberBean() {
 	}
@@ -171,12 +171,13 @@ public class MemberBean implements Serializable {
 		this.address = address;
 	}
 
-	public String getRegistime() {
+	public Date getRegistime() {
 		return registime;
 	}
 
-	public void setRegistime() {
-		this.registime = new SimpleDateFormat("YYYY/MM/DD").format(new Date());
+
+	public void setRegistime(Date date) {
+		this.registime = date;
 	}
 
 	@Override
@@ -184,7 +185,7 @@ public class MemberBean implements Serializable {
 		return "MemberBean [memberID=" + memberID + ", account=" + account + ", password=" + password + ", idNumber="
 				+ idNumber + ", memName=" + memName + ", memNickName=" + memNickName + ", memOld=" + memOld
 				+ ", memBirth=" + memBirth + ", memGender=" + memGender + ", eMail=" + eMail + ", phone=" + phone
-				+ ", photo=" + photo + ", address=" + address + ", registime=" + registime + "]";
+				+ ", photo=" + photo + ", address=" + address + ", registime=" + new SimpleDateFormat("YYYY/MM/dd").format(registime) + "]";
 	}
 
 }
