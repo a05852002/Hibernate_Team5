@@ -14,7 +14,7 @@ public class MemberDao {
 	}
 	
 	
-	
+//	查詢系列
 	public List<MemberBean> searchMemByNameLike(String name){
 		String hql = "from MemberBean where memname like :name";
 		Query<MemberBean> query = session.createQuery(hql,MemberBean.class).setParameter("name", "%"+name+"%");
@@ -31,11 +31,34 @@ public class MemberDao {
 				.setParameter("ID", memID);
 		return query.getResultList();		
 	}
-
 	public List<MemberBean> searchAllMember(){
 		Query<MemberBean> query = session.createQuery("from MemberBean", MemberBean.class);
 		List<MemberBean> list = query.getResultList();
 		return list;
 	}
 	
+//	新增
+	public MemberBean add(MemberBean member) {
+		MemberBean memberCheck = session.get(MemberBean.class, member.getAccount());
+		if (memberCheck == null) {
+			session.save(member);
+			return member;
+		}
+		return null;
+	}
+//	依帳號修改
+	public MemberBean updateMemFromAccount(MemberBean member) {
+		MemberBean memberCheck = session.get(MemberBean.class, member.getAccount());
+		if (memberCheck != null) {
+			memberCheck.setAddress(member.getAddress());
+			memberCheck.seteMail(member.geteMail());
+			memberCheck.setMemName(member.getMemName());
+			memberCheck.setMemNickName(member.getMemNickName());
+			memberCheck.setPassword(member.getPassword());
+			memberCheck.setPhone(member.getPhone());
+			return memberCheck;
+		}else {
+			return null;
+		}
+	}
 }

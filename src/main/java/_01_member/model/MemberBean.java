@@ -2,6 +2,8 @@ package _01_member.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 
 @Entity
@@ -172,8 +175,8 @@ public class MemberBean implements Serializable {
 		return registime;
 	}
 
-	public void setRegistime(String registime) {
-		this.registime = registime;
+	public void setRegistime() {
+		this.registime = new SimpleDateFormat("YYYY/MM/DD").format(new Date());
 	}
 
 	@Override
