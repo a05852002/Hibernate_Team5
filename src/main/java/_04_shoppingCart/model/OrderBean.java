@@ -1,4 +1,4 @@
-package _04_ShoppingCart.model;
+package _04_shoppingCart.model;
 
 import java.util.Date;
 import java.util.LinkedHashSet;

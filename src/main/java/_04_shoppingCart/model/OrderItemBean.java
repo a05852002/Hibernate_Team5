@@ -1,4 +1,4 @@
-package _04_ShoppingCart.model;
+package _04_shoppingCart.model;
 
 public class OrderItemBean {
 	private Integer seqno; //序號
