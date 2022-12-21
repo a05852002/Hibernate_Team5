@@ -61,4 +61,15 @@ public class MemberDao {
 			return null;
 		}
 	}
+//	依ID刪除
+	public boolean deleteMemfromMemberID(int memberID) {
+		MemberBean member = session.get(MemberBean.class, memberID);
+		if (member !=null) {
+			session.delete(member);
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 }
