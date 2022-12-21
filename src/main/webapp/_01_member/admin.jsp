@@ -76,7 +76,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<input type="submit" name="selectByName" value="以姓名查詢"/>
 						</form>
 						
-						<form method="post" action="<c:url value='/meetbothmember/AdminMember.do' />">
+						<form method="post" action="<c:url value='/_01_member.do' />">
 						<button name="register">新增會員</button>
 						<button name="selectAll" value="getAllMember">取得所有會員資料</button>
 						</form>

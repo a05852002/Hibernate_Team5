@@ -42,10 +42,24 @@ public class _01_member extends HttpServlet {
         MemberDao md = new MemberDao(session);
         
         if (orders.containsKey("selectAll")){
-        	List<MemberBean> list = md.searchAllMember();
-        	request.setAttribute("Member", list);
-			RequestDispatcher rd = request.getRequestDispatcher("../html/MeetBothMember/admin.jsp");
+        	List<MemberBean> list = null ;
+        	RequestDispatcher rd;
+			
+			try {
+				session.beginTransaction();
+				list = md.searchAllMember();
+				session.getTransaction().commit();
+				
+			} catch (Exception e) {
+				System.out.println("有問題");
+				session.getTransaction().rollback();
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("Member", list);
+			rd = request.getRequestDispatcher("../_01_member/admin.jsp");
 			rd.forward(request, response);
+			
         }
         
         
