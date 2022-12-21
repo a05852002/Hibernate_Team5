@@ -33,8 +33,12 @@
         
         <!--  class mapping -->
         <mapping class="tw.hibernatedemo.model.Department"/>
-        <mapping class="_06_halaandqa.HalaBean"/>
-        <mapping class="_06_halaandqa.QaBean"/>
+        <mapping class="_06_halaandqa.model.HalaBean"/>
+        <mapping class="_06_halaandqa.model.QaBean"/>
+        
+        <!-- class _02_product mapping 商品的bean -->
+        <mapping class="_02_product.model.ProdType"/>
+        <mapping class="_02_product.model.Product"/>
         
         
         
