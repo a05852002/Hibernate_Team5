@@ -33,6 +33,8 @@
         
         <!--  class mapping -->
         <mapping class="tw.hibernatedemo.model.Department"/>
+        <mapping class="_06_halaandqa.HalaBean"/>
+        <mapping class="_06_halaandqa.QaBean"/>
         
         
         
