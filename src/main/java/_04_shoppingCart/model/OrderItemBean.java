@@ -1,103 +1,175 @@
 package _04_shoppingCart.model;
 
-public class OrderItemBean {
-	private Integer seqno; //序號
-	private Integer orderNo; //訂單編號
-	private String productId; //商品編號
-	private String productName; //商品名稱
-	private String description; //描述
-	private Integer qty; //數量
-	private Double unitPrice; //單價
-	private Double itemTotal; //總金額
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-	public OrderItemBean( Integer orderNo,Integer seqno, String productId,String productName,
-			String description, Integer qty, Double unitPrice, Double itemTotal) {
+@Entity
+@Table(name = "orderitem")
+public class OrderItemBean {
+	
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "orderNo")
+	private Integer orderNo; // 訂單編號
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "seqno")
+	private Integer seqno; // 序號
+	@Column(name = "prodId")
+	private String prodId; // 商品編號
+	@Column(name = "prodName")
+	private String prodName; // 商品名稱
+	@Column(name = "qty")
+	private Integer qty; // 數量
+	@Column(name = "prodPrice")
+	private Double prodPrice; // 單價
+	@Column(name = "discount")
+	private Double discount; // 折扣
+	@Column(name = "itemTotal")
+	private Double itemTotal; // 總金額
+	@Column(name = "remark")
+	private String remark; // 備註
+
+	public OrderItemBean(Integer orderNo, Integer seqno, String prodId, String prodName, Integer qty, Double prodPrice,
+			Double discount, Double itemTotal, String remark) {
+		super();
 		this.orderNo = orderNo;
 		this.seqno = seqno;
-		this.productId = productId;
-		this.productName = productName;
-		this.description = description;
+		this.prodId = prodId;
+		this.prodName = prodName;
 		this.qty = qty;
-		this.unitPrice = unitPrice;
+		this.prodPrice = prodPrice;
+		this.discount = discount;
 		this.itemTotal = itemTotal;
-	
-	}
-
-
-	@Override
-	public String toString() {
-		return "OrderItemBean [seqno=" + seqno + ", orderNo=" + orderNo + ", productId=" + productId + ", productName="
-				+ productName + ", description=" + description + ", qty=" + qty + ", unitPrice=" + unitPrice
-				+ ", itemTotal=" + itemTotal + "]";
+		this.remark = remark;
 	}
 
 
 	public OrderItemBean() {
-		
-	}
-	
-	public Integer getSeqno() {
-		return seqno;
+
 	}
 
-	public void setSeqno(Integer seqno) {
-		this.seqno = seqno;
-	}
 
 	public Integer getOrderNo() {
 		return orderNo;
 	}
 
+
 	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
 
-	public String getProductId() {
-		return productId;
+
+	public Integer getSeqno() {
+		return seqno;
 	}
 
-	public void setProductId(String productId) {
-		this.productId = productId;
-	}
-	
-	public String getProductName() {
-		return productName;
-	}
-	
-	public void setProductName(String productName) {
-		this.productName = productName;
+
+	public void setSeqno(Integer seqno) {
+		this.seqno = seqno;
 	}
 
-	public String getDescription() {
-		return description;
+
+	public String getProdId() {
+		return prodId;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+
+	public void setProdId(String prodId) {
+		this.prodId = prodId;
 	}
+
+
+	public String getProdName() {
+		return prodName;
+	}
+
+
+	public void setProdName(String prodName) {
+		this.prodName = prodName;
+	}
+
 
 	public Integer getQty() {
 		return qty;
 	}
 
+
 	public void setQty(Integer qty) {
 		this.qty = qty;
 	}
 
-	public Double getUnitPrice() {
-		return unitPrice;
+
+	public Double getProdPrice() {
+		return prodPrice;
 	}
 
-	public void setUnitPrice(Double unitPrice) {
-		this.unitPrice = unitPrice;
+
+	public void setProdPrice(Double prodPrice) {
+		this.prodPrice = prodPrice;
 	}
+
+
+	public Double getDiscount() {
+		return discount;
+	}
+
+
+	public void setDiscount(Double discount) {
+		this.discount = discount;
+	}
+
 
 	public Double getItemTotal() {
 		return itemTotal;
 	}
 
+
 	public void setItemTotal(Double itemTotal) {
 		this.itemTotal = itemTotal;
+	}
+
+
+	public String getRemark() {
+		return remark;
+	}
+
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("OrderItemBean [orderNo=");
+		builder.append(orderNo);
+		builder.append(", seqno=");
+		builder.append(seqno);
+		builder.append(", prodId=");
+		builder.append(prodId);
+		builder.append(", prodName=");
+		builder.append(prodName);
+		builder.append(", qty=");
+		builder.append(qty);
+		builder.append(", prodPrice=");
+		builder.append(prodPrice);
+		builder.append(", discount=");
+		builder.append(discount);
+		builder.append(", itemTotal=");
+		builder.append(itemTotal);
+		builder.append(", remark=");
+		builder.append(remark);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

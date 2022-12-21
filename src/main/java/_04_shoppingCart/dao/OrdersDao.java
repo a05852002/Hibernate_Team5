@@ -3,24 +3,66 @@ package _04_shoppingCart.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import _04_shoppingCart.model.OrderBean;
+import tw.hibernatedemo.model.Member;
+import tw.hibernatedemo.util.HibernateUtil;
 
 public class OrdersDao {
 
 	private SessionFactory factory;
 	
-	//新增-------------------------
-////	新增一筆訂單
-//	public void insert(String memberId, Date orderDate, String shippingAddress, Double totalAmount) throws SQLException {
-//		String sql = "insert into orders values(?,?,?,?)";
-//		Object[] params = { memberId, orderDate, shippingAddress, totalAmount };
-//		int row = queryRunner.update(sql, params);
-//		// 或是直接 queryRunner.update(sql,params); 就好
-//		System.out.println("新增了" + row + "筆資料");
-//	}
+	public OrdersDao() {
+		this.factory = HibernateUtil.getSessionFactory(); // 拿factory
+	}
+	
+	
+//	找一筆訂單
+	public OrderBean findByNameAndPwd(String username, String pwd) {
 
+		String hql = "from Member m where m.memberName = :username and m.memberPwd = :pwd";
+
+		Session session = factory.getCurrentSession();
+		
+		try {
+			OrderBean result = session.createQuery(hql, OrderBean.class)
+					.setParameter("username", username)
+					.setParameter("pwd", pwd)
+					.getSingleResult();
+			
+			return result;
+		} catch (NoResultException|NonUniqueResultException e) {
+			return null;
+		}
+
+	}
+	
+//	找一筆訂單
+	public OrderBean insertOrder(String username, String pwd) {
+
+		String hql = "from Member m where m.memberName = :username and m.memberPwd = :pwd";
+
+		Session session = factory.getCurrentSession();
+		
+		try {
+			OrderBean result = session.createQuery(hql, OrderBean.class)
+					.setParameter("username", username)
+					.setParameter("pwd", pwd)
+					.getSingleResult();
+			
+			return result;
+		} catch (NoResultException|NonUniqueResultException e) {
+			return null;
+		}
+
+	}
+	
+	
 //	新增一筆訂單
 	public void insert(String memberId, String shippingAddress) throws SQLException {
 		String sql = "insert into orders values (?,?,?,?,0)";
