@@ -29,10 +29,10 @@
 <!--         <property name="hbm2ddl.auto">update</property> -->
         
         <!--  source mapping in xml file -->
-        <mapping resource="tw/hibernatedemo/model/CompanyBean.hbm.xml"/>
+<!--         <mapping resource="tw/hibernatedemo/model/SubjectBean.hbm.xml"/> -->
         
         <!--  class mapping -->
-        <mapping class="tw.hibernatedemo.model.Department"/>
+        <mapping class="tw.hibernatedemo.model.SubjectBean"/>
         
         
         
