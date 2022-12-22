@@ -33,9 +33,9 @@ public class MemberDao {
 		return query.getResultList();		
 	}
 	public List<MemberBean> searchMemByID(int memID){
-		String hql = "from MemberBean where memberID = :ID";
-		Query<MemberBean> query = session.createQuery(hql,MemberBean.class)
-				.setParameter("ID", memID);
+		String hql = "from MemberBean where memberID like '%"+memID +"%'";
+		Query<MemberBean> query = session.createQuery(hql,MemberBean.class);
+//				.setParameter("ID",memID);
 		return query.getResultList();		
 	}
 	public List<MemberBean> searchAllMember(){

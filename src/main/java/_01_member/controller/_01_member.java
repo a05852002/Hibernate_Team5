@@ -42,25 +42,56 @@ public class _01_member extends HttpServlet {
         MemberDao md = new MemberDao(session);
         
         if (orders.containsKey("selectAll")){
-        	List<MemberBean> list = null ;
-        	RequestDispatcher rd;
-			
-			try {
+			try {			
 				session.beginTransaction();
-				list = md.searchAllMember();
+				List<MemberBean> list = md.searchAllMember();
+				request.setAttribute("Member", list);
+				request.getRequestDispatcher("_01_member/admin.jsp").forward(request, response);
 				session.getTransaction().commit();
 				
 			} catch (Exception e) {
 				System.out.println("有問題");
 				session.getTransaction().rollback();
+				errorMsgMap.put("selectError", "搜尋出現問題");
 				e.printStackTrace();
 			}
-			
-			request.setAttribute("Member", list);
-			rd = request.getRequestDispatcher("../_01_member/admin.jsp");
-			rd.forward(request, response);
-			
-        }
+        }else if (orders.containsKey("delete") && orders.get("delete").length>0) {
+			try {
+				session.beginTransaction();
+				for (String p : orders.get("delete")) {
+					int ID = Integer.parseInt(p);					
+					md.deleteMemfromMemberID(ID);
+				}
+				request.setAttribute("Member", md.searchAllMember());
+				request.getRequestDispatcher("_01_member/admin.jsp").forward(request, response);
+				session.getTransaction().commit();
+			} catch (Exception e) {
+				System.out.println("有問題");
+				session.getTransaction().rollback();
+				errorMsgMap.put("deleteError", "刪除出現問題");
+				e.printStackTrace();
+			}
+		}else if(orders.containsKey("register")){
+			response.sendRedirect("_01_member/register.jsp");
+		}else if(orders.containsKey("preupdate")) {
+			try {
+				session.beginTransaction();
+				int ID = 0;
+				for (String p : orders.get("preupdate")) {
+					ID = Integer.parseInt(p);					
+				}
+				List<MemberBean> list = md.searchMemByID(ID);
+				request.setAttribute("Member", list);
+				request.getRequestDispatcher("_01_member/MemberUpdate.jsp").forward(request, response);
+				
+				session.getTransaction().commit();
+			} catch (Exception e) {
+				System.out.println("有問題");
+				session.getTransaction().rollback();
+				errorMsgMap.put("preupError", "修改出現問題");
+				e.printStackTrace();
+			}
+		}
         
         
         
@@ -71,6 +102,6 @@ public class _01_member extends HttpServlet {
         
         
         
-	}
 
+	}
 }

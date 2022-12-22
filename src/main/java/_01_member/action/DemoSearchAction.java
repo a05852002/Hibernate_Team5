@@ -23,6 +23,13 @@ public class DemoSearchAction {
 			MemberDao md = new MemberDao(session);
 			MemberBean member = new MemberBean();
 			
+			List<MemberBean> sID = md.searchMemByID(5);
+			Iterator<MemberBean> it = sID.iterator();
+			while (it.hasNext()) {
+				MemberBean memberBean = (MemberBean) it.next();
+				System.out.println(memberBean.toString());
+			}
+			
 //			member.setAccount("");
 //			member.setPassword("123456789");
 //			MemberBean mfa = md.updateMemFromAccount(member);

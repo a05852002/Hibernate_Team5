@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <%  --%>
-// 	String redirect = request.getContextPath();
-// 	String redirectPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + redirect
-// 		+ "/html/MeetBothMember/Login.jsp";
-// 	UserLoginData user = (UserLoginData)session.getAttribute("user");
-// 	if(user == null )
-// 	{
-// 	  response.sendRedirect(redirectPath);
-// 	return;
-// 	} 
+<!-- // 	String redirect = request.getContextPath(); -->
+<!-- // 	String redirectPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + redirect -->
+<!-- // 		+ "/html/MeetBothMember/Login.jsp"; -->
+<!-- // 	UserLoginData user = (UserLoginData)session.getAttribute("user"); -->
+<!-- // 	if(user == null ) -->
+<!-- // 	{ -->
+<!-- // 	  response.sendRedirect(redirectPath); -->
+<!-- // 	return; -->
+<!-- // 	}  -->
 <%-- %> --%>
 <%
 String path = request.getContextPath();
@@ -116,8 +116,8 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
      										<td>${Member.phone}</td>
      										<td>${Member.address}</td>
      										<td>${Member.registime}</td>
-     										<td><form method="post" action="<c:url value='/meetbothmember/AdminMember.do' />"><button name="preupdate" value="${Member.memberID}"><i class="fa-solid fa-user"></i></button></form></td>
-     										<td><form method="post" action="<c:url value='/meetbothmember/AdminMember.do' />"><button name="delete" value="${Member.memberID}"><i class="fa-solid fa-xmark"></i></button></form></td>
+     										<td><form method="post" action="<c:url value='/_01_member.do' />"><button name="preupdate" value="${Member.memberID}"><i class="fa-solid fa-user"></i></button></form></td>
+     										<td><form method="post" action="<c:url value='/_01_member.do' />"><button name="delete" value="${Member.memberID}"><i class="fa-solid fa-xmark"></i></button></form></td>
 										</tr>
 									</tbody>
 									</c:forEach>
