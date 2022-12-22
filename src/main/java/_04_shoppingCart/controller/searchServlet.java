@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import _04_ShoppingCart.dao.OrdersDao;
-import _04_ShoppingCart.model.OrderBean;
+import _04_shoppingCart.dao.OrderDao;
+
 
 @WebServlet("/_04_ShoppingCart/searchServlet.do")
 public class searchServlet extends HttpServlet {
@@ -32,7 +32,7 @@ public class searchServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");  
 		
-		OrdersDao classService = new OrdersDao(); 
+		OrderDao classService = new OrderDao(); 
 		  int oNo = Integer.valueOf( request.getParameter("orderNo"));
 			try {
 				List<OrderBean> classlist = classService.searchOrderNoLike(oNo);

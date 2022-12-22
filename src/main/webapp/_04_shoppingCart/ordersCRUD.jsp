@@ -18,11 +18,7 @@ String basePathimg = request.getScheme() + "://" + request.getServerName() + ":"
 String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
 		+ "/html/images/meatball-200.png";
 %>
-<!-- 引入共同的頁首 -->
-<%-- <%@ include file="/html/backMVC.jsp" %> --%>
-<%-- <jsp:include page="/html/backMVC.jsp" flush="true" /> --%>
-<!-- <meta charset="UTF-8"> -->
-<!-- <title>Insert title here</title> -->
+
 <title>肉丸家教網 MEET BOTH</title>
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -38,6 +34,11 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="shortcut icon" href="<%=basePathimg%>" />
 <link rel="bookmark" href="<%=basePathimg%>" />
 <link rel="stylesheet" href="<%=basePath%>" />
+<!-- DataTable css -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+ <!-- DataTable js --> 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+
 </head>
 <body class="is-preload">
 	<!-- Wrapper -->
@@ -66,7 +67,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<!-- Search -->
 					<section id="search" class="alt">
 						<form method="post"
-							action="<c:url value='/_04_ShoppingCart/searchOrderServlet.do' />">
+							action="<c:url value='/_04_shoppingCart/SelectAll.do' />">
 							<input type="text" name="search" id="search" placeholder="Search" />
 						</form>
 					</section>
@@ -81,6 +82,9 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 									<th width=120px>訂單日期</th>
 									<th width=120px>更新日期</th>
 									<th>訂單地址</th>
+									<th>訂單狀態</th>
+									<th>付款狀態</th>
+									<th>送貨狀態 </th>
 									<th width=80px>總金額</th>
 									<th width=80px>編輯</th>
 									<th width=80px>新增</th>
@@ -95,6 +99,9 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 										<td>${bean.orderDate}</td>
 										<td>${bean.upOrderDate}</td>
 										<td>${bean.shippingAddress}</td>
+										<td>${bean.ordStstus}</td>
+										<td>${bean.paymentStstus}</td>
+										<td>${bean.deliveryStstus}</td>
 										<td>${bean.totalAmount}</td>
 										<td><form method="post"
 												action="<c:url value='/_04_ShoppingCart/searchServlet.do' />">

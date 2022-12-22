@@ -19,6 +19,9 @@ public class OrderService {
 		return orderDao.insertOrder(memberId, shippingAddress);
 	}
 	
+	
+	
+	
 	public boolean deleteOrderNo(Integer orderNo) {
 		return orderDao.deleteOrderNo(orderNo);
 	}
