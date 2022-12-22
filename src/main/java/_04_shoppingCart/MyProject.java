@@ -13,6 +13,7 @@ import _04_shoppingCart.dao.OrderDao;
 import _04_shoppingCart.dao.OrderItemDao;
 import _04_shoppingCart.model.OrderBean;
 import _04_shoppingCart.model.OrderItemBean;
+import _04_shoppingCart.service.OrderService;
 import tw.hibernatedemo.model.Books;
 import tw.hibernatedemo.util.HibernateUtil;
 
@@ -26,6 +27,7 @@ public class MyProject {
 		try {
 			session.beginTransaction();
 			OrderDao orderDao = new OrderDao(session);
+			OrderService orderService = new OrderService(session);
 //			OrderBean order = orderDao.insertOrder("333", "台北");
 //			OrderBean order = new OrderBean();
 //			OrderBean order = session.get(OrderBean.class, 3);
@@ -40,8 +42,9 @@ public class MyProject {
 //			session.save(order);
 
 //			OrderBean findByOrderNo = orderDao.findByOrderNo(1);
-			List<OrderBean> searchAllorders = orderDao.searchAllorders("22");
-			System.out.println(searchAllorders);
+			List<OrderBean> selectAll = orderService.selectAll();
+//			List<OrderBean> searchAllorders = orderDao.searchAllorders("11111");
+			System.out.println(selectAll);
 
 //			List<OrderBean> selectAll = orderDao.selectAll();
 //			for(OrderBean o:selectAll) {
@@ -52,6 +55,7 @@ public class MyProject {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println("ROLLBACK!!!");
+			e.printStackTrace();
 			session.getTransaction().rollback();
 
 		} finally {

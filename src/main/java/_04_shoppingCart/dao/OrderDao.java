@@ -51,23 +51,23 @@ public class OrderDao {
 
 //修改---------------------
 	// 透過訂單編號修改訂單資料
-	public void updateOrderFromOrderNo(Integer orderNo, String memberId, Date upOrderDate, String shippingAddress,
-			String ordStstus,String paymentStstus,String deliveryStstus, Double totalAmount)  {
-		
-		
-		
-		String sql = "update orders set memberId=?,orderDate=?,upOrderDate=?,shippingAddress=?,totalAmount=? where orderNo= ?";
-		String sql1 = "select * from orders where orderNo=?";
-		OrderBean o = queryRunner.query(sql1, new BeanHandler<OrderBean>(OrderBean.class), orderNo);
-		Date orderDate = o.getOrderDate();
-		Object[] params = { memberId, orderDate, upOrderDate, shippingAddress, totalAmount, orderNo };
-		int row = queryRunner.update(sql, params);
-		if (row > 0) {
-			System.out.println("已成功修改了" + row + "筆資料");
-			System.out.printf("產品編號 :\" %d \"的修改結果為 : %s", orderNo, o);
-		}
-
-	}
+//	public void updateOrderFromOrderNo(Integer orderNo, String memberId, Date upOrderDate, String shippingAddress,
+//			String ordStstus,String paymentStstus,String deliveryStstus, Double totalAmount)  {
+//		
+//		
+//		
+//		String sql = "update orders set memberId=?,orderDate=?,upOrderDate=?,shippingAddress=?,totalAmount=? where orderNo= ?";
+//		String sql1 = "select * from orders where orderNo=?";
+//		OrderBean o = queryRunner.query(sql1, new BeanHandler<OrderBean>(OrderBean.class), orderNo);
+//		Date orderDate = o.getOrderDate();
+//		Object[] params = { memberId, orderDate, upOrderDate, shippingAddress, totalAmount, orderNo };
+//		int row = queryRunner.update(sql, params);
+//		if (row > 0) {
+//			System.out.println("已成功修改了" + row + "筆資料");
+//			System.out.printf("產品編號 :\" %d \"的修改結果為 : %s", orderNo, o);
+//		}
+//
+//	}
 
 	public void updateSalaryByName(String name, Integer newSalary) {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
@@ -118,8 +118,7 @@ public class OrderDao {
 
 	// 模糊搜尋全部
 	public List<OrderBean> searchAllorders(String searchAll) {
-		String hql = "from OrderBean o where o.memberId = :memberId";
-//		String hql = "from OrderBean o where o.memberId like :memberId";
+		String hql = "from OrderBean o where o.orderNo like '%"+searchAll+"%' or o.memberId like :memberId";
 		Query<OrderBean> query = session.createQuery(hql, OrderBean.class)
 				.setParameter("memberId", "%" + searchAll + "%");
 
@@ -133,21 +132,6 @@ public class OrderDao {
 			System.out.println("查無此資料");
 		}
 		return resultList;
-	}
-
-	public List<OrderBean> searchAllorders(Integer searchAll) {
-		String hql = "from OrderBean o where o.orderNo = :orderNo ";
-		Query<OrderBean> query = session.createQuery(hql, OrderBean.class).setParameter("orderNo",
-				"%" + searchAll + "%");
-
-		List<OrderBean> resultList = query.getResultList();
-
-		for (OrderBean emp : resultList) {
-			System.out.println(emp);
-		}
-
-		return resultList;
-
 	}
 
 	//
@@ -180,29 +164,6 @@ public class OrderDao {
 		}
 	}
 
-//	
-//	
-////	模糊查詢全部
-//	public List<OrderBean> searchAllLike(String searchAllLike) throws SQLException {
-//		String sql = "select  * from orders where orderNo like ? or memberId like ? or shippingAddress like ? order by orderNo,memberId,shippingAddress";
-//		String sql1 = "select * from orders where orderNo like ? or memberId like ? or shippingAddress like ? order by orderNo,memberId,shippingAddress";
-//
-//		List<OrderBean> list = queryRunner.query(sql, new BeanListHandler<OrderBean>(OrderBean.class),"%" + searchAllLike  + "%",
-//				"%" + searchAllLike + "%","%" + searchAllLike + "%");
-//		System.out.println(list);
-//		int count = queryRunner.query(sql1, new ScalarHandler<Integer>(),"%" + searchAllLike + "%", "%" + searchAllLike + "%","%" + searchAllLike + "%");
-//		System.out.printf("搜尋到了%d筆資料", count);
-//		if (count > 0) {
-//			System.out.println("查詢結果 : ");
-//			for (OrderBean o : list) {
-//				System.out.println(o);
-//			}
-//		}
-//		return list;
-//	}
-//
-//	
-//	
 //	//刪除-------------------------
 ////	透過訂單編號刪除
 //	public void deleteOrderNo(Integer orderNo) throws SQLException {
