@@ -70,7 +70,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<header class="main">
 						<h3>會員管理列表</h3>
 						</header>
-						<form method="post" style="width:80%" action="<c:url value='/meetbothmember/SeachMem.do' />">
+						<form method="post" style="width:80%" action="<c:url value='/_01_member.do' />">
 						<input type="text" name="value" value="${value}" required>
 						<input type="submit" name="selectByAccount" value="以帳號查詢"/>
 						<input type="submit" name="selectByName" value="以姓名查詢"/>

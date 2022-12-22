@@ -5,7 +5,7 @@ String path = request.getContextPath();
 String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
 		+ "/html/images/meatball-200.png";
 %>
-		<! DOCTYPE html>
+		<!DOCTYPE html>
 		<html lang="en">
 
 		<head>
