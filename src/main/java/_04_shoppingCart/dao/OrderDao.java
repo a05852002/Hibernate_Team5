@@ -12,6 +12,7 @@ import org.hibernate.query.Query;
 
 import _04_shoppingCart.model.OrderBean;
 import tw.hibernatedemo.model.CompanyBean;
+import tw.hibernatedemo.model.Employee;
 import tw.hibernatedemo.util.HibernateUtil;
 
 public class OrderDao {
@@ -31,13 +32,13 @@ public class OrderDao {
 		orderBean.setShippingAddress(shippingAddress);
 		orderBean.setOrderDate(new Date());
 		orderBean.setUpOrderDate(new Date());
-		
+
 		session.save(orderBean);
 		return orderBean;
 	}
 
 //刪除---------------------
-	//透過orderNo刪除
+	// 透過orderNo刪除
 	public boolean deleteOrderNo(Integer orderNo) {
 		OrderBean ordBean = session.get(OrderBean.class, orderNo);
 
@@ -47,142 +48,138 @@ public class OrderDao {
 		}
 		return false;
 	}
-	
-//修改---------------------
 
-	
+//修改---------------------
+	// 透過訂單編號修改訂單資料
+	public void updateOrderFromOrderNo(Integer orderNo, String memberId, Date upOrderDate, String shippingAddress,
+			String ordStstus,String paymentStstus,String deliveryStstus, Double totalAmount)  {
+		
+		
+		
+		String sql = "update orders set memberId=?,orderDate=?,upOrderDate=?,shippingAddress=?,totalAmount=? where orderNo= ?";
+		String sql1 = "select * from orders where orderNo=?";
+		OrderBean o = queryRunner.query(sql1, new BeanHandler<OrderBean>(OrderBean.class), orderNo);
+		Date orderDate = o.getOrderDate();
+		Object[] params = { memberId, orderDate, upOrderDate, shippingAddress, totalAmount, orderNo };
+		int row = queryRunner.update(sql, params);
+		if (row > 0) {
+			System.out.println("已成功修改了" + row + "筆資料");
+			System.out.printf("產品編號 :\" %d \"的修改結果為 : %s", orderNo, o);
+		}
+
+	}
+
+	public void updateSalaryByName(String name, Integer newSalary) {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
+
+		try {
+			session.beginTransaction();
+
+//			String hql = "update Employee set salary = :s where empName = :name";
+			String hql = "update Employee set salary = ?1 where empName = ?2";
+
+			session.createQuery(hql) // 更新不用資料型別,select回傳才需要
+					.setParameter(1, newSalary).setParameter(2, name).executeUpdate();
+
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			System.out.println("ROOLBACK");
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSessionFactory();
+		}
+	}
+
 //查詢---------------------
-	//搜尋全部訂單資料
-	public List<OrderBean> selectAll(){
-    	Query<OrderBean> query = session.createQuery("from OrderBean", OrderBean.class);
-    	List<OrderBean> result = query.getResultList();
-    	
-    	return result;
-    }
-	
-	//搜尋單一orderNo
-	
-	
-	
-	//模糊搜尋全部
-	
+	// 搜尋全部訂單資料
+	public List<OrderBean> selectAll() {
+		Query<OrderBean> query = session.createQuery("from OrderBean", OrderBean.class);
+		List<OrderBean> result = query.getResultList();
+
+		return result;
+	}
+
+	// 搜尋單一筆訂單orderNo
+	public OrderBean findByOrderNo(Integer orderNo) {
+		String hql = "from OrderBean o where o.orderNo = :orderNo";
+		try {
+			OrderBean result = session.createQuery(hql, OrderBean.class).setParameter("orderNo", orderNo)
+					.getSingleResult();
+
+			return result;
+		} catch (NoResultException | NonUniqueResultException e) {
+			return null;
+		}
+
+	}
+
+	// 模糊搜尋全部
+	public List<OrderBean> searchAllorders(String searchAll) {
+		String hql = "from OrderBean o where o.memberId = :memberId";
+//		String hql = "from OrderBean o where o.memberId like :memberId";
+		Query<OrderBean> query = session.createQuery(hql, OrderBean.class)
+				.setParameter("memberId", "%" + searchAll + "%");
+
+		List<OrderBean> resultList = query.getResultList();
+
+		if (resultList.size() > 0) {
+			for (OrderBean emp : resultList) {
+				System.out.println(emp);
+			}
+		} else {
+			System.out.println("查無此資料");
+		}
+		return resultList;
+	}
+
+	public List<OrderBean> searchAllorders(Integer searchAll) {
+		String hql = "from OrderBean o where o.orderNo = :orderNo ";
+		Query<OrderBean> query = session.createQuery(hql, OrderBean.class).setParameter("orderNo",
+				"%" + searchAll + "%");
+
+		List<OrderBean> resultList = query.getResultList();
+
+		for (OrderBean emp : resultList) {
+			System.out.println(emp);
+		}
+
+		return resultList;
+
+	}
+
 	//
-	
-	
-////	找一筆訂單
-//	public OrderBean findByOrderNo(Integer orderNo) {
-//
-//		String hql = "from OrderBean o where o.orderNo = :orderNo";
-//
-//		Session session = factory.getCurrentSession();
-//		
-//		try {
-//			OrderBean result = session.createQuery(hql, OrderBean.class)
-//					.setParameter("orderNo", orderNo)
-//					.getSingleResult();
-//			
-//			return result;
-//		} catch (NoResultException|NonUniqueResultException e) {
-//			return null;
-//		}
-//
-//	}
-//	
-//
-//	
-//	//查詢-------------------------
-//////	搜尋全部
-//	public List<OrderBean> searchAllorders() throws SQLException {
-//		String sql = "select * from orders order by orderNo";
-//		List<OrderBean> list = queryRunner.query(sql, new BeanListHandler<OrderBean>(OrderBean.class));
-//		for (OrderBean o : list) {
-//			System.out.println(o);
-//		}
-//		return list;
-//		
-//	}
-//	
-//////搜尋單一orderNo
-//public List<OrderBean> searchOrdersbyNo(Integer orderNo) throws SQLException {
-//	String sql = "select * from orders where orderNo=? ";
-//	List<OrderBean> list = queryRunner.query(sql, new BeanListHandler<OrderBean>(OrderBean.class),orderNo);
-//	for (OrderBean o : list) {
-//		System.out.println(o);
-//	}
-//	return list;
-//	
-//}
-//
-////	透過會員編號建立查詢
-//	public void searchProdFromType(Integer OrderBeanClass) throws SQLException {
-//		String sql = "select  * from Orders where prodClass=? order by orderNo";
-//
-//		List<OrderBean> list = queryRunner.query(sql, new BeanListHandler<OrderBean>(OrderBean.class), OrderBeanClass);
-//		int count = queryRunner.query(sql, new ScalarHandler<Integer>(), OrderBeanClass);
-//		System.out.printf("搜尋到了%d筆資料", count);
-//		if (count > 0) {
-//			System.out.println("查詢結果 : ");
-//			for (OrderBean o : list) {
-//				System.out.println(o);
-//			}
-//		}
-//
-//	}
-//	
-//
-////	透過會員編號建立模糊查詢
-//	public List<OrderBean> searchMemberIdLike(String SearchMemberId) throws SQLException {
-//		String sql = "select  * from orders where memberId like ? order by orderNo";
-//		String sql1 = "select * from orders where  memberId like ? order by orderNo";
-//
-//		List<OrderBean> list = queryRunner.query(sql, new BeanListHandler<OrderBean>(OrderBean.class),
-//				"%" + SearchMemberId + "%");
-//		int count = queryRunner.query(sql1, new ScalarHandler<Integer>(), "%" + SearchMemberId + "%");
-//		System.out.printf("搜尋到了%d筆資料", count);
-//		if (count > 0) {
-//			System.out.println("查詢結果 : ");
-//			for (OrderBean o : list) {
-//				System.out.println(o);
-//			}
-//		}
-//		return list;
-//	}
-////	透過訂單編號建立模糊查詢
-//	public List<OrderBean> searchOrderNoLike(int SearchOrderNo) throws SQLException {
-//		String sql = "select  * from orders where orderNo like ? order by orderNo";
-//		String sql1 = "select * from orders where  orderNo like ? order by orderNo";
-//
-//		List<OrderBean> list = queryRunner.query(sql, new BeanListHandler<OrderBean>(OrderBean.class),
-//				"%" + SearchOrderNo + "%");
-//		int count = queryRunner.query(sql1, new ScalarHandler<Integer>(),  SearchOrderNo );
-//		System.out.printf("搜尋到了%d筆資料", count);
-//		if (count > 0) {
-//			System.out.println("查詢結果 : ");
-//			for (OrderBean o : list) {
-//				System.out.println(o);
-//			}
-//		}
-//		return list;
-//	}
-//
-////	透過會員地址建立模糊查詢
-//	public List<OrderBean> searchAddLike(String searchAddLike) throws SQLException {
-//		String sql = "select  * from orders where shippingAddress like ? order by orderNo";
-//		String sql1 = "select * from orders where  shippingAddress like ? order by orderNo";
-//
-//		List<OrderBean> list = queryRunner.query(sql, new BeanListHandler<OrderBean>(OrderBean.class),
-//				"%" + searchAddLike + "%");
-//		System.out.println(list);
-//		int count = queryRunner.query(sql1, new ScalarHandler<Integer>(), "%" + searchAddLike + "%");
-//		System.out.printf("搜尋到了%d筆資料", count);
-//		if (count > 0) {
-//			System.out.println("查詢結果 : ");
-//			for (OrderBean o : list) {
-//				System.out.println(o);
-//			}
-//		}
-//		return list;
-//	}
+	public void findEmployeeBySalsryAndVaction(Integer salary, Integer vacation) {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
+
+		try {
+			session.beginTransaction();
+
+			String hql = "from Employee where salary > :s and vacation > :v";
+
+			Query<Employee> query = session.createQuery(hql, Employee.class).setParameter("s", salary).setParameter("v",
+					vacation);
+
+			List<Employee> resultList = query.getResultList();
+
+			for (Employee emp : resultList) {
+				System.out.println(emp);
+			}
+
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			System.out.println("ROOLBACK");
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSessionFactory();
+		}
+	}
+
 //	
 //	
 ////	模糊查詢全部
@@ -242,6 +239,5 @@ public class OrderDao {
 //		}
 //
 //	}
-
 
 }

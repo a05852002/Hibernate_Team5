@@ -1,6 +1,5 @@
 package _04_shoppingCart;
 
-
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,11 +16,9 @@ import _04_shoppingCart.model.OrderItemBean;
 import tw.hibernatedemo.model.Books;
 import tw.hibernatedemo.util.HibernateUtil;
 
-
-
 public class MyProject {
 
-	public static void main(String[] args)  {
+	public static void main(String[] args) {
 
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
@@ -41,12 +38,17 @@ public class MyProject {
 //			orderItemBean.add(ordItem);
 //			order.setItems(orderItemBean);
 //			session.save(order);
-			List<OrderBean> selectAll = orderDao.selectAll();
-			for(OrderBean o:selectAll) {
-				System.out.println("id: "+o.getOrderNo());
-				System.out.println("name: "+o.getMemberId());
-			}
-//			
+
+//			OrderBean findByOrderNo = orderDao.findByOrderNo(1);
+			List<OrderBean> searchAllorders = orderDao.searchAllorders("22");
+			System.out.println(searchAllorders);
+
+//			List<OrderBean> selectAll = orderDao.selectAll();
+//			for(OrderBean o:selectAll) {
+//				System.out.println("id: "+o.getOrderNo());
+//				System.out.println("name: "+o.getMemberId());
+//			}
+
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println("ROLLBACK!!!");

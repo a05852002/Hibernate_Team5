@@ -1,4 +1,4 @@
-package _04_ShoppingCart;
+package _04_shoppingCart.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
