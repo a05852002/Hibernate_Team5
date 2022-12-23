@@ -58,7 +58,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<header class="main">
 						<h2 style="margin: 0; float: left">訂單管理CRUD　</h2>
 						<form method="post"
-							action="<c:url value='/html/order/orderInsert.jsp' />">
+							action="<c:url value='/html/_04_shoppingCart/orderInsert.jsp' />">
 							<button name="orderNo" value="${bean.orderNo}">
 								<i class="fa-solid fa-square-plus"></i>
 							</button>
@@ -116,7 +116,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 												</button>
 											</form></td>
 										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/OrderDelete.do' />">
+												action="<c:url value='/_04_shoppingCart/DeleteOrder.do' />">
 												<button name="orderNo" value="${bean.orderNo}">
 													<i class="fa-solid fa-xmark"></i>
 												</button>
@@ -160,7 +160,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/web/searchingProd'/>">商品資料 <i
 								class="fa-solid fa-store"></i></a></li>
 						<li><a
-							href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">訂單資料
+							href="<c:url value='/_04_shoppingCart/SelectAll.do' />">訂單資料
 								<i class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 						<li><span class="opener">老師學生資料 <i

@@ -72,7 +72,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<!-- Table -->
 					<div class="table-wrapper">
 						<div id='main'>
-							<form action="<c:url value='/_04_ShoppingCart/OrderInsert.do'/>"
+							<form action="<c:url value='/_04_shoppingCart/InsertOrder.do'/>"
 								method="post">
 								<label>會員編號</label> <input type="text" name="memberId"
 									value="${bean.memberId}" placeholder="請填寫會員編號" required>

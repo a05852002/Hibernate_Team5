@@ -51,23 +51,37 @@ public class OrderDao {
 
 //修改---------------------
 	// 透過訂單編號修改訂單資料
-//	public void updateOrderFromOrderNo(Integer orderNo, String memberId, Date upOrderDate, String shippingAddress,
-//			String ordStstus,String paymentStstus,String deliveryStstus, Double totalAmount)  {
-//		
-//		
-//		
-//		String sql = "update orders set memberId=?,orderDate=?,upOrderDate=?,shippingAddress=?,totalAmount=? where orderNo= ?";
-//		String sql1 = "select * from orders where orderNo=?";
-//		OrderBean o = queryRunner.query(sql1, new BeanHandler<OrderBean>(OrderBean.class), orderNo);
-//		Date orderDate = o.getOrderDate();
-//		Object[] params = { memberId, orderDate, upOrderDate, shippingAddress, totalAmount, orderNo };
-//		int row = queryRunner.update(sql, params);
-//		if (row > 0) {
-//			System.out.println("已成功修改了" + row + "筆資料");
-//			System.out.printf("產品編號 :\" %d \"的修改結果為 : %s", orderNo, o);
-//		}
-//
-//	}
+	public OrderBean updateOrder(Integer orderNo, String memberId, Date upOrderDate, String shippingAddress,
+			String ordStstus,String paymentStstus,String deliveryStstus)  {
+		String hql = "update OrderBean set salary = ?1 where empName = ?2";
+		
+		OrderBean orderBean = session.get(OrderBean.class, orderNo);
+
+		if (orderBean != null) {
+			orderBean.setMemberId(memberId);
+			orderBean.setUpOrderDate(new Date());;
+			orderBean.setShippingAddress(shippingAddress);;
+			orderBean.setOrdStstus(ordStstus);
+			orderBean.setPaymentStstus(paymentStstus);;
+			orderBean.setDeliveryStstus(deliveryStstus);;
+		}
+		return orderBean;
+	}
+		
+		
+		
+		String sql = "update orders set memberId=?,orderDate=?,upOrderDate=?,shippingAddress=?,totalAmount=? where orderNo= ?";
+		String sql1 = "select * from orders where orderNo=?";
+		OrderBean o = queryRunner.query(sql1, new BeanHandler<OrderBean>(OrderBean.class), orderNo);
+		Date orderDate = o.getOrderDate();
+		Object[] params = { memberId, orderDate, upOrderDate, shippingAddress, totalAmount, orderNo };
+		int row = queryRunner.update(sql, params);
+		if (row > 0) {
+			System.out.println("已成功修改了" + row + "筆資料");
+			System.out.printf("產品編號 :\" %d \"的修改結果為 : %s", orderNo, o);
+		}
+
+	}
 
 	public void updateSalaryByName(String name, Integer newSalary) {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
@@ -165,27 +179,6 @@ public class OrderDao {
 		}
 	}
 
-//	//刪除-------------------------
-////	透過訂單編號刪除
-//	public void deleteOrderNo(Integer orderNo) throws SQLException {
-//		String sql = "delete from orderItem where orderNo = ?";
-//		String sql1 = "delete from orders where orderNo = ?";
-//		int row = queryRunner.update(sql, orderNo);
-//		int row1 = queryRunner.update(sql1, orderNo);
-//		if (row > 0) {
-//			System.out.println("成功刪除了" + row + "筆資料");
-//		} else {
-//			System.out.println("刪除失敗->\"沒有對應的產品編號\"");
-//		}
-//		if (row1 > 0) {
-//			System.out.println("成功刪除了" + row + "筆資料");
-//		} else {
-//			System.out.println("刪除失敗->\"沒有對應的產品編號\"");
-//		}
-//	}
-//	
-//
-//	
 //	//修改-------------------------
 ////	修改
 //	public void updateOrderFromOrderNo(Integer orderNo,String memberId, Date upOrderDate,String shippingAddress, Double totalAmount) throws SQLException {

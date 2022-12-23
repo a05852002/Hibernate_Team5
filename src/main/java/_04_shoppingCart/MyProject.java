@@ -42,7 +42,8 @@ public class MyProject {
 //			session.save(order);
 
 //			OrderBean findByOrderNo = orderDao.findByOrderNo(1);
-			List<OrderBean> selectAll = orderService.selectAll();
+//			List<OrderBean> selectAll = orderService.selectAll();
+			orderService.updateOrder(3, "12345", "", null, null, null, null)
 //			List<OrderBean> searchAllorders = orderDao.searchAllorders("11111");
 			System.out.println(selectAll);
 
