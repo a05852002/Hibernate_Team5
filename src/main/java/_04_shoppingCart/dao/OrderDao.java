@@ -11,7 +11,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import _04_shoppingCart.model.OrderBean;
-import tw.hibernatedemo.model.CompanyBean;
 import tw.hibernatedemo.model.Employee;
 import tw.hibernatedemo.util.HibernateUtil;
 
@@ -32,6 +31,7 @@ public class OrderDao {
 		orderBean.setShippingAddress(shippingAddress);
 		orderBean.setOrderDate(new Date());
 		orderBean.setUpOrderDate(new Date());
+		orderBean.setTotalAmount();
 
 		session.save(orderBean);
 		return orderBean;
@@ -53,7 +53,16 @@ public class OrderDao {
 	// 透過訂單編號修改訂單資料
 	public OrderBean updateOrder(Integer orderNo, String memberId, Date upOrderDate, String shippingAddress,
 			String ordStstus,String paymentStstus,String deliveryStstus)  {
-		String hql = "update OrderBean set salary = ?1 where empName = ?2";
+		String hql = "update OrderBean set memberId = ?1 , upOrderDate =?2, shippingAddress=?3,ordStstus=?4 ,paymentStstus=?5,deliveryStstus=?6 where empName = ?7";
+		
+
+		session.createQuery(hql) // 更新不用資料型別,select回傳才需要
+				.setParameter(1, memberId)
+				.setParameter(2, new Date())
+				.setParameter(2, shippingAddress)
+				.setParameter(2, shippingAddress)
+				.setParameter(2, shippingAddress)
+				.executeUpdate();
 		
 		OrderBean orderBean = session.get(OrderBean.class, orderNo);
 
@@ -69,19 +78,19 @@ public class OrderDao {
 	}
 		
 		
-		
-		String sql = "update orders set memberId=?,orderDate=?,upOrderDate=?,shippingAddress=?,totalAmount=? where orderNo= ?";
-		String sql1 = "select * from orders where orderNo=?";
-		OrderBean o = queryRunner.query(sql1, new BeanHandler<OrderBean>(OrderBean.class), orderNo);
-		Date orderDate = o.getOrderDate();
-		Object[] params = { memberId, orderDate, upOrderDate, shippingAddress, totalAmount, orderNo };
-		int row = queryRunner.update(sql, params);
-		if (row > 0) {
-			System.out.println("已成功修改了" + row + "筆資料");
-			System.out.printf("產品編號 :\" %d \"的修改結果為 : %s", orderNo, o);
-		}
-
-	}
+//		
+//		String sql = "update orders set memberId=?,orderDate=?,upOrderDate=?,shippingAddress=?,totalAmount=? where orderNo= ?";
+//		String sql1 = "select * from orders where orderNo=?";
+//		OrderBean o = queryRunner.query(sql1, new BeanHandler<OrderBean>(OrderBean.class), orderNo);
+//		Date orderDate = o.getOrderDate();
+//		Object[] params = { memberId, orderDate, upOrderDate, shippingAddress, totalAmount, orderNo };
+//		int row = queryRunner.update(sql, params);
+//		if (row > 0) {
+//			System.out.println("已成功修改了" + row + "筆資料");
+//			System.out.printf("產品編號 :\" %d \"的修改結果為 : %s", orderNo, o);
+//		}
+//
+//	}
 
 	public void updateSalaryByName(String name, Integer newSalary) {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
