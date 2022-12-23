@@ -39,14 +39,14 @@ public class OrderBean {
 	@Column(name = "deliveryStstus")
 	private String deliveryStstus ="無"; // 送貨狀態 無/備貨中/已發貨/已取貨/退貨中/已退貨
 	@Column(name = "totalAmount")
-	private Double totalAmount = 0.0; // 總金額 0處理中(預設)
+	private Integer totalAmount = 0; // 總金額 0處理中(預設)
 //	private String cancelTag; // 取消
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderbean",cascade = CascadeType.ALL)
 	@OrderBy("seqno desc") //拿資料的順序自己決定用,增加下一個排序
 	private Set<OrderItemBean> items = new LinkedHashSet<OrderItemBean>(); // itemsList
 
 	public OrderBean(Integer orderNo, String memberId, Date orderDate, Date upOrderDate, String shippingAddress,
-			String ordStstus, String paymentStstus, String deliveryStstus, Double totalAmount, String cancelTag,
+			String ordStstus, String paymentStstus, String deliveryStstus, Integer totalAmount, String cancelTag,
 			Set<OrderItemBean> items) {
 		super();
 		this.orderNo = orderNo;
@@ -98,16 +98,16 @@ public class OrderBean {
 		this.memberId = memberId;
 	}
 
-	public Double getTotalAmount() {
+	public Integer getTotalAmount() {
 		return totalAmount;
 	}
 
-	public void setTotalAmount(Double totalAmount) {
+	public void setTotalAmount(Integer totalAmount) {
 		this.totalAmount = totalAmount;
 	}
 	
 	public void setTotalAmount() {
-		this.totalAmount = 0.0;
+		this.totalAmount = 0;
 	}
 
 	public String getShippingAddress() {

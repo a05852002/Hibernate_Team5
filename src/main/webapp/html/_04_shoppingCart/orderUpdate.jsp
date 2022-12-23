@@ -68,7 +68,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<div class="table-wrapper">
 						<div id='main'>
 							<form method="POST"
-								action="<c:url value='/_04_ShoppingCart/OrderUpdate.do' />">
+								action="<c:url value='/_04_shoppingCart/UpdateOrder.do' />">
 								<Table>
 									<c:forEach var="bean" items="${classList}">
 										<tr height="30">
@@ -101,35 +101,36 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 										</tr>
 										<tr height="30">
 											<td><label class="fontSize">訂單狀態：</label><br>&nbsp;</td>
-											<td><select name='ordStstus' class="fieldWidth"
-												style="width: 200px;">
-													<option value="${bean.ordStstus}">${bean.ordStstus}</option>
-													<option value="處理中">處理中</option>
-													<option value="備貨中">備貨中</option>
-													<option value="已完成">已完成</option>
+											<td><input type="hidden" id="ordS"
+												value="${bean.ordStstus}${param.ordS}"><select
+												name='ordStstus' class="fieldWidth" style="width: 200px;">
+													<option class="1" value="處理中">處理中</option>
+													<option class="2" value="備貨中">備貨中</option>
+													<option class="3" value="已完成">已完成</option>
 											</select></td>
 											<td><label class="fontSize">付款狀態：</label><br>&nbsp;</td>
-											<td><select name='paymentStstus' class="fieldWidth"
+											<td><input type="hidden" id="paymentS"
+												value="${bean.paymentStstus}${param.paymentS}"> <select
+												name='paymentStstus' class="fieldWidth"
 												style="width: 200px;">
-													<option value="${bean.paymentStstus}">${bean.paymentStstus}</option>
-													<option value="未付款">未付款</option>
-													<option value="已付款">已付款</option>
-													<option value="退款中">退款中</option>
-													<option value="申請退款">申請退款</option>
-													<option value="已退款">已退款</option>
+													<option class="1" value="未付款">未付款</option>
+													<option class="2" value="已付款">已付款</option>
+													<option class="3" value="退款中">退款中</option>
+													<option class="5" value="已退款">已退款</option>
 											</select></td>
 										</tr>
 										<tr height="30">
-											<td><label class="fontSize" value="${bean.deliveryStstus}" >送貨狀態：</label><br>&nbsp;</td>
-											<td><select name='deliveryStstus' class="fieldWidth"
+											<td><label class="fontSize">送貨狀態：</label><br>&nbsp;</td>
+											<td><input type="hidden" id="deliveryS"
+												value="${bean.deliveryStstus}${param.deliveryS}"> <select
+												name='deliveryStstus' class="fieldWidth"
 												style="width: 200px;">
-													<option value="${bean.deliveryStstus}">${bean.deliveryStstus}</option>
-													<option value="無">無</option>
-													<option value="備貨中">備貨中</option>
-													<option value="已發貨">已發貨</option>
-													<option value="已取貨">已取貨</option>
-													<option value="退貨中">退貨中</option>
-													<option value="已退貨">已退貨</option>
+													<option class="1" value="無">無</option>
+													<option class="2" value="備貨中">備貨中</option>
+													<option class="3" value="已發貨">已發貨</option>
+													<option class="4" value="已取貨">已取貨</option>
+													<option class="5" value="退貨中">退貨中</option>
+													<option class="6" value="已退貨">已退貨</option>
 											</select></td>
 											<td><label class="fontSize">總金額：</label><br>&nbsp;</td>
 											<td><input type='text' name='totalAmount'
@@ -171,13 +172,6 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 		<!-- Sidebar -->
 		<div id="sidebar">
 			<div class="inner">
-
-				<!-- Search -->
-				<!-- 				<section id="search" class="alt"> -->
-				<!-- 					<form method="post" action="#"> -->
-				<!-- 						<input type="text" name="query" id="query" placeholder="Search" /> -->
-				<!-- 					</form> -->
-				<!-- 				</section> -->
 
 				<!-- Menu -->
 				<nav id="menu">
@@ -287,5 +281,68 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 	<script src=<%=basePath5%>></script>
 	<script src="https://kit.fontawesome.com/25590258af.js"
 		crossorigin="anonymous"></script>
+
+	<script>
+		// 	var v = document.querySelector('#ii').getAttribute('value');
+		var v = $('#ordS').val();
+		console.log(v)
+		switch (v) {
+		case '處理中':
+			$(".1").attr('selected', true)
+			break;
+		case '備貨中':
+			$(".2").attr('selected', true)
+			break;
+		case '已完成':
+			$(".3").attr('selected', true)
+			break;
+		}
+	</script>
+	<script>
+		// 	var v = document.querySelector('#ii').getAttribute('value');
+		var v = $('#paymentS').val();
+		console.log(v)
+		switch (v) {
+		case '未付款':
+			$(".1").attr('selected', true)
+			break;
+		case '已付款':
+			$(".2").attr('selected', true)
+			break;
+		case '退款中':
+			$(".3").attr('selected', true)
+			break;
+		case '已退款':
+			$(".4").attr('selected', true)
+			break;
+		}
+	</script>
+
+	<script>
+		// 	var v = document.querySelector('#ii').getAttribute('value');
+		var v = $('#deliveryS').val();
+		console.log(v)
+		switch (v) {
+		case '無':
+			$(".1").attr('selected', true)
+			break;
+		case '備貨中':
+			$(".2").attr('selected', true)
+			break;
+		case '已發貨':
+			$(".3").attr('selected', true)
+			break;
+		case '已取貨':
+			$(".4").attr('selected', true)
+			break;
+		case '退貨中':
+			$(".5").attr('selected', true)
+			break;
+		case '已退貨':
+			$(".6").attr('selected', true)
+			break;
+		}
+	</script>
+
 </body>
 </html>
