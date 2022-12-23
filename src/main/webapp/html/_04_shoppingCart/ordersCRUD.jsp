@@ -104,7 +104,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 										<td>${bean.deliveryStstus}</td>
 										<td>${bean.totalAmount}</td>
 										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/searchServlet.do' />">
+												action="<c:url value='/_04_shoppingCart/SearchOrder.do' />">
 												<button name="orderNo" value="${bean.orderNo}">
 													<i class="fa-solid fa-pen-to-square"></i>
 												</button>

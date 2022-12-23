@@ -33,7 +33,7 @@ public class OrderBean {
 	@Column(name = "shippingAddress")
 	private String shippingAddress; // 收件地址
 	@Column(name = "ordStstus")
-	private String ordStstus ="處理中"; // 訂單狀態 處理中(預設)/備貨中
+	private String ordStstus ="處理中"; // 訂單狀態 處理中(預設)/備貨中/已完成
 	@Column(name = "paymentStstus")
 	private String paymentStstus = "未付款"; // 付款狀態 未付款(預設)/已付款/退款中/已退款
 	@Column(name = "deliveryStstus")

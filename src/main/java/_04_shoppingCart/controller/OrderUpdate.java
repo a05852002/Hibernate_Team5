@@ -1,9 +1,6 @@
-package _04_ShoppingCart;
+package _04_shoppingCart.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,12 +14,10 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import _04_ShoppingCart.dao.OrdersDao;
-import _04_ShoppingCart.model.OrderBean;
 import _04_shoppingCart.service.OrderService;
 import tw.hibernatedemo.util.HibernateUtil;
 
-@WebServlet("/_04_shoppingCart/OrderUpdate.do")
+@WebServlet("/_04_shoppingCart/UpdateOrder.do")
 public class OrderUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger log = LoggerFactory.getLogger(OrderUpdate.class);
@@ -42,21 +37,17 @@ public class OrderUpdate extends HttpServlet {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
 		OrderService orderService = new OrderService(session);
-		
-		System.out.println(request.getParameter("orderNo"));
 		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
 		String memberId = request.getParameter("memberId");
-		Date upOrderDate = new Date();
 		String shippingAddress = request.getParameter("shippingAddress");
-		Double totalAmount = Double.parseDouble(request.getParameter("totalAmount"));
-		try {
-			oDao.updateOrderFromOrderNo(orderNo, memberId,upOrderDate, shippingAddress, totalAmount);
-			RequestDispatcher rd = request.getRequestDispatcher("/_04_ShoppingCart/searchAllServlet");
-			rd.forward(request, response);
-			return;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		String ordStstus = request.getParameter("ordStstus");
+		String paymentStstus = request.getParameter("paymentStstus");
+		String deliveryStstus = request.getParameter("deliveryStstus");
+		
+		orderService.updateOrder(orderNo, memberId, shippingAddress, ordStstus, paymentStstus, deliveryStstus);
+		RequestDispatcher rd = request.getRequestDispatcher("/_04_shoppingCart/SelectAll.do");
+		rd.forward(request, response);
+		return;
 	}
 
 }

@@ -59,11 +59,11 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<h2>訂單管理-編輯</h2>
 					</header>
 					<!-- Search -->
-					<section id="search" class="alt">
-						<form method="post" action="#">
-							<input type="text" name="query" id="query" placeholder="Search" />
-						</form>
-					</section>
+					<!-- 					<section id="search" class="alt"> -->
+					<!-- 						<form method="post" action="#"> -->
+					<!-- 							<input type="text" name="query" id="query" placeholder="Search" /> -->
+					<!-- 						</form> -->
+					<!-- 					</section> -->
 					<!-- Table -->
 					<div class="table-wrapper">
 						<div id='main'>
@@ -72,37 +72,72 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 								<Table>
 									<c:forEach var="bean" items="${classList}">
 										<tr height="30">
-											<td style="width: 120px;"><label class="fontSize">訂單編號：</label><br>&nbsp;
-											</td>
-											<td style="width: 300px;"><input type='text' readonly="readonly"
+											<td><label class="fontSize">訂單編號：</label><br>&nbsp;</td>
+											<td colspan='3'><input type='text' readonly="readonly"
 												name='orderNo' value="${bean.orderNo}" class="fieldWidth"
 												style="width: 200px;" /><br>&nbsp; <font color="red"
-												size="-1">${MsgMap.errorIdEmpty}${MsgMap.errorIdDup}</font></td>
+												size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
+											</td>
+										</tr>
+										<tr height="30">
 											<td style="width: 120px;"><label class="fontSize">會員編號：</label><br>&nbsp;</td>
 											<td><input type='text' name='memberId'
 												value="${bean.memberId}" class="fieldWidth"
 												style="width: 200px;" /><br>&nbsp; <font color="red"
 												size="-1">${MsgMap.errorName}</font></td>
-										<tr height="30">
 											<td><label class="fontSize">訂單日期：</label><br>&nbsp;</td>
-											<td><input type='text'  name='orderDate'
+											<td><input type='text' name='orderDate'
 												value="${bean.orderDate}" class="fieldWidth"
-												style="width: 200px;" readonly/><br>&nbsp; <font color="red"
-												size="-1">${MsgMap.errorAddr}</font></td>
-											<td><label class="fontSize">總金額：</label><br>&nbsp;</td>
-											<td><input type='text' name='totalAmount'
-												value="${bean.totalAmount}" class="fieldWidth"
-												style="width: 200px;" readonly/><br>&nbsp; <font color="red"
-												size="-1">${MsgMap.errorTel}</font></td>
+												style="width: 200px;" readonly /><br>&nbsp; <font
+												color="red" size="-1">${MsgMap.errorAddr}</font></td>
 										</tr>
 										<tr height="30">
 											<td><label class="fontSize">會員地址：</label><br>&nbsp;</td>
-											<td colspan='3'><input type='text' name='shippingAddress'
-												value="${bean.shippingAddress}" class="fieldWidth"
-												style="width: 800px;" /><br>&nbsp; <font color="red"
-												size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
+											<td colspan='3'><input type='text'
+												name='shippingAddress' value="${bean.shippingAddress}"
+												class="fieldWidth" style="width: 800px;" /><br>&nbsp;
+												<font color="red" size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
 											</td>
 										</tr>
+										<tr height="30">
+											<td><label class="fontSize">訂單狀態：</label><br>&nbsp;</td>
+											<td><select name='ordStstus' class="fieldWidth"
+												style="width: 200px;">
+													<option value="${bean.ordStstus}">${bean.ordStstus}</option>
+													<option value="處理中">處理中</option>
+													<option value="備貨中">備貨中</option>
+													<option value="已完成">已完成</option>
+											</select></td>
+											<td><label class="fontSize">付款狀態：</label><br>&nbsp;</td>
+											<td><select name='paymentStstus' class="fieldWidth"
+												style="width: 200px;">
+													<option value="${bean.paymentStstus}">${bean.paymentStstus}</option>
+													<option value="未付款">未付款</option>
+													<option value="已付款">已付款</option>
+													<option value="退款中">退款中</option>
+													<option value="申請退款">申請退款</option>
+													<option value="已退款">已退款</option>
+											</select></td>
+										</tr>
+										<tr height="30">
+											<td><label class="fontSize" value="${bean.deliveryStstus}" >送貨狀態：</label><br>&nbsp;</td>
+											<td><select name='deliveryStstus' class="fieldWidth"
+												style="width: 200px;">
+													<option value="${bean.deliveryStstus}">${bean.deliveryStstus}</option>
+													<option value="無">無</option>
+													<option value="備貨中">備貨中</option>
+													<option value="已發貨">已發貨</option>
+													<option value="已取貨">已取貨</option>
+													<option value="退貨中">退貨中</option>
+													<option value="已退貨">已退貨</option>
+											</select></td>
+											<td><label class="fontSize">總金額：</label><br>&nbsp;</td>
+											<td><input type='text' name='totalAmount'
+												value="${bean.totalAmount}" class="fieldWidth"
+												style="width: 200px;" readonly /><br>&nbsp; <font
+												color="red" size="-1">${MsgMap.errorTel}</font></td>
+										</tr>
+
 										<tr height="30">
 											<td colspan='4'>
 												<div id="btnArea" align="center">
@@ -113,10 +148,13 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 										</tr>
 									</c:forEach>
 								</Table>
-								<div style="display:flex;justify-content:center"><a href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">
-								返回<i class="fa-solid fa-left-long"></i></a></div>
+								<div style="display: flex; justify-content: center">
+									<a href="<c:url value='/_04_shoppingCart/SelectAll.do' />">
+										返回<i class="fa-solid fa-left-long"></i>
+									</a>
+								</div>
 							</form>
-														
+
 						</div>
 					</div>
 
@@ -149,11 +187,15 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						</h2>
 					</header>
 					<ul>
-						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
-						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
-								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
-								class="fa-solid fa-users-viewfinder"></i></a></li>
+						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i
+								class="fa-solid fa-house"></i></a></li>
+						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理
+								<i class="fa-solid fa-gears"></i>
+						</a></li>
+						<li><a
+							href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料
+								<i class="fa-solid fa-users-viewfinder"></i>
+						</a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>
 							<ul>
@@ -163,14 +205,16 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/web/searchingProd'/>">商品資料 <i
 								class="fa-solid fa-store"></i></a></li>
 						<li><a
-							href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">訂單資料
+							href="<c:url value='/_04_shoppingCart/SelectAll.do' />">訂單資料
 								<i class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>

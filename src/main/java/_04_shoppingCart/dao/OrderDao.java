@@ -51,71 +51,19 @@ public class OrderDao {
 
 //修改---------------------
 	// 透過訂單編號修改訂單資料
-	public OrderBean updateOrder(Integer orderNo, String memberId, Date upOrderDate, String shippingAddress,
-			String ordStstus,String paymentStstus,String deliveryStstus)  {
-		String hql = "update OrderBean set memberId = ?1 , upOrderDate =?2, shippingAddress=?3,ordStstus=?4 ,paymentStstus=?5,deliveryStstus=?6 where empName = ?7";
-		
+	public OrderBean updateOrder(Integer orderNo, String memberId, String shippingAddress, String ordStstus,
+			String paymentStstus, String deliveryStstus) {
+		String hql = "update OrderBean set memberId = ?1 , upOrderDate =?2, shippingAddress=?3,ordStstus=?4 ,paymentStstus=?5,deliveryStstus=?6 where orderNo = ?7";
 
-		session.createQuery(hql) // 更新不用資料型別,select回傳才需要
-				.setParameter(1, memberId)
-				.setParameter(2, new Date())
-				.setParameter(2, shippingAddress)
-				.setParameter(2, shippingAddress)
-				.setParameter(2, shippingAddress)
-				.executeUpdate();
-		
 		OrderBean orderBean = session.get(OrderBean.class, orderNo);
-
 		if (orderBean != null) {
-			orderBean.setMemberId(memberId);
-			orderBean.setUpOrderDate(new Date());;
-			orderBean.setShippingAddress(shippingAddress);;
-			orderBean.setOrdStstus(ordStstus);
-			orderBean.setPaymentStstus(paymentStstus);;
-			orderBean.setDeliveryStstus(deliveryStstus);;
+			session.createQuery(hql) // 更新不用資料型別,select回傳才需要
+					.setParameter(1, memberId).setParameter(2, new Date()).setParameter(3, shippingAddress)
+					.setParameter(4, ordStstus).setParameter(5, paymentStstus).setParameter(6, deliveryStstus)
+					.setParameter(7, orderNo).executeUpdate();
 		}
 		return orderBean;
 	}
-		
-		
-//		
-//		String sql = "update orders set memberId=?,orderDate=?,upOrderDate=?,shippingAddress=?,totalAmount=? where orderNo= ?";
-//		String sql1 = "select * from orders where orderNo=?";
-//		OrderBean o = queryRunner.query(sql1, new BeanHandler<OrderBean>(OrderBean.class), orderNo);
-//		Date orderDate = o.getOrderDate();
-//		Object[] params = { memberId, orderDate, upOrderDate, shippingAddress, totalAmount, orderNo };
-//		int row = queryRunner.update(sql, params);
-//		if (row > 0) {
-//			System.out.println("已成功修改了" + row + "筆資料");
-//			System.out.printf("產品編號 :\" %d \"的修改結果為 : %s", orderNo, o);
-//		}
-//
-//	}
-
-	public void updateSalaryByName(String name, Integer newSalary) {
-		SessionFactory factory = HibernateUtil.getSessionFactory();
-		Session session = factory.getCurrentSession();
-
-		try {
-			session.beginTransaction();
-
-//			String hql = "update Employee set salary = :s where empName = :name";
-			String hql = "update Employee set salary = ?1 where empName = ?2";
-
-			session.createQuery(hql) // 更新不用資料型別,select回傳才需要
-					.setParameter(1, newSalary).setParameter(2, name).executeUpdate();
-
-			session.getTransaction().commit();
-
-		} catch (Exception e) {
-			System.out.println("ROOLBACK");
-			session.getTransaction().rollback();
-			e.printStackTrace();
-		} finally {
-			HibernateUtil.closeSessionFactory();
-		}
-	}
-
 
 //查詢---------------------
 	// 搜尋全部訂單資料
@@ -127,25 +75,26 @@ public class OrderDao {
 	}
 
 	// 搜尋單一筆訂單orderNo
-	public OrderBean findByOrderNo(Integer orderNo) {
+	public List<OrderBean> searchOrderByONo(Integer orderNo) {
 		String hql = "from OrderBean o where o.orderNo = :orderNo";
-		try {
-			OrderBean result = session.createQuery(hql, OrderBean.class).setParameter("orderNo", orderNo)
-					.getSingleResult();
+		Query<OrderBean> query = session.createQuery(hql, OrderBean.class).setParameter("orderNo", orderNo);
+		List<OrderBean> resultList = query.getResultList();
 
-			return result;
-		} catch (NoResultException | NonUniqueResultException e) {
-			return null;
+		if (resultList.size() > 0) {
+			for (OrderBean emp : resultList) {
+				System.out.println(emp);
+			}
+		} else {
+			System.out.println("查無此資料");
 		}
-
+		return resultList;
 	}
 
 	// 模糊搜尋全部
 	public List<OrderBean> searchAllorders(String searchAll) {
-		String hql = "from OrderBean o where o.orderNo like '%"+searchAll+"%' or o.memberId like :memberId";
-		Query<OrderBean> query = session.createQuery(hql, OrderBean.class)
-				.setParameter("memberId", "%" + searchAll + "%");
-
+		String hql = "from OrderBean o where o.orderNo like '%" + searchAll + "%' or o.memberId like :memberId";
+		Query<OrderBean> query = session.createQuery(hql, OrderBean.class).setParameter("memberId",
+				"%" + searchAll + "%");
 		List<OrderBean> resultList = query.getResultList();
 
 		if (resultList.size() > 0) {

@@ -26,26 +26,26 @@ public class MyProject {
 
 		try {
 			session.beginTransaction();
-			OrderDao orderDao = new OrderDao(session);
-			OrderService orderService = new OrderService(session);
-//			OrderBean order = orderDao.insertOrder("333", "台北");
+//			OrderDao orderDao = new OrderDao(session);
+//			OrderService orderService = new OrderService(session);
+//			OrderBean order = orderService.insertOrder("333", "台北");
 //			OrderBean order = new OrderBean();
-//			OrderBean order = session.get(OrderBean.class, 3);
+			OrderBean order = session.get(OrderBean.class, 15);
 //			System.out.println(order.toString());
-//			OrderItemDao orderItemDao = new OrderItemDao(session);
-//			OrderItemBean ordItem = orderItemDao.insertOrder("123545", "讚讚", 1, 200,1.0, "無");
-//			ordItem.setOrderbean(order);
+			OrderItemDao orderItemDao = new OrderItemDao(session);
+			OrderItemBean ordItem = orderItemDao.insertOrder("123545", "讚讚", 1, 200,1.0, "無");
+			ordItem.setOrderbean(order);
 //			
-//			Set<OrderItemBean> orderItemBean = new LinkedHashSet<OrderItemBean>();
-//			orderItemBean.add(ordItem);
-//			order.setItems(orderItemBean);
-//			session.save(order);
+			Set<OrderItemBean> orderItemBean = new LinkedHashSet<OrderItemBean>();
+			orderItemBean.add(ordItem);
+			order.setItems(orderItemBean);
+			session.save(order);
 
 //			OrderBean findByOrderNo = orderDao.findByOrderNo(1);
 //			List<OrderBean> selectAll = orderService.selectAll();
-			orderService.updateOrder(3, "12345", "", null, null, null, null)
+//			List<OrderBean> searchOrderByONo = orderService.searchOrderByONo(3);
 //			List<OrderBean> searchAllorders = orderDao.searchAllorders("11111");
-			System.out.println(selectAll);
+//			System.out.println("searchOrderByONo :"+searchOrderByONo);
 
 //			List<OrderBean> selectAll = orderDao.selectAll();
 //			for(OrderBean o:selectAll) {
