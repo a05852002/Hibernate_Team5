@@ -3,6 +3,7 @@ package _04_shoppingCart.dao;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -67,13 +68,23 @@ public class OrderItemDao {
 
 		
 //查詢---------------------
-	//搜尋全部訂單資料
-			public List<OrderItemBean> selectAll(){
-		    	Query<OrderItemBean> query = session.createQuery("from OrderItemBean", OrderItemBean.class);
-		    	List<OrderItemBean> result = query.getResultList();
-		    	
-		    	return result;
-		    }
+	//搜尋全部訂單明細資料
+		public Set<OrderItemBean> selectAllOrdItem(Integer orderNo){
+			OrderBean orderBean =session.get(OrderBean.class, orderNo);
+			Set<OrderItemBean> items = orderBean.getItems();
+	    	return items;
+	    }
+		
+		public List<OrderItemBean> searchOrderItemByOrderNo(Integer orderNo)  {
+			
+			String hql = "from OrderItemBean o where o.orderbean = :orderNo";
+			Query<OrderItemBean> query = session.createQuery(hql, OrderItemBean.class).setParameter("orderNo", orderNo);
+			List<OrderItemBean> resultList = query.getResultList();
+			
+		
+			return resultList;
+
+		}
 			
 	//搜尋單一orderNo
 			

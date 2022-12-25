@@ -78,10 +78,11 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 									<th width=60px>序號</th>
 									<th width=80px>商品編號</th>
 									<th width=80px>商品名稱</th>
-									<th>商品描述</th>
 									<th width=80px>數量</th>
 									<th width=80px>單價</th>
+									<th width=80px>折扣</th>
 									<th width=80px>總計</th>
+									<th>備註</th>
 									<th width=80px>編輯</th>
 									<th width=80px>刪除</th>
 									<th width=80px>新增</th>
@@ -90,14 +91,15 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 							<c:forEach var="bean" items="${classList}">
 								<tbody>
 									<tr>
-										<td>${bean.orderNo}</td>
+										<td>${bean.orderbean}</td>
 										<td>${bean.seqno}</td>
-										<td>${bean.productId}</td>
-										<td>${bean.productName}</td>
-										<td>${bean.description}</td>
+										<td>${bean.prodId}</td>
+										<td>${bean.prodName}</td>
 										<td>${bean.qty}</td>
-										<td>${bean.unitPrice}</td>
+										<td>${bean.prodPrice}</td>
+										<td>${bean.discount}</td>
 										<td>${bean.itemTotal}</td>
+										<td>${bean.remark}</td>
 										<td><form method="post"
 												action="<c:url value='/_04_ShoppingCart/searchItem.do' />">
 												<button name="seqno" value="${bean.seqno}">
@@ -112,7 +114,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 											</form></td>
 										<td><form method="post"
 												action="<c:url value='/_04_ShoppingCart/OrderItemInsertFirst.do' />">
-												<button name="orderNo" value="${bean.orderNo}">
+												<button name="orderbean" value="${bean.orderbean}">
 													<i class="fa-solid fa-square-plus"></i>
 												</button>
 											</form></td>

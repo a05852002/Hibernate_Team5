@@ -55,12 +55,9 @@ public class OrderItemBean {
 	}
 
 
-
-
 	public OrderItemBean() {
 
 	}
-
 
 
 
