@@ -42,7 +42,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="backIndex.jsp" class="logo"><strong>後台管理系統</strong></a>
+					<a href="/html/backIndex.jsp" class="logo"><strong>後台管理系統</strong></a>
 				</header>
 
 
@@ -52,7 +52,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<h1>新增貼文</h1>
 					</header>
 							<div class="table-wrapper">
-							<form action='<c:url value="/Servlet/insertdata" />' enctype='multipart/form-data' method='post'>
+							<form action='<c:url value="/_05_teacStu/insertdataStud" />' enctype='multipart/form-data' method='post'>
 								<table class="alt">
 									<thead>
 										<tr><td>請輸入您的會員編號：</td></tr>
@@ -61,22 +61,24 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 										<tr><td><input name="title" type="text" style="width:80%" required></td></tr>
 										<tr><td>請輸入貼文內容簡介：</td></tr>
 										<tr><td><input name="detail" type="text" style="width:80%" required></td></tr>
-										<tr><td>請輸入您的收費時薪：</td></tr>
+										<tr><td>請輸入您期望的聘請時薪：</td></tr>
 										<tr><td><input name="price" type="text" onkeyup="value=value.replace(/[^\d]/g,'') " style="width:80%" required></td></tr>
-										<tr><td>請輸入您的教授科目：</td></tr>
+										<tr><td>請輸入您想要學習的科目：</td></tr>
 										<tr><td><input name="subjectItem" type="text" style="width:80%" required></td></tr>
+										<tr><td>請輸入您想要學習的地點：</td></tr>
+										<tr><td><input name="learnLoc" type="text" style="width:80%" required></td></tr>
 										<tr><td>請選擇要上傳的檔案：</td></tr>
 										<tr><td>
 										<input name="images" id="images5278" type="file" style="width:80%">
 										<br>
-										<img id="preImg" style="width:150px; height:200px" src="http://localhost:8080/jspTeam5/html/images/meatball-200.png" />
+										<img id="preImg" style="width:150px; height:200px" src="http://localhost:8080/Hibernate_Team5/html/images/meatball-200.png" />
 										</td></tr>
 									</thead>
 									
 									</table>
 									<div>
 									<input style="margin-right:40px" type="submit" value="確定">
-									<input type="button" value="取消" onclick="location.href='http://localhost:8080/jspTeam5/Servlet/searchAllTeacServlet'">
+									<input type="button" value="取消" onclick="location.href='http://localhost:8080/Hibernate_Team5/_05_teacStu/searchAllStudServlet'">
 									</div>
 									</form>
 							</div>
@@ -124,8 +126,8 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a href="<c:url value='/_05_teacStu/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a href="<c:url value='/_05_teacStu/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>

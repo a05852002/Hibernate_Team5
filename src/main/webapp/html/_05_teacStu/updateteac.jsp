@@ -42,7 +42,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="backIndex.jsp" class="logo"><strong>後台管理系統</strong></a>
+					<a href="/html/backIndex.jsp" class="logo"><strong>後台管理系統</strong></a>
 				</header>
 
 
@@ -52,9 +52,9 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<h1>請修改您的資料</h1>
 					</header>
 							<div class="table-wrapper">
-							<form action='<c:url value="/Servlet/updatedata" />' enctype='multipart/form-data' method='post'>
+							<form action='<c:url value="/_05_teacStu/updatedata" />' enctype='multipart/form-data' method='post'>
 								<table class="alt">
-								<c:forEach var="bean" items="${bean}">
+<%-- 								<c:forEach var="bean" items="${bean}"> --%>
 									<thead>
 										<tr><td>您的教師貼文編號：</td></tr>
 										<tr><td><input name="teacno" type="text" readonly="readonly" value="${bean.teacno}" style="width:80%"></td></tr>
@@ -72,14 +72,14 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 										<tr><td>
 										<input name="images" id="images5278" type="file" style="width:80%">
 										<br>
-										<img id="preImg" style="width:150px; height:200px" src="<c:url value='/_05_teacStu.Servlet/picsave.do?id=${bean.teacno}' />" />
+										<img id="preImg" style="width:150px; height:200px" src="<c:url value='/_05_teacStu/picsave?id=${bean.teacno}' />" />
 										</td></tr>
 									</thead>
-								</c:forEach>
+<%-- 								</c:forEach> --%>
 									</table>
 									<div>
 									<input style="margin-right:40px" type="submit" value="確定">
-									<input type="button" value="取消" onclick="location.href='http://localhost:8080/jspTeam5/Servlet/searchAllTeacServlet'">
+									<input type="button" value="取消" onclick="location.href='http://localhost:8080/Hibernate_Team5/_05_teacStu/searchAllTeacServlet'">
 									</div>
 									</form>
 							</div>
@@ -127,8 +127,8 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a href="<c:url value='/_05_teacStu/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a href="<c:url value='/_05_teacStu/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
