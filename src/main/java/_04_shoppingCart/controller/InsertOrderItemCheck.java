@@ -44,8 +44,7 @@ public class InsertOrderItemCheck extends HttpServlet {
 		Integer prodPrice = Integer.parseInt(request.getParameter("prodPrice"));
 		Double discount = Double.valueOf(request.getParameter("discount"));
 		String remark = request.getParameter("remark");
-		OrderItemBean classList = orderItemService.insertOrder(orderNo,prodId,prodName,qty, prodPrice,discount,
-				remark);
+		OrderItemBean classList = orderItemService.insertOrder(orderNo, prodId, prodName, qty, prodPrice, discount, remark);
 		request.setAttribute("classList", classList);
 		RequestDispatcher rd = request.getRequestDispatcher("/_04_shoppingCart/SelectAll.do");
 		rd.forward(request, response);

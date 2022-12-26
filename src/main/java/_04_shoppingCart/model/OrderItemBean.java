@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "orderitem")
@@ -36,7 +35,7 @@ public class OrderItemBean {
 	@Column(name = "remark")
 	private String remark; // 備註
 	
-	@Column(name="proderNo")
+	@Column(name="orderNo")
 	private Integer orderNo;
 	
 	@ManyToOne

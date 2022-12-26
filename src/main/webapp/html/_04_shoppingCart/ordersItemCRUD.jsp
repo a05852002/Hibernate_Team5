@@ -101,7 +101,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 										<td>${bean.itemTotal}</td>
 										<td>${bean.remark}</td>
 										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/searchItem.do' />">
+												action="<c:url value='/_04_shoppingCart/searchItem.do' />">
 												<button name="seqno" value="${bean.seqno}">
 													<i class="fa-solid fa-pen-to-square"></i>
 												</button>

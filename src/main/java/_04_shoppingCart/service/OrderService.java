@@ -39,6 +39,11 @@ public class OrderService {
 		return orderDao.searchOrderByONo(orderNo);
 	}
 	
+	// 模糊搜尋全部
+		public List<OrderBean> searchAllorders(String searchAll){
+			return orderDao.searchAllorders(searchAll);
+		}
+	
 	//修改----------
 	//修改一筆訂單
 	public OrderBean updateOrder(Integer orderNo, String memberId, String shippingAddress,

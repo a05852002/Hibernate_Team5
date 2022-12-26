@@ -87,11 +87,11 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 										id="prodPrice" onblur="itemTotalChange()" type="number"
 										name="prodPrice" value="" placeholder="請填寫金額單價" required>
 									<label>優惠折扣</label> <input id="discount" type="text"
-										name="discount" value="0" readonly>
+										name="discount" value="1" readonly>
 									<label>總金額</label> <input id="itemTotal" type="text"
 										name="totalAmount" value="0" readonly><label>備註:</label>
 									<input type="text" name="remark" value=""
-										placeholder="請填寫產品描述" required>
+										placeholder="請填寫產品描述" >
 
 									<div style="display: flex; justify-content: center">
 										<!--<a href="<c:url value='/halaservlet/addservlet'/>"><input type="button" value="確定"></a>

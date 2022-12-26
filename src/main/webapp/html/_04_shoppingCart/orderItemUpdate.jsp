@@ -40,7 +40,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="stylesheet" href="<%=basePath%>" />
 <script type="text/javascript">
 	function itemTotalChange() {
-		itemTotal.value = qty.value * unitPrice.value;
+		itemTotal.value = qty.value * prodPrice.value*discount.value;
 	}
 </script>
 </head>
@@ -77,7 +77,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<div class="table-wrapper">
 						<div id='main'>
 							<form method="POST"
-								action="<c:url value='/_04_ShoppingCart/OrderItemUpdate.do' />">
+								action="<c:url value='/_04_shoppingCart/OrderItemUpdate.do' />">
 								<Table>
 									<c:forEach var="bean" items="${classList}">
 										<tr height="30">
@@ -131,8 +131,8 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 
 										<tr>
 											<td><label class="fontSize">優惠折扣：</label><br>&nbsp;</td>
-											<td><input id="unitPrice" onblur="itemTotalChange()"
-												type='discount' name='discount' value="${bean.discount}"
+											<td><input id="discount" onblur="itemTotalChange()"
+												type='text' name='discount' value="${bean.discount}"
 												class="fieldWidth" style="width: 200px;" /><br>&nbsp;
 												<font color="red" size="-1">${MsgMap.errorTel}</font></td>
 											<td><label class="fontSize">價格小計：</label><br>&nbsp;</td>
@@ -153,7 +153,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 									</c:forEach>
 								</Table>
 								<div style="display: flex; justify-content: center">
-									<a href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">
+									<a href="<c:url value='/_04_shoppingCart/SelectAll.do' />">
 										返回<i class="fa-solid fa-left-long"></i>
 									</a>
 								</div>
@@ -209,7 +209,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/web/searchingProd'/>">商品資料 <i
 								class="fa-solid fa-store"></i></a></li>
 						<li><a
-							href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">訂單資料
+							href="<c:url value='/_04_shoppingCart/SelectAll.do' />">訂單資料
 								<i class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 						<li><span class="opener">老師學生資料 <i

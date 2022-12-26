@@ -1,7 +1,6 @@
 package _04_shoppingCart.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,13 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import _04_shoppingCart.dao.OrderDao;
+import _04_shoppingCart.model.OrderBean;
+import _04_shoppingCart.service.OrderService;
+import tw.hibernatedemo.util.HibernateUtil;
 
-
-@WebServlet("/_04_ShoppingCart/searchOrderServlet.do")
+@WebServlet("/_04_shoppingCart/searchOrderServlet.do")
 public class searchOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger log = LoggerFactory.getLogger(searchOrderServlet.class);
@@ -32,22 +34,19 @@ public class searchOrderServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		OrderDao classService = new OrderDao();
+
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		OrderService orderService = new OrderService(session);
+
 		String search = request.getParameter("search");
-		try {
 
-			List<OrderBean> classlist = classService.searchAllLike(search);
-				request.setAttribute("classList", classlist);
-				RequestDispatcher rd = request.getRequestDispatcher("/html/order/ordersCRUD.jsp");
-				rd.forward(request, response);
-			
+		List<OrderBean> classList = orderService.searchAllorders(search);
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			RequestDispatcher rd = request.getRequestDispatcher("/html/order/ordersCRUD.jsp");
-			rd.forward(request, response);
-			return;
-		}
+		request.setAttribute("classList", classList);
+		RequestDispatcher rd = request.getRequestDispatcher("/html/_04_shoppingCart/ordersCRUD.jsp");
+		rd.forward(request, response);
+
 	}
 
 }

@@ -67,7 +67,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<!-- Search -->
 					<section id="search" class="alt">
 						<form method="post"
-							action="<c:url value='/_04_shoppingCart/SelectAll.do' />">
+							action="<c:url value='/_04_shoppingCart/searchOrderServlet.do' />">
 							<input type="text" name="search" id="search" placeholder="Search" />
 						</form>
 					</section>

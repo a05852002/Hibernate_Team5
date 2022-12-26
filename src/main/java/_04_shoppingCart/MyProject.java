@@ -33,9 +33,9 @@ public class MyProject {
 //			OrderBean order = new OrderBean();
 			
 //			OrderBean order = session.get(OrderBean.class, 4);
-//			OrderItemDao orderItemDao = new OrderItemDao(session);
-//			OrderItemBean ordItem = orderItemDao.insertOrder(2,"123545", "讚讚", 1, 200,1.0, "無");
-//			System.out.println(ordItem);
+			OrderItemDao orderItemDao = new OrderItemDao(session);
+			OrderItemBean ordItem = orderItemDao.insertOrder(1,"123545", "讚讚", 1, 200,1.0, "無");
+			System.out.println(ordItem);
 //			ordItem.setOrderbean(order);
 ////			
 //			Set<OrderItemBean> orderItemBean = new LinkedHashSet<OrderItemBean>();
@@ -43,12 +43,14 @@ public class MyProject {
 //			order.setItems(orderItemBean);
 //			session.save(order);
 			
-			OrderItemService orderItemService = new OrderItemService(session);
-			
-//			List<OrderItemBean> search = orderItemService.searchOrderItemByOrderNo(2);
-//			System.out.println(search);
-			List<OrderItemBean> search1 = orderItemService.searchOrderItemBySeq(7);
-			System.out.println(search1);
+//			OrderItemService orderItemService = new OrderItemService(session);
+//			
+////			List<OrderItemBean> search = orderItemService.searchOrderItemByOrderNo(2);
+////			System.out.println(search);
+//			List<OrderItemBean> search1 = orderItemService.searchOrderItemBySeq(7);
+//			List<OrderItemBean> search1 = orderItemService.selectOneOrdItem(1, 1);
+//			OrderItemBean updateOrder = orderItemService.updateOrder(1, 7, 1, 800, 0.5, "沒有東西");
+//			System.out.println(updateOrder);
 //////			List<OrderItemBean> selectOrdbySeq = orderItemService.selectOrdbySeq(3);
 //			Set<OrderItemBean> selectAllOrdItem = orderItemService.selectAllOrdItem(1);
 //			System.out.println(selectAllOrdItem);

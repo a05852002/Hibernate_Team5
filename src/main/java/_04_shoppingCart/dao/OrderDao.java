@@ -3,9 +3,6 @@ package _04_shoppingCart.dao;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -92,9 +89,10 @@ public class OrderDao {
 
 	// 模糊搜尋全部
 	public List<OrderBean> searchAllorders(String searchAll) {
-		String hql = "from OrderBean o where o.orderNo like '%" + searchAll + "%' or o.memberId like :memberId";
+		String hql = "from OrderBean o where o.orderNo like '%" + searchAll + "%' or o.memberId like :memberId or o.shippingAddress like :shippingAddress";
 		Query<OrderBean> query = session.createQuery(hql, OrderBean.class).setParameter("memberId",
-				"%" + searchAll + "%");
+				"%" + searchAll + "%").setParameter("shippingAddress",
+						"%" + searchAll + "%");
 		List<OrderBean> resultList = query.getResultList();
 
 		if (resultList.size() > 0) {

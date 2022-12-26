@@ -14,6 +14,7 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import _04_shoppingCart.model.OrderBean;
 import _04_shoppingCart.service.OrderService;
 import tw.hibernatedemo.util.HibernateUtil;
 
@@ -33,17 +34,16 @@ public class OrderUpdate extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		
+
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
 		OrderService orderService = new OrderService(session);
-		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+		Integer orderNo = Integer.parseInt(request.getParameter("orderNo"));
 		String memberId = request.getParameter("memberId");
 		String shippingAddress = request.getParameter("shippingAddress");
 		String ordStstus = request.getParameter("ordStstus");
 		String paymentStstus = request.getParameter("paymentStstus");
 		String deliveryStstus = request.getParameter("deliveryStstus");
-		
 		orderService.updateOrder(orderNo, memberId, shippingAddress, ordStstus, paymentStstus, deliveryStstus);
 		RequestDispatcher rd = request.getRequestDispatcher("/_04_shoppingCart/SelectAll.do");
 		rd.forward(request, response);
