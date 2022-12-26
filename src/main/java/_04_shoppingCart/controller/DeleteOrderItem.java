@@ -17,9 +17,7 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import _04_ShoppingCart.dao.OrdersDao;
-import _04_ShoppingCart.dao.OrdersItemDao;
-import _04_ShoppingCart.model.OrderItemBean;
+import _04_shoppingCart.model.OrderItemBean;
 import _04_shoppingCart.service.OrderItemService;
 import tw.hibernatedemo.util.HibernateUtil;
 
@@ -42,27 +40,16 @@ public class DeleteOrderItem extends HttpServlet {
 		
 		int seqno = Integer.valueOf(request.getParameter("seqno"));
 		
-		
-		
-		
-		Set<OrderItemBean> classList = orderItemService.selectAllOrdItem(oNo);
+		List<OrderItemBean> classList  = orderItemService.searchOrderItemBySeq(seqno);
+		System.out.println(classList);
+		Integer orderNo = classList.get(0).getOrderNo();
+		System.out.println("orderNo: "+orderNo);
+		orderItemService.deleteOrderItem(orderNo, seqno);
+		request.setAttribute("classList", classList);
+		RequestDispatcher rd = request.getRequestDispatcher("/_04_shoppingCart/SelectAll.do");
+		rd.forward(request, response);
+		return;
 
-		OrdersItemDao classService = new OrdersItemDao();
-		int seqno = Integer.valueOf(request.getParameter("seqno"));
-		System.out.println("seqno " + seqno);
-		try {
-			List<OrderItemBean> classlist = classService.searchSeqnoByOrderNo(seqno);
-			System.out.println("classList " + classlist);
-			Integer orderNo = classlist.get(0).getOrderNo();
-			System.out.println("orderNo " + orderNo);
-			classService.deleteOrderItemNo(orderNo,seqno);
-			request.setAttribute("classList", classlist);
-			RequestDispatcher rd = request.getRequestDispatcher("/_04_ShoppingCart/searchAllServlet");
-			rd.forward(request, response);
-			return;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

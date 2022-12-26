@@ -1,8 +1,6 @@
 package _04_shoppingCart.controller;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,11 +18,11 @@ import _04_shoppingCart.model.OrderItemBean;
 import _04_shoppingCart.service.OrderItemService;
 import tw.hibernatedemo.util.HibernateUtil;
 
-@WebServlet("/_04_shoppingCart/InsertOrderItem.do")
-public class InsertOrderItem extends HttpServlet {
+@WebServlet("/_04_shoppingCart/InsertOrderItemCheck.do")
+public class InsertOrderItemCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Logger log = LoggerFactory.getLogger(InsertOrderItem.class);
-	int pageNo = 1;
+	private static Logger log = LoggerFactory.getLogger(InsertOrderItemCheck.class);
+//	int pageNo = 1;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -34,19 +32,23 @@ public class InsertOrderItem extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-
+		
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
 		OrderItemService orderItemService = new OrderItemService(session);
-
-		System.out.println("開始找資料");
-		int orderNo = Integer.valueOf(request.getParameter("orderNo"));
-		System.out.println("開始找資料" + orderNo);
-		List<OrderItemBean> classList = orderItemService.searchOrderItemByOrderNo(orderNo);
+		
+		Integer orderNo = Integer.parseInt(request.getParameter("orderNo"));
+		String prodId = request.getParameter("prodId");
+		String prodName = request.getParameter("prodName");
+		Integer qty = Integer.parseInt(request.getParameter("qty"));
+		Integer prodPrice = Integer.parseInt(request.getParameter("prodPrice"));
+		Double discount = Double.valueOf(request.getParameter("discount"));
+		String remark = request.getParameter("remark");
+		OrderItemBean classList = orderItemService.insertOrder(orderNo,prodId,prodName,qty, prodPrice,discount,
+				remark);
 		request.setAttribute("classList", classList);
-		RequestDispatcher rd = request.getRequestDispatcher("/html/_04_shoppingCart/orderItemInsert.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/_04_shoppingCart/SelectAll.do");
 		rd.forward(request, response);
 		return;
-
 	}
 }

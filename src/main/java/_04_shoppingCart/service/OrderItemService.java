@@ -17,9 +17,9 @@ public class OrderItemService {
 	}
 
 //	新增一筆訂單 沒有折扣
-	public OrderItemBean insertOrder(String prodId, String prodName, int qty, Integer prodPrice, Double discount,
+	public OrderItemBean insertOrder(Integer orderNo, String prodId, String prodName, int qty, Integer prodPrice, Double discount,
 			String remark) {
-		return orderItemDao.insertOrder(prodId, prodName, qty, prodPrice, discount, remark);
+		return orderItemDao.insertOrder(orderNo, prodId, prodName, qty, prodPrice, discount, remark);
 	}
 
 //刪除---------------------
@@ -34,7 +34,7 @@ public class OrderItemService {
 		return orderItemDao.selectAllOrdItem(orderNo);
 	}
 
-	public List<OrderItemBean> searchOrderItemByOrderNo(Integer orderNo) {
+	public List<OrderItemBean> searchOrderItemByOrderNo(Integer orderNo)  {
 		return orderItemDao.searchOrderItemByOrderNo(orderNo);
 	}
 
@@ -43,7 +43,8 @@ public class OrderItemService {
 		return orderItemDao.selectOneOrdItem(orderNo);
 	}
 	
-	public List<OrderItemBean> selectOrdbySeq(Integer seqno) {
-		return orderItemDao.selectOrdbySeq(seqno);
-	}
+	// 搜尋單一明細資料
+		public List<OrderItemBean> searchOrderItemBySeq(Integer seqno){
+			return orderItemDao.searchOrderItemBySeq(seqno);
+		}
 }

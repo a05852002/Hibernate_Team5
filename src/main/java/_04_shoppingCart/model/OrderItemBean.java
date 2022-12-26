@@ -8,16 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "orderitem")
 public class OrderItemBean {
 	
 	
-	
-	@ManyToOne
-	@JoinColumn(name = "orderNo_fk")
-	private OrderBean orderbean; // 訂單編號
 	
 	
 	@Id
@@ -38,12 +35,21 @@ public class OrderItemBean {
 	private Integer itemTotal; // 總金額
 	@Column(name = "remark")
 	private String remark; // 備註
+	
+	@Column(name="proderNo")
+	private Integer orderNo;
+	
+	@ManyToOne
+	@JoinColumn(name = "orderNo_fk")
+	private OrderBean orderbean; // 訂單編號
 
 
-	public OrderItemBean(OrderBean orderbean, Integer seqno, String prodId, String prodName, Integer qty,
-			Integer prodPrice, Double discount, Integer itemTotal, String remark) {
+
+	public OrderItemBean(OrderBean orderbean, Integer orderNo, Integer seqno, String prodId, String prodName,
+			Integer qty, Integer prodPrice, Double discount, Integer itemTotal, String remark) {
 		super();
 		this.orderbean = orderbean;
+		this.orderNo = orderNo;
 		this.seqno = seqno;
 		this.prodId = prodId;
 		this.prodName = prodName;
@@ -55,10 +61,10 @@ public class OrderItemBean {
 	}
 
 
+
 	public OrderItemBean() {
 
 	}
-
 
 
 	public OrderBean getOrderbean() {
@@ -68,6 +74,18 @@ public class OrderItemBean {
 
 	public void setOrderbean(OrderBean orderbean) {
 		this.orderbean = orderbean;
+	}
+
+
+	
+	
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
 	}
 
 
@@ -151,11 +169,14 @@ public class OrderItemBean {
 	}
 
 
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("OrderItemBean [orderNo=");
+		builder.append("OrderItemBean [orderbean=");
 		builder.append(orderbean);
+		builder.append(", orderNo=");
+		builder.append(orderNo);
 		builder.append(", seqno=");
 		builder.append(seqno);
 		builder.append(", prodId=");

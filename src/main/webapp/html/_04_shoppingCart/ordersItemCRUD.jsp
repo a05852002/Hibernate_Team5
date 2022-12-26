@@ -74,7 +74,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<table class="alt">
 							<thead>
 								<tr>
-<!-- 									<th width=60px>訂單</th> -->
+									<th width=60px>訂單</th>
 									<th width=60px>序號</th>
 									<th width=80px>商品編號</th>
 									<th width=80px>商品名稱</th>
@@ -91,7 +91,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 							<c:forEach var="bean" items="${classList}">
 								<tbody>
 									<tr>
-<%-- 										<td>${bean.orderbean}</td> --%>
+										<td>${bean.orderNo}</td>
 										<td>${bean.seqno}</td>
 										<td>${bean.prodId}</td>
 										<td>${bean.prodName}</td>
@@ -114,7 +114,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 											</form></td>
 										<td><form method="post"
 												action="<c:url value='/_04_shoppingCart/InsertOrderItem.do' />">
-												<button name="orderbean" value="${bean.orderbean}">
+												<button name="orderNo" value="${bean.orderNo}">
 													<i class="fa-solid fa-square-plus"></i>
 												</button>
 											</form></td>

@@ -1,7 +1,9 @@
 package _04_shoppingCart.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,9 +24,11 @@ public class OrderItemDao {
 
 // 新增------------------
 	// 新增一筆訂單 沒有折扣
-	public OrderItemBean insertOrder(String prodId, String prodName, int qty, Integer prodPrice, Double discount,
+	public OrderItemBean insertOrder(Integer orderNo, String prodId, String prodName, Integer qty, Integer prodPrice, Double discount,
 			String remark) {
+		OrderBean order = session.get(OrderBean.class, orderNo);
 		OrderItemBean orderItemBean = new OrderItemBean();
+		orderItemBean.setOrderNo(orderNo);
 		orderItemBean.setProdId(prodId);
 		orderItemBean.setProdName(prodName);
 		orderItemBean.setQty(qty);
@@ -32,7 +36,15 @@ public class OrderItemDao {
 		orderItemBean.setProdPrice(prodPrice);
 		orderItemBean.setItemTotal(Integer.parseInt(String.valueOf(Math.round(qty * prodPrice * discount))));
 		orderItemBean.setRemark(remark);
+		orderItemBean.setOrderbean(order);
+		System.out.println("test2"+orderItemBean.getOrderbean().getOrderNo());
+		
+		Set<OrderItemBean> orderItemBeanSet = new LinkedHashSet<OrderItemBean>();
+		orderItemBeanSet.add(orderItemBean);
+		order.setItems(orderItemBeanSet);
 
+		session.save(order);
+		System.out.println("test1="+orderItemBean.getOrderNo());
 		return orderItemBean;
 	}
 
@@ -54,6 +66,8 @@ public class OrderItemDao {
 		}
 		return false;
 	}
+	
+
 
 //修改---------------------
 	// 修改---------------------
@@ -82,28 +96,28 @@ public class OrderItemDao {
 
 	public List<OrderItemBean> searchOrderItemByOrderNo(Integer orderNo) {
 
-		String hql = "from OrderItemBean o where o.orderbean = :orderNo";
+		String hql = "from OrderItemBean o where o.orderNo = :orderNo";
 		Query<OrderItemBean> query = session.createQuery(hql, OrderItemBean.class).setParameter("orderNo", orderNo);
 		List<OrderItemBean> resultList = query.getResultList();
-
-		return resultList;
+		List<OrderItemBean> list = new ArrayList<OrderItemBean>();
+		OrderItemBean index0 = resultList.get(0);
+		list.add(index0);
+		return list;
 
 	}
+	
+	// 搜尋單一明細資料
+	public List<OrderItemBean> searchOrderItemBySeq(Integer seqno) {
 
-	// 搜尋全部訂單明細資料
-	public List<OrderItemBean> selectOrdbySeq(Integer seqno) {
-		String hql = "From OrberItemBean where o.seqno = :seqno";
-		Query<OrderItemBean> query = session.createQuery(hql, OrderItemBean.class).setParameter("seqno", seqno);
+		String hql = "from OrderItemBean o where o.seqno = :seqno";
+		Query<OrderItemBean> query = session.createQuery(hql, OrderItemBean.class)
+				.setParameter("seqno", seqno);
 		List<OrderItemBean> resultList = query.getResultList();
+		List<OrderItemBean> list = new ArrayList<OrderItemBean>();
+		OrderItemBean index0 = resultList.get(0);
+		list.add(index0);
+		return list;
 
-		if (resultList.size() > 0) {
-			for (OrderItemBean emp : resultList) {
-				System.out.println(emp);
-			}
-		} else {
-			System.out.println("查無此資料");
-		}
-		return resultList;
 	}
 
 	

@@ -41,7 +41,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="stylesheet" href="<%=basePath%>" />
 <script type="text/javascript">
 	function itemTotalChange() {
-		itemTotal.value = qty.value * unitPrice.value;
+		itemTotal.value = qty.value * prodPrice.value;
 	}
 </script>
 </head>
@@ -75,10 +75,10 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<div id='main'>
 							<c:forEach var="bean" items="${classList}">
 								<form method="post"
-									action="<c:url value='/_04_ShoppingCart/OrderItemInsert.do'/>">
+									action="<c:url value='/_04_shoppingCart/InsertOrderItemCheck.do'/>" >
 									<label>訂單編號:</label> <input type="text" name="orderNo"
 										value="${bean.orderNo}" readonly> <label>產品編號:</label>
-									<input type="text" name="productId" value=""
+									<input type="text" name="prodId" value=""
 										placeholder="請填寫編號" required> <label>產品名稱:</label> <input
 										type="text" name="prodName" value="" placeholder="請填寫產品名稱"
 										required> <label>數量:</label> <input id="qty"
@@ -86,11 +86,11 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 										placeholder="請輸入數量"> <label>單價:</label> <input
 										id="prodPrice" onblur="itemTotalChange()" type="number"
 										name="prodPrice" value="" placeholder="請填寫金額單價" required>
-									<label>折扣</label> <input id="discount" type="text"
+									<label>優惠折扣</label> <input id="discount" type="text"
 										name="discount" value="0" readonly>
 									<label>總金額</label> <input id="itemTotal" type="text"
-										name="totalAmount" value="0" readonly><label>產品描述:</label>
-									<input type="text" name="description" value=""
+										name="totalAmount" value="0" readonly><label>備註:</label>
+									<input type="text" name="remark" value=""
 										placeholder="請填寫產品描述" required>
 
 									<div style="display: flex; justify-content: center">
