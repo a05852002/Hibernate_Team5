@@ -65,7 +65,7 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 					<header class="main">
 						<h2 style="margin: 0;float:left">地點CRUD　　</h2>
 						<form  method="post"
-							action="<c:url value='/html/location/locCreate.jsp' />"  >
+							action="<c:url value='/html/_02_subLocation/location/locCreate.jsp' />"  >
 							<button name="orderNo"> 
 								<i class="fa-solid fa-square-plus"></i>
 							</button>

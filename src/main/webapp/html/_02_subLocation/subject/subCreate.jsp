@@ -72,10 +72,10 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 								method='post'>
 
 								<label>科目編號</label> <input type="text" name="subno"
-									value="${bean.subno}" placeholder="請填寫科目編號" required> <label>科目名稱</label>
-								<input type="text" name="subname" value="${bean.subname}"
+									value="${bean.subjectId}" placeholder="請填寫科目編號" required> <label>科目名稱</label>
+								<input type="text" name="subname" value="${bean.subjectName}"
 									placeholder="請填寫科目名稱" required> <label>科目分類</label> <input
-									type="text" name="subclass" value="${bean.subclass}"
+									type="text" name="subclass" value="${bean.subjectClass}"
 									placeholder="請填寫科目類別" required>
 
 

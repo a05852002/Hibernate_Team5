@@ -1,8 +1,6 @@
 package  _02_subLocation.locServlet;
 
 import java.io.IOException;
-
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,11 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import  _02_subLocation.bean.locationclass;
-import  _02_subLocation.dao.locationdao;
+import _02_subLocation.dao.LocationDao;
+import _02_subLocation.dao.impl.LocationDaoImpl;
+import _02_subLocation.model.LocationBean;
+import tw.hibernatedemo.util.HibernateUtil;
 
 
 @WebServlet("/locServlet/locationSearchServlet.do")
@@ -34,17 +36,17 @@ public class locationSearchServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");  
 		
-		locationdao classService = new locationdao();
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		
+		LocationDao classService = new LocationDaoImpl(session);
+
 		  int lNo = Integer.valueOf( request.getParameter("locNo"));
-			try {
-				List<locationclass> classlist = classService.findById(lNo);
-				request.setAttribute("classList",classlist);
-				RequestDispatcher rd = request.getRequestDispatcher("/html/location/locUpdate.jsp");
-				rd.forward(request, response);
-				return;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			List<LocationBean> classlist = classService.findById(lNo);
+			request.setAttribute("classList",classlist);
+			RequestDispatcher rd = request.getRequestDispatcher("/html/_02_subLocation/location/locUpdate.jsp");
+			rd.forward(request, response);
+			return;
 	}
 
 }

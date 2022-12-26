@@ -53,7 +53,7 @@ private static final long serialVersionUID = 1L;
         }else {
 		List<SubjectBean> findByClassList = classService.findByClass(subclass);
 		request.setAttribute("findByClassList",findByClassList);
-		RequestDispatcher rd = request.getRequestDispatcher("/html/subject/subRead.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/html/_02_subLocation/subject/subRead.jsp");
 		rd.forward(request, response);
         }
 		return;

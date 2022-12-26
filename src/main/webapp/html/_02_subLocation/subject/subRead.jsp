@@ -65,7 +65,7 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 					<header class="main">
 						<h2 style="margin: 0;float:left">科目CRUD　　</h2>
 						<form  method="post"
-							action="<c:url value='/html/subject/subCreate.jsp' />"  >
+							action="<c:url value='/html/_02_subLocation/subject/subCreate.jsp' />"  >
 							<button name="orderNo"> 
 								<i class="fa-solid fa-square-plus"></i>
 							</button>
@@ -93,18 +93,18 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 							<c:forEach var="bean" items="${findByClassList}">
 								<tbody>
 									<tr>
-										<td>${bean.subno}</td>
-										<td>${bean.subname}</td>
-										<td>${bean.subclass}</td>
+										<td>${bean.subjectId}</td>
+										<td>${bean.subjectName}</td>
+										<td>${bean.subjectClass}</td>
 										<td><form method="post"
 												action="<c:url value='/Servlet/searchServlet.do' />">
-												<button name="subNo" value="${bean.subno}">
+												<button name="subNo" value="${bean.subjectId}">
 													<i class="fa-solid fa-pen-to-square"></i>
 												</button>
 											</form></td>
 										<td><form method="post"
 												action="<c:url value='/Servlet/SubjectDelete.do' />">
-												<button name="subNo" value="${bean.subno}">
+												<button name="subNo" value="${bean.subjectId}">
 													<i class="fa-solid fa-xmark"></i>
 												</button>
 											</form></td>

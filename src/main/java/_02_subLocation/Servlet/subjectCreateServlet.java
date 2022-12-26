@@ -39,11 +39,16 @@ public class subjectCreateServlet extends HttpServlet {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
 		
+		SubjectBean subjectBean = new SubjectBean();
+		
 		int subNo = Integer.valueOf(request.getParameter("subno"));
 		String subName = request.getParameter("subname");
 		String subClass = request.getParameter("subclass");
 		
-		SubjectBean subjectBean = new SubjectBean(subNo,subName,subClass);
+		subjectBean.setSubjectId(subNo);
+		subjectBean.setSubjectName(subName);
+		subjectBean.setSubjectClass(subClass);
+		
 		
 		SubjectDao classService = new SubjectDaoImpl(session);
 		classService.add(subjectBean);

@@ -42,7 +42,7 @@ public class searchServlet extends HttpServlet {
 		  int sNo = Integer.valueOf( request.getParameter("subNo"));
 			List<SubjectBean> classlist = classService.findById(sNo);
 			request.setAttribute("classList",classlist);
-			RequestDispatcher rd = request.getRequestDispatcher("/html/subject/subUpdate.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/html/_02_subLocation/subject/subUpdate.jsp");
 			rd.forward(request, response);
 			return;
 	}

@@ -41,7 +41,7 @@ public class subjectSearch extends HttpServlet {
 		SubjectDao classService = new SubjectDaoImpl(session);
 		List<SubjectBean> classlist = classService.searchAllSub();
 		request.setAttribute("classList", classlist);
-		RequestDispatcher rd = request.getRequestDispatcher("/html/subject/subsCRUD.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/html/_02_subLocation/subject/subsCRUD.jsp");
 		rd.forward(request, response);
 		return;
 

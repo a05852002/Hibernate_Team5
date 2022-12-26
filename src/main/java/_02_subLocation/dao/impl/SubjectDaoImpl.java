@@ -19,7 +19,7 @@ public class SubjectDaoImpl implements SubjectDao {
 	
 	@Override
 	public List<SubjectBean> searchAllSub(){
-		Query<SubjectBean> query = session.createQuery("from tableForTeac order by price desc", SubjectBean.class);
+		Query<SubjectBean> query = session.createQuery("from SubjectBean", SubjectBean.class);
 		List<SubjectBean> list = query.getResultList();
 		return list;
 	}
@@ -33,11 +33,11 @@ public class SubjectDaoImpl implements SubjectDao {
 	}
 
 	@Override
-	public List<SubjectBean> findByClass(String subjectClass){
-		String hql = "from SubjectBean where subjectId like '%"+subjectClass+"%' subjectname like :m or subjectclass like :t";
+	public List<SubjectBean> findByClass(String searchAll){
+		String hql = "from SubjectBean where subjectId like '%"+searchAll+"%' or subjectname like :m or subjectclass like :t";
 		Query<SubjectBean> query = session.createQuery(hql, SubjectBean.class)
-				.setParameter("m","%"+subjectClass+"%")
-				.setParameter("t","%"+subjectClass+"%");
+				.setParameter("m","%"+searchAll+"%")
+				.setParameter("t","%"+searchAll+"%");
 		List<SubjectBean> list = query.getResultList();
 		return list;
 	}
@@ -49,12 +49,12 @@ public class SubjectDaoImpl implements SubjectDao {
 
 	@Override
 	public void deleteSubfromSubno(Integer subjectId) {
-	SubjectBean subjectBean = session.get(SubjectBean.class, subjectId);
-	if (subjectBean != null) {
-		session.delete(subjectBean);
+		SubjectBean subjectBean = session.get(SubjectBean.class, subjectId);
+		if (subjectBean != null) {
+			session.delete(subjectBean);
+		}
 	}
-	}
-	
+
 	@Override
 	public void updateSubFromSubno(Integer subjectId, String subjectName, String subjectClass) {
 		SubjectBean subjectBean = session.get(SubjectBean.class, subjectId);

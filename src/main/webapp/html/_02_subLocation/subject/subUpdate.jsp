@@ -75,17 +75,17 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 									<tr height="30">
 										<td style="width: 120px;"><label class="fontSize">科目編號：</label><br>&nbsp;</td>
 										<td><input type='text'
-											readonly="readonly" name='subNo' value="${bean.subno}"
+											readonly="readonly" name='subNo' value="${bean.subjectId}"
 											class="fieldWidth" style="width: 200px;" /><br>&nbsp; <font
 											color="red" size="-1">${MsgMap.errorIdEmpty}${MsgMap.errorIdDup}</font></td>
 										<td style="width: 120px;"><label class="fontSize">科目名稱：</label><br>&nbsp;</td>
 										<td><input type='text' name='subName'
-											value="${bean.subname}" class="fieldWidth"
+											value="${bean.subjectName}" class="fieldWidth"
 											style="width: 200px;" /><br>&nbsp; <font color="red"
 											size="-1">${MsgMap.errorName}</font></td>
 										<td style="width: 120px;"><label class="fontSize">科目分類：</label><br>&nbsp;</td>
 										<td><input type='text' name='subClass'
-											value="${bean.subclass}" class="fieldWidth"
+											value="${bean.subjectClass}" class="fieldWidth"
 											style="width: 200px;" /><br>&nbsp; <font color="red"
 											size="-1">${MsgMap.errorTel}</font></td>
 									<tr height="30">
