@@ -81,7 +81,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<section>
 							<header class="main">
 
-								<form method="post" action="<c:url value='/meetbothmember/update.do' />" enctype='multipart/form-data'>
+								<form method="post" action="<c:url value='_01_member/update.do' />" enctype='multipart/form-data'>
 
 									<div class="table-wrapper">
 										<table class="alt">
@@ -96,7 +96,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 												<td rowspan="4" align="center" style="width:250px; height:250px">
 <!-- 												<div style="float:right;"> -->
 												<input style="padding-left:35px" name='photo' id="images5278" type='file' /><br>
-												<img id="preImg" style="display: flex; flex-direction:flex-end" width="250px" height="250px" src="<c:url value='/meetbothmember/ShowMember.do?id=${Member.account}'/>">
+												<img id="preImg" style="display: flex; flex-direction:flex-end" width="250px" height="250px" src="<c:url value='/_01_member/ShowMember.do?id=${Member.account}'/>">
 <!-- 												</div> -->
 												</td>
 											</tr>
@@ -234,7 +234,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
 						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
 								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
+						<li><a href="<c:url value='/html/_01_member/admin.jsp' />">會員資料 <i
 								class="fa-solid fa-users-viewfinder"></i></a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>

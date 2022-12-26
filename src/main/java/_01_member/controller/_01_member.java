@@ -46,13 +46,37 @@ public class _01_member extends HttpServlet {
 				session.beginTransaction();
 				List<MemberBean> list = md.searchAllMember();
 				request.setAttribute("Member", list);
-				request.getRequestDispatcher("_01_member/admin.jsp").forward(request, response);
+				request.getRequestDispatcher("html/_01_member/admin.jsp").forward(request, response);
 				session.getTransaction().commit();
 				
 			} catch (Exception e) {
 				System.out.println("有問題");
 				session.getTransaction().rollback();
 				errorMsgMap.put("selectError", "搜尋出現問題");
+				e.printStackTrace();
+			}
+        }else if(orders.containsKey("selectByAccount")) {
+        	try {
+				session.beginTransaction();
+				String value = request.getParameter("value");
+				List<MemberBean> list = md.searchMemByAccountLike(value);
+				request.setAttribute("Member", list);
+				request.getRequestDispatcher("html/_01_member/admin.jsp").forward(request, response);
+				session.getTransaction().commit();
+			} catch (Exception e) {
+				session.getTransaction().rollback();
+				e.printStackTrace();
+			}
+        }else if(orders.containsKey("selectByName")) {
+        	try {
+				session.beginTransaction();
+				String value = request.getParameter("value");
+				List<MemberBean> list = md.searchMemByNameLike(value);
+				request.setAttribute("Member", list);
+				request.getRequestDispatcher("html/_01_member/admin.jsp").forward(request, response);
+				session.getTransaction().commit();
+			} catch (Exception e) {
+				session.getTransaction().rollback();
 				e.printStackTrace();
 			}
         }else if (orders.containsKey("delete") && orders.get("delete").length>0) {
@@ -63,7 +87,7 @@ public class _01_member extends HttpServlet {
 					md.deleteMemfromMemberID(ID);
 				}
 				request.setAttribute("Member", md.searchAllMember());
-				request.getRequestDispatcher("_01_member/admin.jsp").forward(request, response);
+				request.getRequestDispatcher("html/_01_member/admin.jsp").forward(request, response);
 				session.getTransaction().commit();
 			} catch (Exception e) {
 				System.out.println("有問題");
@@ -72,7 +96,7 @@ public class _01_member extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if(orders.containsKey("register")){
-			response.sendRedirect("_01_member/register.jsp");
+			response.sendRedirect("html/_01_member/register.jsp");
 		}else if(orders.containsKey("preupdate")) {
 			try {
 				session.beginTransaction();
@@ -82,7 +106,7 @@ public class _01_member extends HttpServlet {
 				}
 				List<MemberBean> list = md.searchMemByID(ID);
 				request.setAttribute("Member", list);
-				request.getRequestDispatcher("_01_member/MemberUpdate.jsp").forward(request, response);
+				request.getRequestDispatcher("html/_01_member/MemberUpdate.jsp").forward(request, response);
 				
 				session.getTransaction().commit();
 			} catch (Exception e) {

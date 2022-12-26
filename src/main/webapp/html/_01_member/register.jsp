@@ -144,7 +144,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<section>
 							<header class="main">
 
-								<form method="post" action="<c:url value='/meetbothmember/register.do' />" enctype='multipart/form-data'>
+								<form method="post" action="<c:url value='/register.do' />" enctype='multipart/form-data'>
 
 									<div class="table-wrapper">
 										<table class="alt">
@@ -254,7 +254,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 											</td>
 											<td>
 												<input name='photo' id="images5278" type='file' accept="imagr/jpg" placeholder="請使用jpg檔案" ><br>&nbsp;
-												<img id="preImg" style="width:150px; height:200px" src="http://localhost:8080/jspTeam5/html/images/meatball-200.png" />
+												<img id="preImg" style="width:150px; height:200px" src="http://localhost:8080/Hibernate_Team5/html/images/meatball-200.png" />
 											</td>
 											</tr>
 											<tr height="42">

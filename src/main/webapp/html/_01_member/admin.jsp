@@ -155,7 +155,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
 						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
 								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
+						<li><a href="<c:url value='/html/_01_member/admin.jsp' />">會員資料 <i
 								class="fa-solid fa-users-viewfinder"></i></a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>

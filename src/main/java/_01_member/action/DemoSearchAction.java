@@ -23,7 +23,8 @@ public class DemoSearchAction {
 			MemberDao md = new MemberDao(session);
 			MemberBean member = new MemberBean();
 			
-			List<MemberBean> sID = md.searchMemByID(5);
+			List<MemberBean> sID = md.searchMemByAccount("a05852002");
+			System.out.println(sID.size());
 			Iterator<MemberBean> it = sID.iterator();
 			while (it.hasNext()) {
 				MemberBean memberBean = (MemberBean) it.next();
