@@ -18,8 +18,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import _05_teacStu.model.tableForTeac;
-import _05_teacStu.model.teacAndStudDao;
 import _05_teacStu.service.GlobalService;
+import _05_teacStu.service.teacAndStudService;
+import _05_teacStu.service.teacAndStudServiceInterface;
 import tw.hibernatedemo.util.HibernateUtil;
 
 @MultipartConfig()
@@ -46,7 +47,7 @@ public class insertdata extends HttpServlet {
 			Date date = new Date();
 			SessionFactory factory = HibernateUtil.getSessionFactory();
 			Session session = factory.getCurrentSession();
-			teacAndStudDao tDao = new teacAndStudDao(session);
+			teacAndStudServiceInterface tDao = new teacAndStudService(session);
 			tableForTeac t = new tableForTeac();
 			t.setMemberId(memberId);
 			t.setTitle(title);

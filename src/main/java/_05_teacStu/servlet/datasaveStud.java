@@ -13,7 +13,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import _05_teacStu.model.tableForStud;
-import _05_teacStu.model.teacAndStudDao;
+import _05_teacStu.service.teacAndStudService;
+import _05_teacStu.service.teacAndStudServiceInterface;
 import tw.hibernatedemo.util.HibernateUtil;
 
 @WebServlet("/_05_teacStu/datasaveStud")
@@ -28,7 +29,7 @@ public class datasaveStud extends HttpServlet {
 		studno = Integer.parseInt(strclassId);
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
-		teacAndStudDao classDao = new teacAndStudDao(session);
+		teacAndStudServiceInterface classDao = new teacAndStudService(session);
 
 		tableForStud bean = classDao.searchStudFromStudno(studno);
 		request.setAttribute("bean", bean);

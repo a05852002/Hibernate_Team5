@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import _05_teacStu.model.teacAndStudDao;
+import _05_teacStu.service.teacAndStudService;
+import _05_teacStu.service.teacAndStudServiceInterface;
 import tw.hibernatedemo.util.HibernateUtil;
 
 @WebServlet("/_05_teacStu/deletedataStud")
@@ -28,7 +29,7 @@ public class deletedataStud extends HttpServlet {
 			throws ServletException, IOException {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
-		teacAndStudDao oDao = new teacAndStudDao(session);
+		teacAndStudServiceInterface oDao = new teacAndStudService(session);
 		int studno = 0;
 		studno = Integer.valueOf(request.getParameter("studno"));
 		oDao.deleteStudfromStudno(studno);

@@ -7,7 +7,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-public class teacAndStudDao {
+public class teacAndStudDao implements teacAndStudDaoInterface{
 
 	private Session session;
 
@@ -18,40 +18,21 @@ public class teacAndStudDao {
 	
 	//	模糊查詢教師全部
 	public List<tableForTeac> searchAllLike(String searchAllLike) {
-		String hql = "from tableForTeac where memberId like :m or title like :t or detail like :d or subjectItem like :s";
-//		String hql = "from tableForTeac where memberId like :m or title like :t or detail like :d or price like :p or subjectItem like :s";
+		String hql = "from tableForTeac where memberId like '%"+searchAllLike+"%' or title like :t or detail like :d or price like '%"+searchAllLike+"%' or subjectItem like :s";
 		Query<tableForTeac> query = session.createQuery(hql, tableForTeac.class)
-				.setParameter("m","%"+searchAllLike+"%")
 				.setParameter("t","%"+searchAllLike+"%")
 				.setParameter("d","%"+searchAllLike+"%")
-//				.setParameter("p","%"+searchAllLike+"%")
 				.setParameter("s","%"+searchAllLike+"%");
-		List<tableForTeac> list = query.getResultList();
-		return list;
-	}
-	
-//	模糊查詢教師全部
-	public List<tableForTeac> searchAllLike(Integer searchAllLike) {
-		String hql = "from tableForTeac where memberId like :m";
-//		String hql = "from tableForTeac where memberId like :m or title like :t or detail like :d or price like :p or subjectItem like :s";
-		Query<tableForTeac> query = session.createQuery(hql, tableForTeac.class)
-				.setParameter("m","%"+searchAllLike+"%");
-//				.setParameter("t","%"+searchAllLike+"%")
-//				.setParameter("d","%"+searchAllLike+"%")
-//				.setParameter("p","%"+searchAllLike+"%")
-//				.setParameter("s","%"+searchAllLike+"%");
 		List<tableForTeac> list = query.getResultList();
 		return list;
 	}
 	
 	//	模糊查詢學生全部
 	public List<tableForStud> searchAllLikeStud(String searchAllLike) {
-		String hql = "from tableForStud where memberId like :m or title like :t or detail like :d or price like :p or subjectItem like :s or learnLoc like :l";
+		String hql = "from tableForStud where memberId like '%"+searchAllLike+"%' or title like :t or detail like :d or price like '%"+searchAllLike+"%' or subjectItem like :s or learnLoc like :l";
 		Query<tableForStud> query = session.createQuery(hql, tableForStud.class)
-				.setParameter("m","%"+searchAllLike+"%")
 				.setParameter("t","%"+searchAllLike+"%")
 				.setParameter("d","%"+searchAllLike+"%")
-				.setParameter("p","%"+searchAllLike+"%")
 				.setParameter("s","%"+searchAllLike+"%")
 				.setParameter("l","%"+searchAllLike+"%");
 		List<tableForStud> list = query.getResultList();

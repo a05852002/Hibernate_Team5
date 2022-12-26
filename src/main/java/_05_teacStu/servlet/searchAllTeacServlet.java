@@ -14,7 +14,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import _05_teacStu.model.tableForTeac;
-import _05_teacStu.model.teacAndStudDao;
+import _05_teacStu.service.teacAndStudService;
+import _05_teacStu.service.teacAndStudServiceInterface;
 import tw.hibernatedemo.util.HibernateUtil;
 
 @WebServlet("/_05_teacStu/searchAllTeacServlet")
@@ -33,7 +34,7 @@ public class searchAllTeacServlet extends HttpServlet {
 			SessionFactory factory = HibernateUtil.getSessionFactory();
 			Session session = factory.getCurrentSession();
 		
-			teacAndStudDao tsDao = new teacAndStudDao(session);
+			teacAndStudServiceInterface tsDao = new teacAndStudService(session);
 			List<tableForTeac> teac = tsDao.searchAllTeac();
 			
 			request.setAttribute("classList", teac);

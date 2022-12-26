@@ -15,7 +15,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import _05_teacStu.model.tableForStud;
-import _05_teacStu.model.teacAndStudDao;
+import _05_teacStu.service.teacAndStudService;
+import _05_teacStu.service.teacAndStudServiceInterface;
 import tw.hibernatedemo.util.HibernateUtil;
 
 @WebServlet("/_05_teacStu/searchLikeStud")
@@ -32,7 +33,7 @@ public class searchLikeStud extends HttpServlet {
 			throws ServletException, IOException {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
-		teacAndStudDao classService = new teacAndStudDao(session);
+		teacAndStudServiceInterface classService = new teacAndStudService(session);
 		String search =request.getParameter("search") ;
 		List<tableForStud> classlist = classService.searchAllLikeStud(search);
 		request.setAttribute("classList", classlist);

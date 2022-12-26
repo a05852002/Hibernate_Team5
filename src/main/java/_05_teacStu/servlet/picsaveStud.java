@@ -17,7 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import _05_teacStu.model.tableForStud;
-import _05_teacStu.model.teacAndStudDao;
+import _05_teacStu.service.teacAndStudService;
+import _05_teacStu.service.teacAndStudServiceInterface;
 import tw.hibernatedemo.util.HibernateUtil;
 
 @WebServlet("/_05_teacStu/picsaveStud")
@@ -46,7 +47,7 @@ public class picsaveStud extends HttpServlet {
 				nId = Integer.parseInt(id);
 			} catch (NumberFormatException ex) {
 			}
-			teacAndStudDao tsDao = new teacAndStudDao(session);
+			teacAndStudServiceInterface tsDao = new teacAndStudService(session);
 			tableForStud bean = tsDao.searchStudFromStudno(nId);
 //			for (tableForTeac b : bean) {
 				if (bean != null) {

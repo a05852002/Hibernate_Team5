@@ -17,8 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import _05_teacStu.model.teacAndStudDao;
 import _05_teacStu.service.GlobalService;
+import _05_teacStu.service.teacAndStudService;
+import _05_teacStu.service.teacAndStudServiceInterface;
 import tw.hibernatedemo.util.HibernateUtil;
 
 @MultipartConfig()
@@ -42,7 +43,7 @@ public class updatedata extends HttpServlet {
 			Blob image = GlobalService.fileToBlob(in, size);
 			Date date = new Date();
 
-			teacAndStudDao tsDao = new teacAndStudDao(session);
+			teacAndStudServiceInterface tsDao = new teacAndStudService(session);
 			tsDao.updateTeacFromTeacno(teacno, memberId, title, date, detail, price, subjectItem, image);
 			resp.sendRedirect(req.getContextPath() + "/_05_teacStu/searchAllTeacServlet");
 
