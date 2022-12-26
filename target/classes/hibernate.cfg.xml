@@ -29,12 +29,13 @@
 <!--         <property name="hbm2ddl.auto">update</property> -->
         
         <!--  source mapping in xml file -->
-<!--         <mapping resource="_05_teacStu/model/tableForTeac.hbm.xml"/> -->
-<!--         <mapping resource="_05_teacStu/model/tableForStud.hbm.xml"/> -->
+
+<!--         <mapping resource="tw/hibernatedemo/model/SubjectBean.hbm.xml"/> -->
         
         <!--  class mapping -->
-        <mapping class="_05_teacStu.model.tableForTeac"/>
-        <mapping class="_05_teacStu.model.tableForStud"/>
+        <mapping class="tw.hibernatedemo.model.SubjectBean"/>
+
+
         
         
         

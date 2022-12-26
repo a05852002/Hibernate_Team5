@@ -1,4 +1,4 @@
-package tw.hibernatedemo.model;
+ package tw.hibernatedemo.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
