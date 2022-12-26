@@ -40,7 +40,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="stylesheet" href="<%=basePath%>" />
 <script type="text/javascript">
 	function itemTotalChange() {
-		itemTotal.value=qty.value*unitPrice.value;
+		itemTotal.value = qty.value * unitPrice.value;
 	}
 </script>
 </head>
@@ -63,16 +63,16 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<header class="main">
 						<h2>訂單管理CRUD</h2>
 					</header>
-					
+
 					<!-- Search -->
-<!-- 					<section id="search" class="alt"> -->
-<!-- 						<form method="post" action="#"> -->
-<!-- 							<input type="text" name="query" id="query" placeholder="Search" /> -->
-<!-- 						</form> -->
-<!-- 					</section> -->
-					
-					
-					
+					<!-- 					<section id="search" class="alt"> -->
+					<!-- 						<form method="post" action="#"> -->
+					<!-- 							<input type="text" name="query" id="query" placeholder="Search" /> -->
+					<!-- 						</form> -->
+					<!-- 					</section> -->
+
+
+
 					<!-- Table -->
 					<div class="table-wrapper">
 						<div id='main'>
@@ -97,40 +97,46 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 											<td style="width: 120px;"><label class="fontSize">產品編號：</label><br>&nbsp;
 											</td>
 											<td style="width: 300px;"><input type='text'
-												readonly="readonly" name='productId'
-												value="${bean.productId}" class="fieldWidth"
+												readonly="readonly" name='prodId'
+												value="${bean.prodId}" class="fieldWidth"
 												style="width: 200px;" /><br>&nbsp; <font color="red"
 												size="-1">${MsgMap.errorIdEmpty}${MsgMap.errorIdDup}</font></td>
 											<td style="width: 120px;"><label class="fontSize">產品名稱：</label><br>&nbsp;</td>
-											<td><input type='text' name='productName'
-												value="${bean.productName}" class="fieldWidth"
+											<td><input type='text' name='prodName'
+												value="${bean.prodName}" class="fieldWidth"
 												style="width: 200px;" readonly /><br>&nbsp; <font
 												color="red" size="-1">${MsgMap.errorName}</font></td>
 										</tr>
 										<tr height="30">
-											<td><label class="fontSize">產品描述：</label><br>&nbsp;</td>
-											<td colspan='3'><input type='text' name='description'
-												value="${bean.description}" class="fieldWidth"
+											<td><label class="fontSize">備註：</label><br>&nbsp;</td>
+											<td colspan='3'><input type='text' name='remark'
+												value="${bean.remark}" class="fieldWidth"
 												style="width: 800px;" /><br>&nbsp; <font color="red"
 												size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
 											</td>
 										</tr>
 										<tr height="30">
 											<td><label class="fontSize">訂購數量：</label><br>&nbsp;</td>
-											<td><input id="qty" onblur="itemTotalChange()" type='number' name='qty'
-												value="${bean.qty}" class="fieldWidth" style="width: 200px;" /><br>&nbsp;
+											<td><input id="qty" onblur="itemTotalChange()"
+												type='number' name='qty' value="${bean.qty}"
+												class="fieldWidth" style="width: 200px;" /><br>&nbsp;
 												<font color="red" size="-1">${MsgMap.errorAddr}</font></td>
 											<td><label class="fontSize">產品單價：</label><br>&nbsp;</td>
-											<td><input id="unitPrice" onblur="itemTotalChange()" type='number' name='unitPrice'
-												value="${bean.unitPrice}" class="fieldWidth"
-												style="width: 200px;" /><br>&nbsp; <font color="red"
-												size="-1">${MsgMap.errorTel}</font></td>
+											<td><input id="prodPrice" onblur="itemTotalChange()"
+												type='number' name='prodPrice' value="${bean.prodPrice}"
+												class="fieldWidth" style="width: 200px;" /><br>&nbsp;
+												<font color="red" size="-1">${MsgMap.errorTel}</font></td>
 
 										</tr>
 
 										<tr>
+											<td><label class="fontSize">優惠折扣：</label><br>&nbsp;</td>
+											<td><input id="unitPrice" onblur="itemTotalChange()"
+												type='discount' name='discount' value="${bean.discount}"
+												class="fieldWidth" style="width: 200px;" /><br>&nbsp;
+												<font color="red" size="-1">${MsgMap.errorTel}</font></td>
 											<td><label class="fontSize">價格小計：</label><br>&nbsp;</td>
-											<td colspan='3'><input id="itemTotal"   type='text'
+											<td colspan='3'><input id="itemTotal" type='text'
 												name='itemTotal' value="${bean.itemTotal}"
 												class="fieldWidth" style="width: 200px;" readonly /><br>&nbsp;
 												<font color="red" size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
@@ -185,11 +191,15 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						</h2>
 					</header>
 					<ul>
-						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
-						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
-								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
-								class="fa-solid fa-users-viewfinder"></i></a></li>
+						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i
+								class="fa-solid fa-house"></i></a></li>
+						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理
+								<i class="fa-solid fa-gears"></i>
+						</a></li>
+						<li><a
+							href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料
+								<i class="fa-solid fa-users-viewfinder"></i>
+						</a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>
 							<ul>
@@ -205,8 +215,10 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>

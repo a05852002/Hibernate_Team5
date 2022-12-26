@@ -1,7 +1,7 @@
 package _04_shoppingCart.dao;
 
-import java.sql.SQLException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -11,10 +11,8 @@ import org.hibernate.query.Query;
 import _04_shoppingCart.model.OrderBean;
 import _04_shoppingCart.model.OrderItemBean;
 
-
-
 public class OrderItemDao {
-	
+
 	private Session session;
 
 	// 依賴注入 Dependency.Injextion
@@ -22,82 +20,107 @@ public class OrderItemDao {
 		this.session = session;
 	}
 
-	// private Integer seqNo; //序號
-	// private Integer orderNo; //訂單編號
-	// private Integer prodId; //商品編號
-	// private String prodName; //商品名稱
-	// private Integer qty; //數量
-	// private Double prodPrice; //單價
-	// private Double discount; // 折扣
-	// private Double itemTotal; //總金額
-	// private String remark; //描述
-	//
-
 // 新增------------------
-	//	新增一筆訂單 沒有折扣
-	public OrderItemBean insertOrder(String prodId, String prodName, int qty,
-			Integer prodPrice,Double discount,String remark) {
+	// 新增一筆訂單 沒有折扣
+	public OrderItemBean insertOrder(String prodId, String prodName, int qty, Integer prodPrice, Double discount,
+			String remark) {
 		OrderItemBean orderItemBean = new OrderItemBean();
 		orderItemBean.setProdId(prodId);
 		orderItemBean.setProdName(prodName);
 		orderItemBean.setQty(qty);
 		orderItemBean.setDiscount(discount);
 		orderItemBean.setProdPrice(prodPrice);
-		orderItemBean.setItemTotal(Integer.parseInt(String.valueOf(Math.round(qty*prodPrice*discount))));
+		orderItemBean.setItemTotal(Integer.parseInt(String.valueOf(Math.round(qty * prodPrice * discount))));
 		orderItemBean.setRemark(remark);
-		
+
 		return orderItemBean;
 	}
-	
-	
 
 //刪除---------------------
-	//透過orderNo刪除
-		public boolean deleteOrderNo(Integer orderNo,Integer seqno) {
-			OrderBean ordBean = session.get(OrderBean.class, orderNo);
+	// 透過orderNo刪除
+	public boolean deleteOrderItem(Integer orderNo, Integer seqno) {
 
-			if (ordBean != null) {
-				session.delete(ordBean);
+		OrderBean orderBean = session.get(OrderBean.class, orderNo);
+		Set<OrderItemBean> items = orderBean.getItems();
+
+		Iterator<OrderItemBean> it = items.iterator();
+		while (it.hasNext()) {
+			OrderItemBean ordItem = it.next();
+			if (ordItem.getSeqno() == seqno) {
+				items.remove(ordItem);
+				session.delete(ordItem);
 				return true;
 			}
-			return false;
 		}
-		
-		
+		return false;
+	}
+
 //修改---------------------
+	// 修改---------------------
+	// 透過訂單編號修改訂單資料
+	public OrderBean updateOrder(Integer orderNo, String memberId, String shippingAddress, String ordStstus,
+			String paymentStstus, String deliveryStstus) {
+		String hql = "update OrderBean set memberId = ?1 , upOrderDate =?2, shippingAddress=?3,ordStstus=?4 ,paymentStstus=?5,deliveryStstus=?6 where orderNo = ?7";
 
-		
-//查詢---------------------
-	//搜尋全部訂單明細資料
-		public Set<OrderItemBean> selectAllOrdItem(Integer orderNo){
-			OrderBean orderBean =session.get(OrderBean.class, orderNo);
-			Set<OrderItemBean> items = orderBean.getItems();
-	    	return items;
-	    }
-		
-		public List<OrderItemBean> searchOrderItemByOrderNo(Integer orderNo)  {
-			
-			String hql = "from OrderItemBean o where o.orderbean = :orderNo";
-			Query<OrderItemBean> query = session.createQuery(hql, OrderItemBean.class).setParameter("orderNo", orderNo);
-			List<OrderItemBean> resultList = query.getResultList();
-			
-		
-			return resultList;
-
+		OrderBean orderBean = session.get(OrderBean.class, orderNo);
+		if (orderBean != null) {
+			session.createQuery(hql) // 更新不用資料型別,select回傳才需要
+					.setParameter(1, memberId).setParameter(2, new Date()).setParameter(3, shippingAddress)
+					.setParameter(4, ordStstus).setParameter(5, paymentStstus).setParameter(6, deliveryStstus)
+					.setParameter(7, orderNo).executeUpdate();
 		}
-			
-	//搜尋單一orderNo
-			
-			
-			
-	//模糊搜尋全部
-			
-	//
+		return orderBean;
+	}
 
-		
-		
+//查詢---------------------
+	// 搜尋全部訂單明細資料
+	public Set<OrderItemBean> selectAllOrdItem(Integer orderNo) {
+		OrderBean orderBean = session.get(OrderBean.class, orderNo);
+		Set<OrderItemBean> items = orderBean.getItems();
+		return items;
+	}
+
+	public List<OrderItemBean> searchOrderItemByOrderNo(Integer orderNo) {
+
+		String hql = "from OrderItemBean o where o.orderbean = :orderNo";
+		Query<OrderItemBean> query = session.createQuery(hql, OrderItemBean.class).setParameter("orderNo", orderNo);
+		List<OrderItemBean> resultList = query.getResultList();
+
+		return resultList;
+
+	}
+
+	// 搜尋全部訂單明細資料
+	public List<OrderItemBean> selectOrdbySeq(Integer seqno) {
+		String hql = "From OrberItemBean where o.seqno = :seqno";
+		Query<OrderItemBean> query = session.createQuery(hql, OrderItemBean.class).setParameter("seqno", seqno);
+		List<OrderItemBean> resultList = query.getResultList();
+
+		if (resultList.size() > 0) {
+			for (OrderItemBean emp : resultList) {
+				System.out.println(emp);
+			}
+		} else {
+			System.out.println("查無此資料");
+		}
+		return resultList;
+	}
 
 	
+
+	// 搜尋orderNo
+	public OrderItemBean selectOneOrdItem(Integer orderNo) {
+		OrderBean orderBean = session.get(OrderBean.class, orderNo);
+		Set<OrderItemBean> items = orderBean.getItems();
+		Iterator<OrderItemBean> it = items.iterator();
+		OrderItemBean order = it.next();
+		return order;
+	}
+
+	// 搜尋訂單的某個Item
+
+	//
+
 ////	新增一筆訂單
 //	public void insertItem(int orderNo, String productId, String productName, String description, int qty,
 //			Double unitPrice) throws SQLException {

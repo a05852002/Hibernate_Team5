@@ -41,7 +41,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="stylesheet" href="<%=basePath%>" />
 <script type="text/javascript">
 	function itemTotalChange() {
-		itemTotal.value=qty.value*unitPrice.value;
+		itemTotal.value = qty.value * unitPrice.value;
 	}
 </script>
 </head>
@@ -73,31 +73,35 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<!-- Table -->
 					<div class="table-wrapper">
 						<div id='main'>
-							<c:forEach var="bean" items="${OrdersItemDao}">
+							<c:forEach var="bean" items="${classList}">
 								<form method="post"
 									action="<c:url value='/_04_ShoppingCart/OrderItemInsert.do'/>">
 									<label>訂單編號:</label> <input type="text" name="orderNo"
 										value="${bean.orderNo}" readonly> <label>產品編號:</label>
 									<input type="text" name="productId" value=""
 										placeholder="請填寫編號" required> <label>產品名稱:</label> <input
-										type="text" name="productName" value="" placeholder="請填寫產品名稱"
-										required> <label>產品描述:</label> <input type="text"
-										name="description" value="" placeholder="請填寫產品描述" required>
-									<label>數量:</label> <input id="qty" onblur="itemTotalChange()" type="number" name="qty" value=""
-										placeholder="請輸入數量" > <label>單價:</label> <input id="unitPrice" onblur="itemTotalChange()"
-										type="number" name="unitPrice" value="" placeholder="請填寫金額單價"
-										required> <label>總金額</label> <input  id="itemTotal" type="text"
-										name="totalAmount" value="0" readonly>
+										type="text" name="prodName" value="" placeholder="請填寫產品名稱"
+										required> <label>數量:</label> <input id="qty"
+										onblur="itemTotalChange()" type="number" name="qty" value=""
+										placeholder="請輸入數量"> <label>單價:</label> <input
+										id="prodPrice" onblur="itemTotalChange()" type="number"
+										name="prodPrice" value="" placeholder="請填寫金額單價" required>
+									<label>折扣</label> <input id="discount" type="text"
+										name="discount" value="0" readonly>
+									<label>總金額</label> <input id="itemTotal" type="text"
+										name="totalAmount" value="0" readonly><label>產品描述:</label>
+									<input type="text" name="description" value=""
+										placeholder="請填寫產品描述" required>
 
 									<div style="display: flex; justify-content: center">
 										<!--<a href="<c:url value='/halaservlet/addservlet'/>"><input type="button" value="確定"></a>
 							  -->
-										<br> <input type="submit" name="submit" id="submit" style="margin-right:10px"
-											value="儲存" /> <input type="reset" name="cancel" id="cancel"
-											value="重填">
+										<br> <input type="submit" name="submit" id="submit"
+											style="margin-right: 10px" value="儲存" /> <input type="reset"
+											name="cancel" id="cancel" value="重填">
 									</div>
-									<div style="display: flex; justify-content: center" >
-										<a href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">
+									<div style="display: flex; justify-content: center">
+										<a href="<c:url value='/_04_shoppingCart/SelectAll.do' />">
 											返回<i class="fa-solid fa-left-long"></i>
 										</a>
 									</div>
@@ -135,11 +139,15 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						</h2>
 					</header>
 					<ul>
-						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
-						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
-								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
-								class="fa-solid fa-users-viewfinder"></i></a></li>
+						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i
+								class="fa-solid fa-house"></i></a></li>
+						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理
+								<i class="fa-solid fa-gears"></i>
+						</a></li>
+						<li><a
+							href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料
+								<i class="fa-solid fa-users-viewfinder"></i>
+						</a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>
 							<ul>
@@ -149,14 +157,16 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/web/searchingProd'/>">商品資料 <i
 								class="fa-solid fa-store"></i></a></li>
 						<li><a
-							href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">訂單資料
+							href="<c:url value='/_04_shoppingCart/SelectAll.do' />">訂單資料
 								<i class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>

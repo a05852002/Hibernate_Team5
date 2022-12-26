@@ -23,18 +23,27 @@ public class OrderItemService {
 	}
 
 //刪除---------------------
-	// 透過orderNo刪除
-	public boolean deleteOrderNo(Integer orderNo, Integer seqno) {
-		return orderItemDao.deleteOrderNo(orderNo, seqno);
-	}
+	//透過orderNo刪除
+			public boolean deleteOrderItem(Integer orderNo,Integer seqno) {
+				return orderItemDao.deleteOrderItem(orderNo, seqno);
+			}
 
 //查詢---------------------
 	// 搜尋全部訂單明細資料
 	public Set<OrderItemBean> selectAllOrdItem(Integer orderNo) {
 		return orderItemDao.selectAllOrdItem(orderNo);
 	}
-	
+
 	public List<OrderItemBean> searchOrderItemByOrderNo(Integer orderNo) {
 		return orderItemDao.searchOrderItemByOrderNo(orderNo);
+	}
+
+	// 搜尋orderNo
+	public OrderItemBean selectOneOrdItem(Integer orderNo) {
+		return orderItemDao.selectOneOrdItem(orderNo);
+	}
+	
+	public List<OrderItemBean> selectOrdbySeq(Integer seqno) {
+		return orderItemDao.selectOrdbySeq(seqno);
 	}
 }

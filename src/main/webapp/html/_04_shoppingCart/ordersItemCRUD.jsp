@@ -74,7 +74,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<table class="alt">
 							<thead>
 								<tr>
-									<th width=60px>訂單</th>
+<!-- 									<th width=60px>訂單</th> -->
 									<th width=60px>序號</th>
 									<th width=80px>商品編號</th>
 									<th width=80px>商品名稱</th>
@@ -91,7 +91,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 							<c:forEach var="bean" items="${classList}">
 								<tbody>
 									<tr>
-										<td>${bean.orderbean}</td>
+<%-- 										<td>${bean.orderbean}</td> --%>
 										<td>${bean.seqno}</td>
 										<td>${bean.prodId}</td>
 										<td>${bean.prodName}</td>
@@ -107,13 +107,13 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 												</button>
 											</form></td>
 										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/OrderItemDelete.do' />">
+												action="<c:url value='/_04_shoppingCart/DeleteOrderItem.do' />">
 												<button name="seqno" value="${bean.seqno}">
 													<i class="fa-solid fa-xmark"></i>
 												</button>
 											</form></td>
 										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/OrderItemInsertFirst.do' />">
+												action="<c:url value='/_04_shoppingCart/InsertOrderItem.do' />">
 												<button name="orderbean" value="${bean.orderbean}">
 													<i class="fa-solid fa-square-plus"></i>
 												</button>
@@ -123,7 +123,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 							</c:forEach>
 						</table>
 						<div style="display: flex; justify-content: center">
-							<a href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">
+							<a href="<c:url value='/_04_shoppingCart/SelectAll.do' />">
 								返回<i class="fa-solid fa-left-long"></i>
 							</a>
 						</div>
@@ -163,7 +163,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/web/searchingProd'/>">商品資料 <i
 								class="fa-solid fa-store"></i></a></li>
 						<li><a
-							href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">訂單資料
+							href="<c:url value='/_04_shoppingCart/SelectAll.do' />">訂單資料
 								<i class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 						<li><span class="opener">老師學生資料 <i

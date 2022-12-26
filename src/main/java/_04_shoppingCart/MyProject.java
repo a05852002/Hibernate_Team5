@@ -30,21 +30,25 @@ public class MyProject {
 //			OrderDao orderDao = new OrderDao(session);
 //			OrderService orderService = new OrderService(session);
 //			OrderBean order = orderService.insertOrder("333", "台北");
-////			OrderBean order = new OrderBean();
-////			OrderBean order = session.get(OrderBean.class, 15);
-////			System.out.println(order.toString());
+//			OrderBean order = new OrderBean();
+//			OrderBean order = session.get(OrderBean.class, 6);
+//////			System.out.println(order.toString());
 //			OrderItemDao orderItemDao = new OrderItemDao(session);
 //			OrderItemBean ordItem = orderItemDao.insertOrder("123545", "讚讚", 1, 200,1.0, "無");
 //			ordItem.setOrderbean(order);
-////			
+//////			
 //			Set<OrderItemBean> orderItemBean = new LinkedHashSet<OrderItemBean>();
 //			orderItemBean.add(ordItem);
 //			order.setItems(orderItemBean);
 //			session.save(order);
 			
-//			OrderItemService orderItemService = new OrderItemService(session);
-//			Set<OrderItemBean> selectAllOrdItem = orderItemService.selectAllOrdItem(6);
-//			System.out.println(selectAllOrdItem);
+			OrderItemService orderItemService = new OrderItemService(session);
+//			List<OrderItemBean> selectOrdbySeq = orderItemService.selectOrdbySeq(3);
+			Set<OrderItemBean> selectAllOrdItem = orderItemService.selectAllOrdItem(6);
+			System.out.println(selectAllOrdItem);
+			
+//			boolean deleteOrderItem = orderItemService.deleteOrderItem(6, 1);
+//			System.out.println(deleteOrderItem);
 //		
 
 //			OrderBean findByOrderNo = orderDao.findByOrderNo(1);
