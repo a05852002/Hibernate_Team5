@@ -5,6 +5,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 
+
 @WebListener
 public class SessionFactoryListener implements ServletContextListener {
   
@@ -21,6 +22,7 @@ public class SessionFactoryListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce)  { 
         HibernateUtil.getSessionFactory();
         System.out.println("Create SessionFactory!!!");
+
     }
 	
 }
