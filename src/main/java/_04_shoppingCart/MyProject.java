@@ -34,7 +34,7 @@ public class MyProject {
 			
 //			OrderBean order = session.get(OrderBean.class, 4);
 			OrderItemDao orderItemDao = new OrderItemDao(session);
-			OrderItemBean ordItem = orderItemDao.insertOrder(1,"123545", "讚讚", 1, 200,1.0, "無");
+			OrderItemBean ordItem = orderItemDao.insertOrder(4,"123545", "讚讚", 1, 200,1.0, "無");
 			System.out.println(ordItem);
 //			ordItem.setOrderbean(order);
 ////			

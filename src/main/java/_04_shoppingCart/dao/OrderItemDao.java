@@ -89,7 +89,7 @@ public class OrderItemDao {
 	// 透過訂單編號修改訂單資料
 	public OrderItemBean updateOrder(Integer orderNo, Integer seqno, Integer qty, Integer prodPrice, Double discount,
 			String remark) {
-		String hql = "update OrderItemBean set qty=?1,prodPrice=?2 ,discount=?3, remark=?4,itemTotal=qty*prodPrice*discount where orderNo = ?5 and seqno=?6";
+		String hql = "update OrderItemBean set qty=?1,prodPrice=?2 ,discount=?3,itemTotal=?4, remark=?5 where orderNo = ?6 and seqno=?7";
 
 		OrderBean orderBean = session.get(OrderBean.class, orderNo);
 		Set<OrderItemBean> items = orderBean.getItems();
@@ -104,11 +104,13 @@ public class OrderItemDao {
 				// 原本的資料金額
 				Integer itemTotal = ordItem.getItemTotal();
 				Integer totalAmount = orderBean.getTotalAmount();
+				Integer itemTotal2 =  Integer
+						.parseInt(String.valueOf(Math.round(qty*prodPrice*discount)));
 
 				// 更新資料
 				session.createQuery(hql) // 更新不用資料型別,select回傳才需要
-						.setParameter(1, qty).setParameter(2, prodPrice).setParameter(3, discount)
-						.setParameter(4, remark).setParameter(5, orderNo).setParameter(6, seqno).executeUpdate();
+						.setParameter(1, qty).setParameter(2, prodPrice).setParameter(3, discount).setParameter(4, itemTotal2)
+						.setParameter(5, remark).setParameter(6, orderNo).setParameter(7, seqno).executeUpdate();
 
 				// 更新訂單的總金額與時間
 				orderBean.setTotalAmount(Integer

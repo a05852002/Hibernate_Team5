@@ -87,12 +87,13 @@ public class OrderDao {
 		return resultList;
 	}
 
+
 	// 模糊搜尋全部
 	public List<OrderBean> searchAllorders(String searchAll) {
 		String hql = "from OrderBean o where o.orderNo like '%" + searchAll + "%' or o.memberId like :memberId or o.shippingAddress like :shippingAddress";
-		Query<OrderBean> query = session.createQuery(hql, OrderBean.class).setParameter("memberId",
-				"%" + searchAll + "%").setParameter("shippingAddress",
-						"%" + searchAll + "%");
+		Query<OrderBean> query = session.createQuery(hql, OrderBean.class)
+				.setParameter("memberId","%" + searchAll + "%")
+				.setParameter("shippingAddress","%" + searchAll + "%");
 		List<OrderBean> resultList = query.getResultList();
 
 		if (resultList.size() > 0) {
@@ -134,21 +135,5 @@ public class OrderDao {
 			HibernateUtil.closeSessionFactory();
 		}
 	}
-
-//	//修改-------------------------
-////	修改
-//	public void updateOrderFromOrderNo(Integer orderNo,String memberId, Date upOrderDate,String shippingAddress, Double totalAmount) throws SQLException {
-//		String sql = "update orders set memberId=?,orderDate=?,upOrderDate=?,shippingAddress=?,totalAmount=? where orderNo= ?";
-//		String sql1 = "select * from orders where orderNo=?";
-//		OrderBean o = queryRunner.query(sql1, new BeanHandler<OrderBean>(OrderBean.class),orderNo);
-//		Date orderDate = o.getOrderDate();
-//		Object[] params = { memberId,orderDate, upOrderDate, shippingAddress, totalAmount,orderNo };
-//		int row = queryRunner.update(sql,params);
-//		if (row > 0) {
-//			System.out.println("已成功修改了" + row + "筆資料");
-//			System.out.printf("產品編號 :\" %d \"的修改結果為 : %s", orderNo, o);
-//		}
-//
-//	}
 
 }
