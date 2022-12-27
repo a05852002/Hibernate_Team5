@@ -18,11 +18,7 @@ String basePathimg = request.getScheme() + "://" + request.getServerName() + ":"
 String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
 		+ "/html/images/meatball-200.png";
 %>
-<!-- 引入共同的頁首 -->
-<%-- <%@ include file="/html/backMVC.jsp" %> --%>
-<%-- <jsp:include page="/html/backMVC.jsp" flush="true" /> --%>
-<!-- <meta charset="UTF-8"> -->
-<!-- <title>Insert title here</title> -->
+
 <title>肉丸家教網 MEET BOTH</title>
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -38,6 +34,11 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="shortcut icon" href="<%=basePathimg%>" />
 <link rel="bookmark" href="<%=basePathimg%>" />
 <link rel="stylesheet" href="<%=basePath%>" />
+<!-- DataTable css -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+ <!-- DataTable js --> 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+
 </head>
 <body class="is-preload">
 	<!-- Wrapper -->
@@ -50,86 +51,84 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<h1 class="logo">
 						<strong>管理者介面</strong>
 					</h1>
-
 				</header>
 
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h2 style="margin: 0; float: left">訂單項目-編輯</h2>
-							
-
+						<h2 style="margin: 0; float: left">訂單管理CRUD　</h2>
+						<form method="post"
+							action="<c:url value='/html/_04_shoppingCart/orderInsert.jsp' />">
+							<button name="orderNo" value="${bean.orderNo}">
+								<i class="fa-solid fa-square-plus"></i>
+							</button>
+						</form>
 					</header>
 					<!-- Search -->
-					<!-- 					<section id="search" class="alt"> -->
-					<!-- 						<form method="post" -->
-					<%-- 							action="<c:url value='/_04_ShoppingCart/searchOrderServlet.do' />"> --%>
-					<!-- 							<input type="text" name="search" id="search" placeholder="Search" /> -->
-					<!-- 						</form> -->
-					<!-- 					</section> -->
-				</section>
+					<section id="search" class="alt">
+						<form method="post"
+							action="<c:url value='/_04_shoppingCart/searchOrderServlet.do' />">
+							<input type="text" name="search" id="search" placeholder="Search" />
+						</form>
+					</section>
 
 					<!-- Table -->
 					<div class="table-wrapper">
 						<table class="alt">
 							<thead>
 								<tr>
-									<th width=60px>訂單</th>
-									<th width=60px>序號</th>
-									<th width=80px>商品編號</th>
-									<th width=80px>商品名稱</th>
-									<th>商品描述</th>
-									<th width=80px>數量</th>
-									<th width=80px>單價</th>
-									<th width=80px>總計</th>
+									<th width=100px>訂單編號</th>
+									<th width=100px>會員編號</th>
+									<th width=120px>訂單日期</th>
+									<th width=120px>更新日期</th>
+									<th>訂單地址</th>
+									<th>訂單狀態</th>
+									<th>付款狀態</th>
+									<th>送貨狀態 </th>
+									<th width=80px>總金額</th>
 									<th width=80px>編輯</th>
-									<th width=80px>刪除</th>
 									<th width=80px>新增</th>
+									<th width=80px>刪除</th>
 								</tr>
 							</thead>
 							<c:forEach var="bean" items="${classList}">
 								<tbody>
 									<tr>
 										<td>${bean.orderNo}</td>
-										<td>${bean.seqno}</td>
-										<td>${bean.productId}</td>
-										<td>${bean.productName}</td>
-										<td>${bean.description}</td>
-										<td>${bean.qty}</td>
-										<td>${bean.unitPrice}</td>
-										<td>${bean.itemTotal}</td>
+										<td>${bean.memberId}</td>
+										<td>${bean.orderDate}</td>
+										<td>${bean.upOrderDate}</td>
+										<td>${bean.shippingAddress}</td>
+										<td>${bean.ordStstus}</td>
+										<td>${bean.paymentStstus}</td>
+										<td>${bean.deliveryStstus}</td>
+										<td>${bean.totalAmount}</td>
 										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/searchItem.do' />">
-												<button name="seqno" value="${bean.seqno}">
+												action="<c:url value='/_04_shoppingCart/SearchOrder.do' />">
+												<button name="orderNo" value="${bean.orderNo}">
 													<i class="fa-solid fa-pen-to-square"></i>
 												</button>
 											</form></td>
 										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/OrderItemDelete.do' />">
-												<button name="seqno" value="${bean.seqno}">
-													<i class="fa-solid fa-xmark"></i>
+												action="<c:url value='/_04_shoppingCart/SelectAllOrdItem.do' />">
+												<button name="orderNo" value="${bean.orderNo}">
+													<i class="fa-solid fa-file-pen"></i>
 												</button>
 											</form></td>
 										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/OrderItemInsertFirst.do' />">
+												action="<c:url value='/_04_shoppingCart/DeleteOrder.do' />">
 												<button name="orderNo" value="${bean.orderNo}">
-													<i class="fa-solid fa-square-plus"></i>
+													<i class="fa-solid fa-xmark"></i>
 												</button>
 											</form></td>
 									</tr>
 								</tbody>
 							</c:forEach>
 						</table>
-						<div style="display: flex; justify-content: center">
-							<a href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">
-								返回<i class="fa-solid fa-left-long"></i>
-							</a>
-						</div>
-
-
-
+						<div style="display:flex;justify-content:center"><a href="../html/backIndex.jsp">
+								返回<i class="fa-solid fa-left-long"></i></a></div>
 					</div>
-				
+				</section>
 			</div>
 		</div>
 
@@ -161,7 +160,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/web/searchingProd'/>">商品資料 <i
 								class="fa-solid fa-store"></i></a></li>
 						<li><a
-							href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">訂單資料
+							href="<c:url value='/_04_shoppingCart/SelectAll.do' />">訂單資料
 								<i class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 						<li><span class="opener">老師學生資料 <i

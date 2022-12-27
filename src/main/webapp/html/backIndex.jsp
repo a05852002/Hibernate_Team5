@@ -120,7 +120,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/web/searchingProd'/>">商品資料 <i
 								class="fa-solid fa-store"></i></a></li>
 						<li><a
-							href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">訂單資料
+							href="<c:url value='/_04_shoppingCart/SelectAll.do' />">訂單資料
 								<i class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 						<li><span class="opener">老師學生資料 <i

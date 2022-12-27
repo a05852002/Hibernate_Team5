@@ -38,11 +38,6 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="shortcut icon" href="<%=basePathimg%>" />
 <link rel="bookmark" href="<%=basePathimg%>" />
 <link rel="stylesheet" href="<%=basePath%>" />
-<script type="text/javascript">
-	function itemTotalChange() {
-		itemTotal.value=qty.value*unitPrice.value;
-	}
-</script>
 </head>
 <body class="is-preload">
 	<!-- Wrapper -->
@@ -55,114 +50,88 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<h1 class="logo">
 						<strong>管理者介面</strong>
 					</h1>
-				</header>
 
+				</header>
 
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h2>訂單管理CRUD</h2>
+						<h2 style="margin: 0; float: left">訂單項目-編輯</h2>
+							
+
 					</header>
-					
 					<!-- Search -->
-<!-- 					<section id="search" class="alt"> -->
-<!-- 						<form method="post" action="#"> -->
-<!-- 							<input type="text" name="query" id="query" placeholder="Search" /> -->
-<!-- 						</form> -->
-<!-- 					</section> -->
-					
-					
-					
+					<!-- 					<section id="search" class="alt"> -->
+					<!-- 						<form method="post" -->
+					<%-- 							action="<c:url value='/_04_ShoppingCart/searchOrderServlet.do' />"> --%>
+					<!-- 							<input type="text" name="search" id="search" placeholder="Search" /> -->
+					<!-- 						</form> -->
+					<!-- 					</section> -->
+				</section>
+
 					<!-- Table -->
 					<div class="table-wrapper">
-						<div id='main'>
-							<form method="POST"
-								action="<c:url value='/_04_ShoppingCart/OrderItemUpdate.do' />">
-								<Table>
-									<c:forEach var="bean" items="${classList}">
-										<tr height="30">
-											<td style="width: 120px;"><label class="fontSize">訂單編號：</label><br>&nbsp;
-											</td>
-											<td style="width: 300px;"><input type='text'
-												readonly="readonly" name='orderNo' value="${bean.orderNo}"
-												class="fieldWidth" style="width: 200px;" readonly /><br>&nbsp;
-												<font color="red" size="-1">${MsgMap.errorIdEmpty}${MsgMap.errorIdDup}</font></td>
-											<td style="width: 120px;"><label class="fontSize">項目序號：</label><br>&nbsp;</td>
-											<td><input type='text' name='seqno'
-												value="${bean.seqno}" class="fieldWidth"
-												style="width: 200px;" readonly /><br>&nbsp; <font
-												color="red" size="-1">${MsgMap.errorName}</font></td>
-										</tr>
-										<tr height="30">
-											<td style="width: 120px;"><label class="fontSize">產品編號：</label><br>&nbsp;
-											</td>
-											<td style="width: 300px;"><input type='text'
-												readonly="readonly" name='productId'
-												value="${bean.productId}" class="fieldWidth"
-												style="width: 200px;" /><br>&nbsp; <font color="red"
-												size="-1">${MsgMap.errorIdEmpty}${MsgMap.errorIdDup}</font></td>
-											<td style="width: 120px;"><label class="fontSize">產品名稱：</label><br>&nbsp;</td>
-											<td><input type='text' name='productName'
-												value="${bean.productName}" class="fieldWidth"
-												style="width: 200px;" readonly /><br>&nbsp; <font
-												color="red" size="-1">${MsgMap.errorName}</font></td>
-										</tr>
-										<tr height="30">
-											<td><label class="fontSize">產品描述：</label><br>&nbsp;</td>
-											<td colspan='3'><input type='text' name='description'
-												value="${bean.description}" class="fieldWidth"
-												style="width: 800px;" /><br>&nbsp; <font color="red"
-												size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
-											</td>
-										</tr>
-										<tr height="30">
-											<td><label class="fontSize">訂購數量：</label><br>&nbsp;</td>
-											<td><input id="qty" onblur="itemTotalChange()" type='number' name='qty'
-												value="${bean.qty}" class="fieldWidth" style="width: 200px;" /><br>&nbsp;
-												<font color="red" size="-1">${MsgMap.errorAddr}</font></td>
-											<td><label class="fontSize">產品單價：</label><br>&nbsp;</td>
-											<td><input id="unitPrice" onblur="itemTotalChange()" type='number' name='unitPrice'
-												value="${bean.unitPrice}" class="fieldWidth"
-												style="width: 200px;" /><br>&nbsp; <font color="red"
-												size="-1">${MsgMap.errorTel}</font></td>
-
-										</tr>
-
-										<tr>
-											<td><label class="fontSize">價格小計：</label><br>&nbsp;</td>
-											<td colspan='3'><input id="itemTotal"   type='text'
-												name='itemTotal' value="${bean.itemTotal}"
-												class="fieldWidth" style="width: 200px;" readonly /><br>&nbsp;
-												<font color="red" size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
-											</td>
-										</tr>
-										<tr height="30">
-											<td colspan='4'>
-												<div id="btnArea" align="center">
-													<input type="submit" name="submit" id="submit" value="儲存" />
-													<input type="reset" name="cancel" id="cancel" value="重填">
-												</div>
-											</td>
-										</tr>
-									</c:forEach>
-								</Table>
-								<div style="display: flex; justify-content: center">
-									<a href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">
-										返回<i class="fa-solid fa-left-long"></i>
-									</a>
-								</div>
-							</form>
-
+						<table class="alt">
+							<thead>
+								<tr>
+									<th width=60px>訂單</th>
+									<th width=60px>序號</th>
+									<th width=80px>商品編號</th>
+									<th width=80px>商品名稱</th>
+									<th width=80px>數量</th>
+									<th width=80px>單價</th>
+									<th width=80px>折扣</th>
+									<th width=80px>總計</th>
+									<th>備註</th>
+									<th width=80px>編輯</th>
+									<th width=80px>刪除</th>
+									<th width=80px>新增</th>
+								</tr>
+							</thead>
+							<c:forEach var="bean" items="${classList}">
+								<tbody>
+									<tr>
+										<td>${bean.orderNo}</td>
+										<td>${bean.seqno}</td>
+										<td>${bean.prodId}</td>
+										<td>${bean.prodName}</td>
+										<td>${bean.qty}</td>
+										<td>${bean.prodPrice}</td>
+										<td>${bean.discount}</td>
+										<td>${bean.itemTotal}</td>
+										<td>${bean.remark}</td>
+										<td><form method="post"
+												action="<c:url value='/_04_shoppingCart/searchItem.do' />">
+												<button name="seqno" value="${bean.seqno}">
+													<i class="fa-solid fa-pen-to-square"></i>
+												</button>
+											</form></td>
+										<td><form method="post"
+												action="<c:url value='/_04_shoppingCart/DeleteOrderItem.do' />">
+												<button name="seqno" value="${bean.seqno}">
+													<i class="fa-solid fa-xmark"></i>
+												</button>
+											</form></td>
+										<td><form method="post"
+												action="<c:url value='/_04_shoppingCart/InsertOrderItem.do' />">
+												<button name="orderNo" value="${bean.orderNo}">
+													<i class="fa-solid fa-square-plus"></i>
+												</button>
+											</form></td>
+									</tr>
+								</tbody>
+							</c:forEach>
+						</table>
+						<div style="display: flex; justify-content: center">
+							<a href="<c:url value='/_04_shoppingCart/SelectAll.do' />">
+								返回<i class="fa-solid fa-left-long"></i>
+							</a>
 						</div>
-					</div>
 
-					<!-- 				<form method="post" -->
-					<%-- 					action="<c:url value='/_04_ShoppingCart/OrderUpdate.do' />"> --%>
-					<%-- 					<button name="orderNo" value="${bean.orderNo}"> --%>
-					<!-- 						<i class="fa-solid fa-xmark"></i> -->
-					<!-- 					</button> -->
-					<!-- 				</form> -->
-				</section>
+
+
+					</div>
+				
 			</div>
 		</div>
 
@@ -170,12 +139,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 		<div id="sidebar">
 			<div class="inner">
 
-				<!-- Search -->
-				<!-- 				<section id="search" class="alt"> -->
-				<!-- 					<form method="post" action="#"> -->
-				<!-- 						<input type="text" name="query" id="query" placeholder="Search" /> -->
-				<!-- 					</form> -->
-				<!-- 				</section> -->
+
 
 				<!-- Menu -->
 				<nav id="menu">
@@ -199,7 +163,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/web/searchingProd'/>">商品資料 <i
 								class="fa-solid fa-store"></i></a></li>
 						<li><a
-							href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">訂單資料
+							href="<c:url value='/_04_shoppingCart/SelectAll.do' />">訂單資料
 								<i class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 						<li><span class="opener">老師學生資料 <i
@@ -281,3 +245,26 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 		crossorigin="anonymous"></script>
 </body>
 </html>
+<!--      <td> -->
+<%--                      <Form  action="<c:url value='/Servlet/searchAllTeacServlet' />"  --%>
+<!--                             method="POST"> -->
+<!--                                 教師貼文數量: -->
+<!--                         <select name='qty'> -->
+<!--                            <option value="1">1</option> -->
+<!--                            <option value="2">2</option> -->
+<!--                            <option value="3">3</option> -->
+<!--                            <option value="4">4</option> -->
+<!--                            <option value="5">5</option> -->
+<!--                            <option value="6">6</option> -->
+<!--                            <option value="7">7</option> -->
+<!--                            <option value="8">8</option> -->
+<!--                            <option value="9">9</option> -->
+<!--                            <option value="10">10</option> -->
+<!--                        </select> -->
+<!--                        這些隱藏欄位都會送到後端 -->
+<%--                        <Input type='hidden' name='bookId' value='${entry.value.bookId}'> --%>
+<%--                        <Input type='hidden' name='pageNo' value='${param.pageNo}'> --%>
+<!--                        <label><i class="fa-solid fa-cart-shopping"></i><Input type='submit' value='加入購物車'> -->
+<!--                        </label> -->
+<!--                      </Form> -->
+<!--     </td> -->

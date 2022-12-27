@@ -18,6 +18,7 @@ String basePathimg = request.getScheme() + "://" + request.getServerName() + ":"
 String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
 		+ "/html/images/meatball-200.png";
 %>
+
 <!-- 引入共同的頁首 -->
 <%-- <%@ include file="/html/backMVC.jsp" %> --%>
 <%-- <jsp:include page="/html/backMVC.jsp" flush="true" /> --%>
@@ -38,6 +39,11 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="shortcut icon" href="<%=basePathimg%>" />
 <link rel="bookmark" href="<%=basePathimg%>" />
 <link rel="stylesheet" href="<%=basePath%>" />
+<script type="text/javascript">
+	function itemTotalChange() {
+		itemTotal.value = qty.value * prodPrice.value;
+	}
+</script>
 </head>
 <body class="is-preload">
 	<!-- Wrapper -->
@@ -52,75 +58,64 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					</h1>
 				</header>
 
+
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h2 style="margin: 0; float: left">訂單管理CRUD　</h2>
-						<form method="post"
-							action="<c:url value='/html/order/orderInsert.jsp' />">
-							<button name="orderNo" value="${bean.orderNo}">
-								<i class="fa-solid fa-square-plus"></i>
-							</button>
-						</form>
+						<h2>訂單項目-新增</h2>
 					</header>
 					<!-- Search -->
-					<section id="search" class="alt">
-						<form method="post"
-							action="<c:url value='/_04_ShoppingCart/searchOrderServlet.do' />">
-							<input type="text" name="search" id="search" placeholder="Search" />
-						</form>
-					</section>
-
+					<!-- 					<section id="search" class="alt"> -->
+					<!-- 						<form method="post" action="#"> -->
+					<!-- 							<input type="text" name="query" id="query" placeholder="Search" /> -->
+					<!-- 						</form> -->
+					<!-- 					</section> -->
 					<!-- Table -->
 					<div class="table-wrapper">
-						<table class="alt">
-							<thead>
-								<tr>
-									<th width=100px>訂單編號</th>
-									<th width=100px>會員編號</th>
-									<th width=120px>訂單日期</th>
-									<th width=120px>更新日期</th>
-									<th>訂單地址</th>
-									<th width=80px>總金額</th>
-									<th width=80px>編輯</th>
-									<th width=80px>新增</th>
-									<th width=80px>刪除</th>
-								</tr>
-							</thead>
+						<div id='main'>
 							<c:forEach var="bean" items="${classList}">
-								<tbody>
-									<tr>
-										<td>${bean.orderNo}</td>
-										<td>${bean.memberId}</td>
-										<td>${bean.orderDate}</td>
-										<td>${bean.upOrderDate}</td>
-										<td>${bean.shippingAddress}</td>
-										<td>${bean.totalAmount}</td>
-										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/searchServlet.do' />">
-												<button name="orderNo" value="${bean.orderNo}">
-													<i class="fa-solid fa-pen-to-square"></i>
-												</button>
-											</form></td>
-										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/searchItemServlet.do' />">
-												<button name="orderNo" value="${bean.orderNo}">
-													<i class="fa-solid fa-file-pen"></i>
-												</button>
-											</form></td>
-										<td><form method="post"
-												action="<c:url value='/_04_ShoppingCart/OrderDelete.do' />">
-												<button name="orderNo" value="${bean.orderNo}">
-													<i class="fa-solid fa-xmark"></i>
-												</button>
-											</form></td>
-									</tr>
-								</tbody>
+								<form method="post"
+									action="<c:url value='/_04_shoppingCart/InsertOrderItemCheck.do'/>" >
+									<label>訂單編號:</label> <input type="text" name="orderNo"
+										value="${bean.orderNo}" readonly> <label>產品編號:</label>
+									<input type="text" name="prodId" value=""
+										placeholder="請填寫編號" required> <label>產品名稱:</label> <input
+										type="text" name="prodName" value="" placeholder="請填寫產品名稱"
+										required> <label>數量:</label> <input id="qty"
+										onblur="itemTotalChange()" type="number" name="qty" value=""
+										placeholder="請輸入數量"> <label>單價:</label> <input
+										id="prodPrice" onblur="itemTotalChange()" type="number"
+										name="prodPrice" value="" placeholder="請填寫金額單價" required>
+									<label>優惠折扣</label> <input id="discount" type="text"
+										name="discount" value="1" readonly>
+									<label>總金額</label> <input id="itemTotal" type="text"
+										name="totalAmount" value="0" readonly><label>備註:</label>
+									<input type="text" name="remark" value=""
+										placeholder="請填寫產品描述" >
+
+									<div style="display: flex; justify-content: center">
+										<!--<a href="<c:url value='/halaservlet/addservlet'/>"><input type="button" value="確定"></a>
+							  -->
+										<br> <input type="submit" name="submit" id="submit"
+											style="margin-right: 10px" value="儲存" /> <input type="reset"
+											name="cancel" id="cancel" value="重填">
+									</div>
+									<div style="display: flex; justify-content: center">
+										<a href="<c:url value='/_04_shoppingCart/SelectAll.do' />">
+											返回<i class="fa-solid fa-left-long"></i>
+										</a>
+									</div>
+								</form>
 							</c:forEach>
-						</table>
-						<div style="display:flex;justify-content:center"><a href="../html/backIndex.jsp">
-								返回<i class="fa-solid fa-left-long"></i></a></div>
+						</div>
 					</div>
+
+					<!-- 				<form method="post" -->
+					<%-- 					action="<c:url value='/_04_ShoppingCart/OrderUpdate.do' />"> --%>
+					<%-- 					<button name="orderNo" value="${bean.orderNo}"> --%>
+					<!-- 						<i class="fa-solid fa-xmark"></i> -->
+					<!-- 					</button> -->
+					<!-- 				</form> -->
 				</section>
 			</div>
 		</div>
@@ -129,7 +124,12 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 		<div id="sidebar">
 			<div class="inner">
 
-
+				<!-- Search -->
+				<!-- 				<section id="search" class="alt"> -->
+				<!-- 					<form method="post" action="#"> -->
+				<!-- 						<input type="text" name="query" id="query" placeholder="Search" /> -->
+				<!-- 					</form> -->
+				<!-- 				</section> -->
 
 				<!-- Menu -->
 				<nav id="menu">
@@ -139,11 +139,15 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						</h2>
 					</header>
 					<ul>
-						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
-						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
-								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
-								class="fa-solid fa-users-viewfinder"></i></a></li>
+						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i
+								class="fa-solid fa-house"></i></a></li>
+						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理
+								<i class="fa-solid fa-gears"></i>
+						</a></li>
+						<li><a
+							href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料
+								<i class="fa-solid fa-users-viewfinder"></i>
+						</a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>
 							<ul>
@@ -153,14 +157,16 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/web/searchingProd'/>">商品資料 <i
 								class="fa-solid fa-store"></i></a></li>
 						<li><a
-							href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">訂單資料
+							href="<c:url value='/_04_shoppingCart/SelectAll.do' />">訂單資料
 								<i class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
@@ -235,26 +241,3 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 		crossorigin="anonymous"></script>
 </body>
 </html>
-<!--      <td> -->
-<%--                      <Form  action="<c:url value='/Servlet/searchAllTeacServlet' />"  --%>
-<!--                             method="POST"> -->
-<!--                                 教師貼文數量: -->
-<!--                         <select name='qty'> -->
-<!--                            <option value="1">1</option> -->
-<!--                            <option value="2">2</option> -->
-<!--                            <option value="3">3</option> -->
-<!--                            <option value="4">4</option> -->
-<!--                            <option value="5">5</option> -->
-<!--                            <option value="6">6</option> -->
-<!--                            <option value="7">7</option> -->
-<!--                            <option value="8">8</option> -->
-<!--                            <option value="9">9</option> -->
-<!--                            <option value="10">10</option> -->
-<!--                        </select> -->
-<!--                        這些隱藏欄位都會送到後端 -->
-<%--                        <Input type='hidden' name='bookId' value='${entry.value.bookId}'> --%>
-<%--                        <Input type='hidden' name='pageNo' value='${param.pageNo}'> --%>
-<!--                        <label><i class="fa-solid fa-cart-shopping"></i><Input type='submit' value='加入購物車'> -->
-<!--                        </label> -->
-<!--                      </Form> -->
-<!--     </td> -->

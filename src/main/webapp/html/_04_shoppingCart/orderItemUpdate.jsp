@@ -40,7 +40,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="stylesheet" href="<%=basePath%>" />
 <script type="text/javascript">
 	function itemTotalChange() {
-		itemTotal.value=qty.value*unitPrice.value;
+		itemTotal.value = qty.value * prodPrice.value*discount.value;
 	}
 </script>
 </head>
@@ -61,39 +61,104 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h2>訂單管理-新增</h2>
+						<h2>訂單管理CRUD</h2>
 					</header>
+
 					<!-- Search -->
 					<!-- 					<section id="search" class="alt"> -->
 					<!-- 						<form method="post" action="#"> -->
 					<!-- 							<input type="text" name="query" id="query" placeholder="Search" /> -->
 					<!-- 						</form> -->
 					<!-- 					</section> -->
+
+
+
 					<!-- Table -->
 					<div class="table-wrapper">
 						<div id='main'>
-							<form action="<c:url value='/_04_ShoppingCart/OrderInsert.do'/>"
-								method="post">
-								<label>會員編號</label> <input type="text" name="memberId"
-									value="${bean.memberId}" placeholder="請填寫會員編號" required>
-								<label>地址</label> <input type="text" name="shippingAddress"
-									value="${bean.shippingAddress}" placeholder="請填寫收件地址" required>
-								<label>總金額</label> <input type="text" name="totalAmount"
-									value="0" placeholder="請填寫總金額" readonly>
+							<form method="POST"
+								action="<c:url value='/_04_shoppingCart/OrderItemUpdate.do' />">
+								<Table>
+									<c:forEach var="bean" items="${classList}">
+										<tr height="30">
+											<td style="width: 120px;"><label class="fontSize">訂單編號：</label><br>&nbsp;
+											</td>
+											<td style="width: 300px;"><input type='text'
+												readonly="readonly" name='orderNo' value="${bean.orderNo}"
+												class="fieldWidth" style="width: 200px;" readonly /><br>&nbsp;
+												<font color="red" size="-1">${MsgMap.errorIdEmpty}${MsgMap.errorIdDup}</font></td>
+											<td style="width: 120px;"><label class="fontSize">項目序號：</label><br>&nbsp;</td>
+											<td><input type='text' name='seqno'
+												value="${bean.seqno}" class="fieldWidth"
+												style="width: 200px;" readonly /><br>&nbsp; <font
+												color="red" size="-1">${MsgMap.errorName}</font></td>
+										</tr>
+										<tr height="30">
+											<td style="width: 120px;"><label class="fontSize">產品編號：</label><br>&nbsp;
+											</td>
+											<td style="width: 300px;"><input type='text'
+												readonly="readonly" name='prodId'
+												value="${bean.prodId}" class="fieldWidth"
+												style="width: 200px;" /><br>&nbsp; <font color="red"
+												size="-1">${MsgMap.errorIdEmpty}${MsgMap.errorIdDup}</font></td>
+											<td style="width: 120px;"><label class="fontSize">產品名稱：</label><br>&nbsp;</td>
+											<td><input type='text' name='prodName'
+												value="${bean.prodName}" class="fieldWidth"
+												style="width: 200px;" readonly /><br>&nbsp; <font
+												color="red" size="-1">${MsgMap.errorName}</font></td>
+										</tr>
+										<tr height="30">
+											<td><label class="fontSize">備註：</label><br>&nbsp;</td>
+											<td colspan='3'><input type='text' name='remark'
+												value="${bean.remark}" class="fieldWidth"
+												style="width: 800px;" /><br>&nbsp; <font color="red"
+												size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
+											</td>
+										</tr>
+										<tr height="30">
+											<td><label class="fontSize">訂購數量：</label><br>&nbsp;</td>
+											<td><input id="qty" onblur="itemTotalChange()"
+												type='number' name='qty' value="${bean.qty}"
+												class="fieldWidth" style="width: 200px;" /><br>&nbsp;
+												<font color="red" size="-1">${MsgMap.errorAddr}</font></td>
+											<td><label class="fontSize">產品單價：</label><br>&nbsp;</td>
+											<td><input id="prodPrice" onblur="itemTotalChange()"
+												type='number' name='prodPrice' value="${bean.prodPrice}"
+												class="fieldWidth" style="width: 200px;" /><br>&nbsp;
+												<font color="red" size="-1">${MsgMap.errorTel}</font></td>
 
+										</tr>
+
+										<tr>
+											<td><label class="fontSize">優惠折扣：</label><br>&nbsp;</td>
+											<td><input id="discount" onblur="itemTotalChange()"
+												type='text' name='discount' value="${bean.discount}"
+												class="fieldWidth" style="width: 200px;" /><br>&nbsp;
+												<font color="red" size="-1">${MsgMap.errorTel}</font></td>
+											<td><label class="fontSize">價格小計：</label><br>&nbsp;</td>
+											<td colspan='3'><input id="itemTotal" type='text'
+												name='itemTotal' value="${bean.itemTotal}"
+												class="fieldWidth" style="width: 200px;" readonly /><br>&nbsp;
+												<font color="red" size="-1">${MsgMap.errorPasswordEmpty}${MsgMap.passwordError}</font>
+											</td>
+										</tr>
+										<tr height="30">
+											<td colspan='4'>
+												<div id="btnArea" align="center">
+													<input type="submit" name="submit" id="submit" value="儲存" />
+													<input type="reset" name="cancel" id="cancel" value="重填">
+												</div>
+											</td>
+										</tr>
+									</c:forEach>
+								</Table>
 								<div style="display: flex; justify-content: center">
-									<!--<a href="<c:url value='/halaservlet/addservlet'/>"><input type="button" value="確定"></a>
-							  -->
-									<br> <input type="submit" name="submit" id="submit" style="margin-right:10px"
-										value="儲存" /> <input type="reset" name="cancel" id="cancel"
-										value="重填">
+									<a href="<c:url value='/_04_shoppingCart/SelectAll.do' />">
+										返回<i class="fa-solid fa-left-long"></i>
+									</a>
 								</div>
-								<div style="display: flex; justify-content: center" >
-										<a href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">
-											返回<i class="fa-solid fa-left-long"></i>
-										</a>
-									</div>
 							</form>
+
 						</div>
 					</div>
 
@@ -126,11 +191,15 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						</h2>
 					</header>
 					<ul>
-						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
-						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
-								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
-								class="fa-solid fa-users-viewfinder"></i></a></li>
+						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i
+								class="fa-solid fa-house"></i></a></li>
+						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理
+								<i class="fa-solid fa-gears"></i>
+						</a></li>
+						<li><a
+							href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料
+								<i class="fa-solid fa-users-viewfinder"></i>
+						</a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>
 							<ul>
@@ -140,14 +209,16 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/web/searchingProd'/>">商品資料 <i
 								class="fa-solid fa-store"></i></a></li>
 						<li><a
-							href="<c:url value='/_04_ShoppingCart/searchAllServlet' />">訂單資料
+							href="<c:url value='/_04_shoppingCart/SelectAll.do' />">訂單資料
 								<i class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
