@@ -105,7 +105,7 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 					</div>
 					<br>
 					<div>
-						<a href="<c:url value='/html/product/add.jsp'/>"> <input
+						<a href="<c:url value='/_03_product/addNewProduct.jsp'/>"> <input
 							type="button" value="新增商品">
 						</a>
 					</div>
@@ -129,7 +129,8 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 							<c:forEach var="bean" items="${allprodlist}">
 								<tbody>
 									<tr>
-										<td>${bean.prodClass}</td>
+										<td>${bean.prodtype.prodClass}</td>
+										<td>${bean.prodtype.prodClassName}</td>
 										<td>${bean.prodID}</td>
 										<td>${bean.prodName}</td>
 										<td>${bean.prodPrice}</td>

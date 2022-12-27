@@ -1,4 +1,4 @@
-package _02_product.model;
+package _03_product.model;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -25,9 +25,17 @@ public class ProdType {
 	@Column(name="prodClassName")
 	private String prodClassName;
 	
+
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "prodtype",cascade = CascadeType.ALL)
 	private Set<Product> product = new LinkedHashSet<Product>();
 	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "ProdType [prodClass=" + prodClass + ", prodClassName=" + prodClassName + "]";
+	}
 	public ProdType() {
 	}
 

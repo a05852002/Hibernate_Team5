@@ -23,7 +23,7 @@
         <property name="format_sql">true</property>
 		
 		<!-- hibernate 內建 連線池 -->
-		<property name="connection.pool_size">2</property>
+		<property name="connection.pool_size">100</property>
         
         <!-- setting auto generate table: update/validate  -->
 <!--         <property name="hbm2ddl.auto">update</property> -->
@@ -33,10 +33,12 @@
         
         <!--  class mapping -->
         <mapping class="tw.hibernatedemo.model.Department"/>
+        <mapping class="_06_halaandqa.HalaBean"/>
+        <mapping class="_06_halaandqa.QaBean"/>
         
-        <!-- class _02_product mapping 商品的bean -->
-        <mapping class="_02_product.model.ProdType"/>
-        <mapping class="_02_product.model.Product"/>
+        <!-- class _03_product mapping 商品的bean -->
+        <mapping class="_03_product.model.ProdType"/>
+        <mapping class="_03_product.model.Product"/>
         
         
         

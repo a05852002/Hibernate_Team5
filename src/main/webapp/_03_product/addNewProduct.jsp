@@ -62,14 +62,18 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 					<header class="main">
 						<h1>新增商品</h1>
 					</header>
-					<form action="<c:url value='/addProd' />" method="post"
-						enctype="multipart/form-data">
+					<form action="<c:url value='/_03_product/addNewProductServlet' />"
+						method="post" enctype="multipart/form-data">
 						<div class="table-wrapper">
 							<table>
 								<thead>
 									<tr>
-										<td><h3>商品類別名稱:</h3> <input type="text" name="pClass"
-											onkeyup="value=value.replace(/[^\d]/g,'') "></td>
+										<td>
+										<h3>商品類別:</h3><select name="pClass">
+												<option value="1">文具</option>
+												<option value="2">書籍資料</option>
+												<option value="3">線上課程</option>
+										</select></td>
 									</tr>
 									<tr>
 										<td><h3>商品名稱:</h3> <input type="text" name="pName"></td>
@@ -86,19 +90,12 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 										<td><h3>庫存:</h3> <input type="text" name="invt"
 											onkeyup="value=value.replace(/[^\d]/g,'') "></td>
 									</tr>
-									<!-- 									<tr> -->
-									<!-- 										<td><h3>上架日期:</h3> <input type="text" name="pPost"></td> -->
-									<!-- 									</tr> -->
-									<!-- 									<tr> -->
-									<!-- 										<td><h3>商品上次更新時間:</h3> <input type="text" name="pUpdate"></td> -->
-									<!-- 									</tr> -->
 									<tr>
 										<td><h3>商品照片:</h3> <input type="file" name="pPic"
 											id="images5278" style="width: 80%"></td>
 									</tr>
 									<tr>
-										<td><img id="preImg" style="width: 300px; height: 350px"
-											src="<c:url value='/Servlet/prodpicsave?id=${bean.prodID}' />" /></td>
+										<td><img id="preImg" style="width: 300px; height: 350px" /></td>
 									</tr>
 									<tr>
 										<td><input type="submit" value="確定新增"></td>
@@ -122,11 +119,15 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 					</header>
 
 					<ul>
-						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
-						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
-								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
-								class="fa-solid fa-users-viewfinder"></i></a></li>
+						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i
+								class="fa-solid fa-house"></i></a></li>
+						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理
+								<i class="fa-solid fa-gears"></i>
+						</a></li>
+						<li><a
+							href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料
+								<i class="fa-solid fa-users-viewfinder"></i>
+						</a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>
 							<ul>
@@ -142,8 +143,10 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>

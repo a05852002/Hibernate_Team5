@@ -73,7 +73,7 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 										</tr>
 										<tr>
 											<td><input name="prodClass" type="text"
-												value="${bean.prodClass}" style="width: 80%"
+												value="${bean.prodtype.prodClass}" style="width: 80%"
 												onkeyup="value=value.replace(/[^\d]/g,'') "></td>
 										</tr>
 										<tr>
@@ -172,11 +172,15 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 					</header>
 
 					<ul>
-						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
-						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
-								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
-								class="fa-solid fa-users-viewfinder"></i></a></li>
+						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i
+								class="fa-solid fa-house"></i></a></li>
+						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理
+								<i class="fa-solid fa-gears"></i>
+						</a></li>
+						<li><a
+							href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料
+								<i class="fa-solid fa-users-viewfinder"></i>
+						</a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>
 							<ul>
@@ -192,8 +196,10 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
@@ -278,6 +284,7 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 			    reader.readAsDataURL(input.files[0]);
 			  }
 			}
+			
 	</script>
 </body>
 </html>
