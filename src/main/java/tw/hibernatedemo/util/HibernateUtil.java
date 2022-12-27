@@ -10,12 +10,9 @@ public class HibernateUtil {
 	private static final SessionFactory factory = createSessionFactory();
 	
 	private static SessionFactory createSessionFactory() {
-		
 		StandardServiceRegistry service = new StandardServiceRegistryBuilder().configure().build();
 		SessionFactory factory = new MetadataSources(service).buildMetadata().buildSessionFactory();
-		
 		return factory;
-		
 	}
 	
 	public static SessionFactory getSessionFactory() {
@@ -23,7 +20,7 @@ public class HibernateUtil {
 	}
 	
 	public static void closeSessionFactory() {
-		if (factory != null) {
+		if(factory != null) {
 			factory.close();
 		}
 	}
