@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- <%  --%>
+<!-- // 	String redirect = request.getContextPath(); -->
+<!-- // 	String redirectPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + redirect -->
+<!-- // 		+ "/html/MeetBothMember/Login.jsp"; -->
+<!-- // 	UserLoginData user = (UserLoginData)session.getAttribute("user"); -->
+<!-- // 	if(user == null ) -->
+<!-- // 	{ -->
+<!-- // 	  response.sendRedirect(redirectPath); -->
+<!-- // 	return; -->
+<!-- // 	}  -->
+<%-- %> --%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
@@ -59,13 +70,13 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<header class="main">
 						<h3>會員管理列表</h3>
 						</header>
-						<form method="post" style="width:80%" action="<c:url value='/meetbothmember/SeachMem.do' />">
+						<form method="post" style="width:80%" action="<c:url value='/_01_member.do' />">
 						<input type="text" name="value" value="${value}" required>
 						<input type="submit" name="selectByAccount" value="以帳號查詢"/>
 						<input type="submit" name="selectByName" value="以姓名查詢"/>
 						</form>
 						
-						<form method="post" action="<c:url value='/meetbothmember/AdminMember.do' />">
+						<form method="post" action="<c:url value='/_01_member.do' />">
 						<button name="register">新增會員</button>
 						<button name="selectAll" value="getAllMember">取得所有會員資料</button>
 						</form>
@@ -105,8 +116,8 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
      										<td>${Member.phone}</td>
      										<td>${Member.address}</td>
      										<td>${Member.registime}</td>
-     										<td><form method="post" action="<c:url value='/meetbothmember/AdminMember.do' />"><button name="preupdate" value="${Member.memberID}"><i class="fa-solid fa-user"></i></button></form></td>
-     										<td><form method="post" action="<c:url value='/meetbothmember/AdminMember.do' />"><button name="delete" value="${Member.memberID}"><i class="fa-solid fa-xmark"></i></button></form></td>
+     										<td><form method="post" action="<c:url value='/_01_member.do' />"><button name="preupdate" value="${Member.memberID}"><i class="fa-solid fa-user"></i></button></form></td>
+     										<td><form method="post" action="<c:url value='/_01_member.do' />"><button name="delete" value="${Member.memberID}"><i class="fa-solid fa-xmark"></i></button></form></td>
 										</tr>
 									</tbody>
 									</c:forEach>
@@ -144,7 +155,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
 						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
 								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
+						<li><a href="<c:url value='/html/_01_member/admin.jsp' />">會員資料 <i
 								class="fa-solid fa-users-viewfinder"></i></a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>
