@@ -57,7 +57,7 @@ String basePath6 = request.getScheme() + "://" + request.getServerName() + ":" +
 %>
 <%
 String basePath7 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
-		+ "/html/hala/addqa.jsp";
+		+ "/html/_06_hala/addqa.jsp";
 %>
 <!-- 引入共同的頁首 -->
 <%-- <%@ include file="/html/backMVC.jsp" %> --%>
@@ -104,8 +104,8 @@ String basePath7 = request.getScheme() + "://" + request.getServerName() + ":" +
 					</header>
 					<header>
 						<h4>分類查詢</h4>
-						<form action="<c:url value='/findQAnameServlet'/>" method="post">
-							<select name="qaclassname" style="width: 40%">
+						<form action="<c:url value='/FindQaClassServlet'/>" method="post">
+							<select name="QaClassName" style="width: 40%">
 								<option value="系統問題">系統問題</option>
 								<option value="程式碼問題">程式碼問題</option>
 								<option value="JAVA問題">JAVA問題</option>
@@ -134,7 +134,7 @@ String basePath7 = request.getScheme() + "://" + request.getServerName() + ":" +
 							<c:forEach var="bean" items="${classList}">
 								<tbody>
 									<tr>
-										<td>${bean.qaID}</td>
+										<td>${bean.qaId}</td>
 										<td>${bean.qaClassName}</td>
 										<td>${bean.memberId}</td>
 										<td>${bean.title}</td>
@@ -142,13 +142,13 @@ String basePath7 = request.getScheme() + "://" + request.getServerName() + ":" +
 										<td>${bean.qaContent}</td>
 										<td>
 											<form method="post"
-												action="<c:url value='/saveqa?qaID=${bean.qaID}'/>">
+												action="<c:url value='/SaveQaServlet?qaId=${bean.qaId}'/>">
 												<input type="submit" value="修改">
 											</form>
 										</td>
 										<td><form method="post"
-												action="<c:url value='/deleteQaServlet'/>">
-												<button name="qaID" value="${bean.qaID}">刪除</button>
+												action="<c:url value='/DeleteQaServlet'/>">
+												<button name="qaId" value="${bean.qaId}">刪除</button>
 											</form></td>
 									</tr>
 								</tbody>
@@ -205,8 +205,8 @@ String basePath7 = request.getScheme() + "://" + request.getServerName() + ":" +
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
 							<ul>
-								<li><a href="<c:url value='/halaservlet/crudservlet' />">討論公告區</a></li>
-								<li><a href="<c:url value='/qaservlet/qacrud' />">Q&A解答區</a></li>
+								<li><a href="<c:url value='/CrudServlet' />">討論公告區</a></li>
+								<li><a href="<c:url value='/QaCrudServlet' />">Q&A解答區</a></li>
 							</ul></li>
 					</ul>
 				</nav>

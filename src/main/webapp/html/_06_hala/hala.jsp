@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <! DOCTYPE html>
 <html>
 <head>
@@ -51,6 +50,14 @@ String basePath4 = request.getScheme() + "://" + request.getServerName() + ":" +
 String basePath5 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
 		+ "/html/assets/js/main.js";
 %>
+<%
+String basePath6 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+		+ "/html/_06_hala/addhala.jsp";
+%>
+<%
+String basePath8 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+		+ "/html/hala/updateHala.jsp";
+%>
 <!-- 引入共同的頁首 -->
 <%-- <%@ include file="/html/backMVC.jsp" %> --%>
 <%-- <jsp:include page="/html/backMVC.jsp" flush="true" /> --%>
@@ -88,45 +95,62 @@ String basePath5 = request.getScheme() + "://" + request.getServerName() + ":" +
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h1>修改貼文</h1>
+						<h1>全部貼文</h1>
 						<div>
-							<form action="<c:url value='/updateHalaServlet'/>" method="post">
-								<c:forEach var="bean" items="${bean}">
-									<label>編號</label>
-									<input type="text" name="halaid" value="${bean.halaID}"
-										readonly="readonly">
-									<label>分類名稱</label>
-									<select name="halaclassname">
-										<option value="公告">公告</option>
-										<option value="閱讀心得">閱讀心得</option>
-										<option value="資料分享">資料分享</option>
-										<option value="圖書推薦">圖書推薦</option>
-										<option value="教學文章">教學文章</option>
-										<option value="其他">其他</option>
-									</select>
-									<label>會員編號</label>
-									<input type="text" name="memberid" value="${bean.memberId}"
-										readonly="readonly">
-									<label>標題</label>
-									<input type="text" name="title" value="${bean.title}">
-									<label>內容</label>
-									<textarea rows="70" cols="30" name="halacontent"> ${bean.halaContent}</textarea>
-
-									<div>
-										<!--<a href="<c:url value='/halaservlet/addservlet'/>"><input type="button" value="確定"></a>
-							  -->
-										<input type="submit">
-									</div>
-								</c:forEach>
-							</form>
+							<input type="button" value="新增貼文"
+								onclick="location.href='<%=basePath6%>'">
 						</div>
-
-
 					</header>
+					<header>
+						<h4>分類查詢</h4>
+						<form action="<c:url value='/FindHalaClassServlet'/>" method="post">
+							<select name="HalaClassName" style="width: 40%">
+								<option value="公告">公告</option>
+								<option value="閱讀心得">閱讀心得</option>
+								<option value="資料分享">資料分享</option>
+								<option value="圖書推薦">圖書推薦</option>
+								<option value="教學文章">教學文章</option>
+								<option value="其他">其他</option>
+							</select> <br> <input type="submit">
+						</form>
+					</header>
+					<br>
 					<div class="table-wrapper">
 						<table class="alt">
-
-
+							<thead>
+								<tr>
+									<th>貼文編號</th>
+									<th>分類名稱</th>
+									<th>會員編號</th>
+									<th>貼文標題</th>
+									<th>貼文日期</th>
+									<th>貼文內容</th>
+									<th width=80px>修改</th>
+									<th width=80xp>刪除</th>
+								</tr>
+							</thead>
+							<c:forEach var="bean" items="${classList}">
+								<tbody>
+									<tr>
+										<td>${bean.halaId}</td>
+										<td>${bean.halaClassName}</td>
+										<td>${bean.memberId}</td>
+										<td>${bean.title}</td>
+										<td>${bean.postDate}</td>
+										<td>${bean.halaContent}</td>
+										<td>
+											<form method="post"
+												action="<c:url value='/SaveHalaServlet?halaId=${bean.halaId}'/>">
+												<input type="submit" value="修改">
+											</form>
+										</td>
+										<td><form method="post"
+												action="<c:url value='/DeleteHalaServlet'/>">
+												<button name="halaId" value="${bean.halaId}">刪除</button>
+											</form></td>
+									</tr>
+								</tbody>
+							</c:forEach>
 						</table>
 					</div>
 				</section>
@@ -179,8 +203,8 @@ String basePath5 = request.getScheme() + "://" + request.getServerName() + ":" +
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
 							<ul>
-								<li><a href="<c:url value='/halaservlet/crudservlet' />">討論公告區</a></li>
-								<li><a href="<c:url value='/qaservlet/qacrud' />">Q&A解答區</a></li>
+								<li><a href="<c:url value='/CrudServlet' />">討論公告區</a></li>
+								<li><a href="<c:url value='/QaCrudServlet' />">Q&A解答區</a></li>
 							</ul></li>
 					</ul>
 				</nav>
@@ -216,12 +240,59 @@ String basePath5 = request.getScheme() + "://" + request.getServerName() + ":" +
 
 	<!-- Scripts -->
 
-	<script src=<%=basePath1%>></script>
-	<script src=<%=basePath2%>></script>
-	<script src=<%=basePath3%>></script>
-	<script src=<%=basePath4%>></script>
-	<script src=<%=basePath5%>></script>
+	<%
+	String basePathIndex1 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+			+ "/html/assets/js/jquery.min.js";
+	%>
+
+	<%
+	String basePathIndex2 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+			+ "/html/assets/js/browser.min.js";
+	%>
+
+	<%
+	String basePathIndex3 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+			+ "/html/assets/js/breakpoints.min.js";
+	%>
+
+	<%
+	String basePathIndex4 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+			+ "/html/assets/js/util.js";
+	%>
+
+	<%
+	String basePathIndex5 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+			+ "/html/assets/js/main.js";
+	%>
+	<script src=<%=basePathIndex1%>></script>
+	<script src=<%=basePathIndex2%>></script>
+	<script src=<%=basePathIndex3%>></script>
+	<script src=<%=basePathIndex4%>></script>
+	<script src=<%=basePathIndex5%>></script>
 	<script src="https://kit.fontawesome.com/25590258af.js"
 		crossorigin="anonymous"></script>
 </body>
 </html>
+<!--      <td> -->
+<%--                      <Form  action="<c:url value='/Servlet/searchAllTeacServlet' />"  --%>
+<!--                             method="POST"> -->
+<!--                                 教師貼文數量: -->
+<!--                         <select name='qty'> -->
+<!--                            <option value="1">1</option> -->
+<!--                            <option value="2">2</option> -->
+<!--                            <option value="3">3</option> -->
+<!--                            <option value="4">4</option> -->
+<!--                            <option value="5">5</option> -->
+<!--                            <option value="6">6</option> -->
+<!--                            <option value="7">7</option> -->
+<!--                            <option value="8">8</option> -->
+<!--                            <option value="9">9</option> -->
+<!--                            <option value="10">10</option> -->
+<!--                        </select> -->
+<!--                        這些隱藏欄位都會送到後端 -->
+<%--                        <Input type='hidden' name='bookId' value='${entry.value.bookId}'> --%>
+<%--                        <Input type='hidden' name='pageNo' value='${param.pageNo}'> --%>
+<!--                        <label><i class="fa-solid fa-cart-shopping"></i><Input type='submit' value='加入購物車'> -->
+<!--                        </label> -->
+<!--                      </Form> -->
+<!--     </td> -->

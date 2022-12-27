@@ -27,6 +27,7 @@ String basePathimg3 = request.getScheme() + "://" + request.getServerName() + ":
 String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
 		+ "/html/backIndex.jsp";
 %>
+
 <%
 String basePath1 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
 		+ "/html/assets/js/jquery.min.js";
@@ -88,33 +89,36 @@ String basePath5 = request.getScheme() + "://" + request.getServerName() + ":" +
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h1>新增問題</h1>
+						<h1>新增貼文</h1>
 						<div>
-							<form action="<c:url value='/addqa'/>" method="post">
-
-
-								<label>問題分類</label> <select name="qaClassName"
+							<form action="<c:url value='/HalaAddServlet'/>"
+								method="post">
+								<label>分類名稱</label> <select name="halaclassname"
 									style="width: 40%">
-									<option value="系統問題">系統問題</option>
-									<option value="程式碼問題">程式碼問題</option>
-									<option value="JAVA問題">JAVA問題</option>
-									<option value="SQL問題">SQL問題</option>
-									<option value="HTML問題">HTML問題</option>
-									<option value="很多問題">很多問題</option>
+									<option value="公告">公告</option>
+									<option value="閱讀心得">閱讀心得</option>
+									<option value="資料分享">資料分享</option>
+									<option value="圖書推薦">圖書推薦</option>
+									<option value="教學文章">教學文章</option>
 									<option value="其他">其他</option>
 								</select> <label>會員編號</label> <input type="text" name="memberid"
 									value="${bean.memberId}"
 									onkeyup="value=value.replace(/[^\d]/g,'') "> <label>標題</label>
 								<input type="text" name="title" value="${bean.title}"> <label>內容</label>
-								<textarea rows="70" cols="30" name="qaContent"
-									value="${bean.qaContent}"></textarea>
+								<textarea rows="70" cols="30" name="halacontent"
+									value="${bean.halacontent}"></textarea>
 
 								<div>
-									<!--<a href="<c:url value='/halaservlet/addservlet'/>"><input type="button" value="確定"></a>
-							  -->
 									<input type="submit">
 								</div>
 							</form>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
 						</div>
 
 
@@ -175,8 +179,8 @@ String basePath5 = request.getScheme() + "://" + request.getServerName() + ":" +
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
 							<ul>
-								<li><a href="<c:url value='/halaservlet/crudservlet' />">討論公告區</a></li>
-								<li><a href="<c:url value='/qaservlet/qacrud' />">Q&A解答區</a></li>
+								<li><a href="<c:url value='/CrudServlet' />">討論公告區</a></li>
+								<li><a href="<c:url value='/QaCrudServlet' />">Q&A解答區</a></li>
 							</ul></li>
 					</ul>
 				</nav>

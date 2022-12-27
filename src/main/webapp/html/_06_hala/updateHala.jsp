@@ -51,14 +51,6 @@ String basePath4 = request.getScheme() + "://" + request.getServerName() + ":" +
 String basePath5 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
 		+ "/html/assets/js/main.js";
 %>
-<%
-String basePath6 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
-		+ "/html/addhala.jsp";
-%>
-<%
-String basePath8 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
-		+ "/html/updateHala.jsp";
-%>
 <!-- 引入共同的頁首 -->
 <%-- <%@ include file="/html/backMVC.jsp" %> --%>
 <%-- <jsp:include page="/html/backMVC.jsp" flush="true" /> --%>
@@ -96,62 +88,43 @@ String basePath8 = request.getScheme() + "://" + request.getServerName() + ":" +
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h1>全部貼文</h1>
+						<h1>修改貼文</h1>
 						<div>
-							<input type="button" value="新增貼文"
-								onclick="location.href='<%=basePath6%>'">
+							<form action="<c:url value='/UpDateHalaServlet'/>" method="post">
+									<label>編號</label>
+									<input type="text" name="halaid" value="${bean.halaId}"
+										readonly="readonly">
+									<label>分類名稱</label>
+									<select name="halaclassname">
+										<option value="公告">公告</option>
+										<option value="閱讀心得">閱讀心得</option>
+										<option value="資料分享">資料分享</option>
+										<option value="圖書推薦">圖書推薦</option>
+										<option value="教學文章">教學文章</option>
+										<option value="其他">其他</option>
+									</select>
+									<label>會員編號</label>
+									<input type="text" name="memberid" value="${bean.memberId}"
+										readonly="readonly">
+									<label>標題</label>
+									<input type="text" name="title" value="${bean.title}">
+									<label>內容</label>
+									<textarea rows="70" cols="30" name="halacontent"> ${bean.halaContent}</textarea>
+
+									<div>
+										<!--<a href="<c:url value='/halaservlet/addservlet'/>"><input type="button" value="確定"></a>
+							  -->
+										<input type="submit">
+									</div>
+							</form>
 						</div>
+
+
 					</header>
-					<header>
-						<h4>分類查詢</h4>
-						<form action="<c:url value='/findNameServlet'/>" method="post">
-							<select name="halaclassname" style="width: 40%">
-								<option value="公告">公告</option>
-								<option value="閱讀心得">閱讀心得</option>
-								<option value="資料分享">資料分享</option>
-								<option value="圖書推薦">圖書推薦</option>
-								<option value="教學文章">教學文章</option>
-								<option value="其他">其他</option>
-							</select> <br> <input type="submit">
-						</form>
-					</header>
-					<br>
 					<div class="table-wrapper">
 						<table class="alt">
-							<thead>
-								<tr>
-									<th>貼文編號</th>
-									<th>分類名稱</th>
-									<th>會員編號</th>
-									<th>貼文標題</th>
-									<th>貼文日期</th>
-									<th>貼文內容</th>
-									<th width=80px>修改</th>
-									<th width=80xp>刪除</th>
-								</tr>
-							</thead>
-							<c:forEach var="bean" items="${classList}">
-								<tbody>
-									<tr>
-										<td>${bean.halaID}</td>
-										<td>${bean.halaClassName}</td>
-										<td>${bean.memberId}</td>
-										<td>${bean.title}</td>
-										<td>${bean.postDate}</td>
-										<td>${bean.halaContent}</td>
-										<td>
-											<form method="post"
-												action="<c:url value='/save?halaID=${bean.halaID}'/>">
-												<input type="submit" value="修改">
-											</form>
-										</td>
-										<td><form method="post"
-												action="<c:url value='/deleteServlet'/>">
-												<button name="halaID" value="${bean.halaID}">刪除</button>
-											</form></td>
-									</tr>
-								</tbody>
-							</c:forEach>
+
+
 						</table>
 					</div>
 				</section>
@@ -204,8 +177,8 @@ String basePath8 = request.getScheme() + "://" + request.getServerName() + ":" +
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
 							<ul>
-								<li><a href="<c:url value='/halaservlet/crudservlet' />">討論公告區</a></li>
-								<li><a href="<c:url value='/qaservlet/qacrud' />">Q&A解答區</a></li>
+								<li><a href="<c:url value='/CrudServlet' />">討論公告區</a></li>
+								<li><a href="<c:url value='/QaCrudServlet' />">Q&A解答區</a></li>
 							</ul></li>
 					</ul>
 				</nav>

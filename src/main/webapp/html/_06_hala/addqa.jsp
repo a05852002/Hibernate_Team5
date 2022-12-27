@@ -88,37 +88,32 @@ String basePath5 = request.getScheme() + "://" + request.getServerName() + ":" +
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h1>修改問題</h1>
+						<h1>新增問題</h1>
 						<div>
-							<form action="<c:url value='/updateqaServlet'/>" method="post">
-								<c:forEach var="bean" items="${bean}">
-									<label>編號</label>
-									<input type="text" name="qaid" value="${bean.qaID}"
-										readonly="readonly">
-									<label>分類名稱</label>
-									<select name="qaclassname">
-										<option value="系統問題">系統問題</option>
-										<option value="程式碼問題">程式碼問題</option>
-										<option value="JAVA問題">JAVA問題</option>
-										<option value="SQL問題">SQL問題</option>
-										<option value="HTML問題">HTML問題</option>
-										<option value="很多問題">很多問題</option>
-										<option value="其他">其他</option>
-									</select>
-									<label>會員編號</label>
-									<input type="text" name="memberid" value="${bean.memberId}"
-										readonly="readonly">
-									<label>標題</label>
-									<input type="text" name="title" value="${bean.title}">
-									<label>內容</label>
-									<textarea rows="70" cols="30" name="qacontent"> ${bean.qaContent}</textarea>
+							<form action="<c:url value='/QaAddServlet'/>" method="post">
 
-									<div>
-										<!--<a href="<c:url value='/halaservlet/addservlet'/>"><input type="button" value="確定"></a>
+
+								<label>問題分類</label> <select name="qaclassname"
+									style="width: 40%">
+									<option value="系統問題">系統問題</option>
+									<option value="程式碼問題">程式碼問題</option>
+									<option value="JAVA問題">JAVA問題</option>
+									<option value="SQL問題">SQL問題</option>
+									<option value="HTML問題">HTML問題</option>
+									<option value="很多問題">很多問題</option>
+									<option value="其他">其他</option>
+								</select> <label>會員編號</label> <input type="text" name="memberid"
+									value="${bean.memberId}"
+									onkeyup="value=value.replace(/[^\d]/g,'') "> <label>標題</label>
+								<input type="text" name="title" value="${bean.title}"> <label>內容</label>
+								<textarea rows="70" cols="30" name="qacontent"
+									value="${bean.qaContent}"></textarea>
+
+								<div>
+									<!--<a href="<c:url value='/halaservlet/addservlet'/>"><input type="button" value="確定"></a>
 							  -->
-										<input type="submit">
-									</div>
-								</c:forEach>
+									<input type="submit">
+								</div>
 							</form>
 						</div>
 
@@ -180,8 +175,8 @@ String basePath5 = request.getScheme() + "://" + request.getServerName() + ":" +
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
 							<ul>
-								<li><a href="<c:url value='/halaservlet/crudservlet' />">討論公告區</a></li>
-								<li><a href="<c:url value='/qaservlet/qacrud' />">Q&A解答區</a></li>
+								<li><a href="<c:url value='/CrudServlet' />">討論公告區</a></li>
+								<li><a href="<c:url value='/QaCrudServlet' />">Q&A解答區</a></li>
 							</ul></li>
 					</ul>
 				</nav>
@@ -224,5 +219,11 @@ String basePath5 = request.getScheme() + "://" + request.getServerName() + ":" +
 	<script src=<%=basePath5%>></script>
 	<script src="https://kit.fontawesome.com/25590258af.js"
 		crossorigin="anonymous"></script>
+	<script>function onlyNumberKey(event){
+		   var ASCIICode = (event.which) ? event.which : event.keyCode
+		              if(ASCIICode < 48 || ASCIICode > 57)
+		              return false;
+		              return true;
+		  }</script>
 </body>
 </html>

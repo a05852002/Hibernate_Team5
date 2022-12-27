@@ -132,8 +132,8 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
 							<ul>
-								<li><a href="<c:url value='/halaservlet/crudservlet' />">討論公告區</a></li>
-								<li><a href="<c:url value='/qaservlet/qacrud' />">Q&A解答區</a></li>
+								<li><a href="<c:url value='/CrudServlet'/>">討論公告區</a></li>
+								<li><a href="<c:url value='/QaCrudServlet'/>">Q&A解答區</a></li>
 							</ul></li>
 					</ul>
 				</nav>
