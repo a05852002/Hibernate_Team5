@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package tw.hibernatedemo.util;
 
 import java.io.IOException;
@@ -46,3 +47,56 @@ private Session session;
 
 
 }
+=======
+//package tw.hibernatedemo.util;
+//
+//import java.io.IOException;
+//import javax.servlet.Filter;
+//import javax.servlet.FilterChain;
+//import javax.servlet.ServletException;
+//import javax.servlet.ServletRequest;
+//import javax.servlet.ServletResponse;
+//import javax.servlet.annotation.WebFilter;
+//import javax.servlet.http.HttpFilter;
+//
+//import org.hibernate.Session;
+//import org.hibernate.SessionFactory;
+//@WebFilter(urlPatterns =  "/*")
+//public class OpenSessionInViewFilter extends HttpFilter implements Filter {
+//	
+//	/**
+//	 * 
+//	 */
+//	private static final long serialVersionUID = 1L;
+//	private Session session;
+//	
+//	
+//	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+//		
+//		try {
+//			SessionFactory factory = HibernateUtil.getSessionFactory();
+//			this.session = factory.getCurrentSession();
+//			
+//			session.beginTransaction();
+//			System.out.println("Begin Transaction...");
+//			
+//			
+//			chain.doFilter(request, response);
+//			
+//			session.getTransaction().commit();
+//			
+//		} catch (Exception e) {
+//			System.out.println("ROLLBACK!!!");
+//			session.getTransaction().rollback();
+//			e.printStackTrace();
+//		} finally {
+//			System.out.println("Session close!!");
+//		}
+//		
+//		
+//		
+//	}
+//
+//
+//}
+>>>>>>> 042643b74810b2c9d09d3bea67d399e98d9e9d7f

@@ -42,79 +42,48 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="backIndex.jsp" class="logo"><strong>後台管理系統</strong></a>
+					<a href="/html/backIndex.jsp" class="logo"><strong>後台管理系統</strong></a>
 				</header>
 
 
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h1 style="font-size:30px">教師貼文CRUD</h1>
-						<input type="button" value="新增" onclick="location.href='http://localhost:8080/jspTeam5/html/teacStu/insertpage.jsp'">
+						<h1>請修改您的資料</h1>
 					</header>
-						<form method="post" action="<c:url value='/Servlet/searchLike' />">
-							<input type="text" name="search" id="search" placeholder="Search" style="width:80%" />
-						</form>
-						<br>
-						<div>
-						<form method="post" action="<c:url value='/Servlet/switchsequence' />">
-						<h3>請選擇排列方式</h3>
-						<select name="case"  onchange="this.form.submit()" style="width:80%">
-						<option value="">--請選擇排序方式--</option>
-						<option value="1">依會員編號排序</option>
-						<option value="2">依日期排序</option>
-						<option value="3">依價格排序</option>
-						</select>
-						</form>
-						</div>
-						<div>
-						<form method="post" action="<c:url value='/Servlet/searchallbyprice' />">
-						<table style="width:80%">
-						<thead>
-						<tr>
-						<th>請輸入查詢的時薪區間:</th>
-						<th><input name="low" type="text" value="最低時薪" onfocus="javascript:if(this.value=='最低時薪')this.value='';"></th>
-						<th>至</th>
-						<th><input name="high" type="text" value="最高時薪" onfocus="javascript:if(this.value=='最高時薪')this.value='';"></th>
-						<th><input type="submit" value="搜尋"></th>
-						</tr>
-						</thead>
-						</table>
-						</form>
-						</div>
 							<div class="table-wrapper">
-								<table class="alt" style="width:80%">
+							<form action='<c:url value="/_05_teacStu/updatedataStud" />' enctype='multipart/form-data' method='post'>
+								<table class="alt">
+								<c:forEach var="bean" items="${bean}">
 									<thead>
-										<tr>
-											<th>教師貼文編號</th>
-											<th>會員編號</th>
-											<th>貼文標題</th>
-											<th>貼文日期</th>
-											<th>文章內容</th>
-											<th>時薪</th>
-											<th>科目</th>
-											<th>圖片</th>
-											<th>修改</th>
-											<th>刪除</th>
-										</tr>
+										<tr><td>您的學生貼文編號：</td></tr>
+										<tr><td><input name="studno" type="text" readonly="readonly" value="${bean.studno}" style="width:80%"></td></tr>
+										<tr><td>請輸入要修改的會員編號：</td></tr>
+										<tr><td><input name="memberId" onkeyup="value=value.replace(/[^\d]/g,'') " type="text" value="${bean.memberId}" style="width:80%"></td></tr>
+										<tr><td>請輸入要修改的貼文標題：</td></tr>
+										<tr><td><input name="title" type="text" value="${bean.title}" style="width:80%"></td></tr>
+										<tr><td>請輸入要修改的貼文內容簡介：</td></tr>
+										<tr><td><input name="detail" type="text" value="${bean.detail}" style="width:80%"></td></tr>
+										<tr><td>請輸入要修改的收費時薪：</td></tr>
+										<tr><td><input name="price" onkeyup="value=value.replace(/[^\d]/g,'') " type="text" value="${bean.price}" style="width:80%"></td></tr>
+										<tr><td>請輸入要修改的教授科目：</td></tr>
+										<tr><td><input name="subjectItem" type="text" value="${bean.subjectItem}" style="width:80%"></td></tr>
+										<tr><td>請輸入要修改的學習地點：</td></tr>
+										<tr><td><input name="learnLoc" type="text" value="${bean.learnLoc}" style="width:80%"></td></tr>
+										<tr><td>請選擇要上傳的檔案：</td></tr>
+										<tr><td>
+										<input name="images" id="images5278" type="file" style="width:80%">
+										<br>
+										<img id="preImg" style="width:150px; height:200px" src="<c:url value='/_05_teacStu/picsaveStud?id=${bean.studno}' />" />
+										</td></tr>
 									</thead>
-								<c:forEach var="bean" items="${classList}">
-									<tbody>
-										<tr>
-											<td>${bean.teacno}</td>
-     										<td>${bean.memberId}</td>
-         									<td>${bean.title}</td>
-         									<td>${bean.postDate}</td>
-     										<td>${bean.detail}</td>
-     										<td>${bean.price}</td>
-     										<td>${bean.subjectItem}</td>
-     										<td><img height='100' width='80'src="<c:url value='/_05_teacStu.Servlet/picsave.do?id=${bean.teacno}' />"></td>
-     										<td><input type="button" value="修改" onclick="location.href='http://localhost:8080/jspTeam5/Servlet/datesave?teacno=${bean.teacno}'"></td>
-     										<td><form method="post" action="<c:url value='/Servlet/deletedata'/>"> <button name="teacno" value="${bean.teacno}">刪除</button></form></td>
-										</tr>
-									</tbody>
-									</c:forEach>
+								</c:forEach>
 									</table>
+									<div>
+									<input style="margin-right:40px" type="submit" value="確定">
+									<input type="button" value="取消" onclick="location.href='http://localhost:8080/Hibernate_Team5/_05_teacStu/searchAllStudServlet'">
+									</div>
+									</form>
 							</div>
 				</section>
 			</div>
@@ -160,8 +129,8 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a href="<c:url value='/_05_teacStu/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a href="<c:url value='/_05_teacStu/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
@@ -234,5 +203,20 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 	<script src=<%=basePath5%>></script>
 	<script src="https://kit.fontawesome.com/25590258af.js"
 		crossorigin="anonymous"></script>
+	<script>
+		$("#images5278").change(function(){
+	     readURL(this);
+	   	});
+		
+		function readURL(input){
+			  if(input.files && input.files[0]){
+			    var reader = new FileReader();
+			    reader.onload = function (e) {
+			       $("#preImg").attr('src', e.target.result);
+			    }
+			    reader.readAsDataURL(input.files[0]);
+			  }
+			}
+	</script>
 </body>
 </html>
