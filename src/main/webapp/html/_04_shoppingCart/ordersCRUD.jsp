@@ -55,14 +55,12 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<h1 class="logo">
 						<strong>管理者介面</strong>
 					</h1>
-					<button id="delete">測試刪除</button>
-
 				</header>
 
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h2 style="margin: 0; float: left">訂單管理CRUD</h2>
+						<h2 style="margin: 0; float: left">訂單管理CRUD　</h2>
 						<form method="post"
 							action="<c:url value='/html/_04_shoppingCart/orderInsert.jsp' />">
 							<button name="orderNo" value="${bean.orderNo}">
@@ -274,10 +272,10 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
                   icon: 'warning',
                   //icon:  "success", "error", "warning", "info" or "question" 這幾種選項
                   showCancelButton: true,
-                  confirmButtonColor: '#f7d966',
-                  cancelButtonColor: '#3d3b39',
+                  confirmButtonColor: '#FFEBAD',
+                  cancelButtonColor: '#F0DBDB',
                   cancelButtonText: '取消',
-                  confirmButtonText: '確定刪除'
+                  confirmButtonText: '確定'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
