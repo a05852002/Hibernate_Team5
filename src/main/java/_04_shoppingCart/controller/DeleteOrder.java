@@ -36,8 +36,8 @@ public class DeleteOrder extends HttpServlet {
 		int orderNo = Integer.valueOf(request.getParameter("orderNo"));
 		orderService.deleteOrderNo(orderNo);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/_04_shoppingCart/SelectAll.do");
-		rd.forward(request, response);
+//		RequestDispatcher rd = request.getRequestDispatcher("/_04_shoppingCart/SelectAll.do");
+//		rd.forward(request, response);
 		return;
 	}
 
