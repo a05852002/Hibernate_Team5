@@ -27,21 +27,21 @@ public class MyProject {
 
 		try {
 			session.beginTransaction();
-//			OrderDao orderDao = new OrderDao(session);
-//			OrderService orderService = new OrderService(session);
-//			OrderBean order = orderService.insertOrder("333", "台北");
-//			OrderBean order = new OrderBean();
 			
+			OrderService orderService = new OrderService(session);
+			OrderBean order = orderService.insertOrder("333", "台北");
+			
+//			OrderBean order = new OrderBean();
 //			OrderBean order = session.get(OrderBean.class, 4);
 			OrderItemDao orderItemDao = new OrderItemDao(session);
-			OrderItemBean ordItem = orderItemDao.insertOrder(4,"123545", "讚讚", 1, 200,1.0, "無");
+			OrderItemBean ordItem = orderItemDao.insertOrder(1,"123545", "讚讚", 1, 200,1.0, "無");
 			System.out.println(ordItem);
-//			ordItem.setOrderbean(order);
+			ordItem.setOrderbean(order);
 ////			
-//			Set<OrderItemBean> orderItemBean = new LinkedHashSet<OrderItemBean>();
-//			orderItemBean.add(ordItem);
-//			order.setItems(orderItemBean);
-//			session.save(order);
+			Set<OrderItemBean> orderItemBean = new LinkedHashSet<OrderItemBean>();
+			orderItemBean.add(ordItem);
+			order.setItems(orderItemBean);
+			session.save(order);
 			
 //			OrderItemService orderItemService = new OrderItemService(session);
 //			
