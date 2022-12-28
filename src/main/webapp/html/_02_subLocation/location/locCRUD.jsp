@@ -77,7 +77,19 @@ String basePathimg4 = request.getScheme() + "://" + request.getServerName() + ":
 							<input type="text" name="locclass" id="locclass" placeholder="Search" />
 						</form>
 					</section>
+					
+					<section id="search" class="alt">
+					<form action="<c:url value='/locServlet/locationFindServlet' />" method="post" >
+					<select class="selectpicker" id="eq_num"   data-actions-box="true"  data-live-search="true" data-live-search-placeholder="請選擇···" >  
+					<c:forEach var="bean" items="${classList}">
+						<option>${bean.locclass}</option>
+						</c:forEach>
+					</select>
+					</form>
+					</section>					
+						
 
+         
 					<!-- Table -->
 					<div class="table-wrapper">
 						<table class="alt">
