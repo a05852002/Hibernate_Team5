@@ -35,9 +35,13 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="bookmark" href="<%=basePathimg%>" />
 <link rel="stylesheet" href="<%=basePath%>" />
 <!-- DataTable css -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
- <!-- DataTable js --> 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<!-- DataTable js -->
+<!-- <script type="text/javascript" charset="utf8" -->
+<!-- 	src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script> -->
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body class="is-preload">
@@ -51,12 +55,14 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 					<h1 class="logo">
 						<strong>管理者介面</strong>
 					</h1>
+					<button id="delete">測試刪除</button>
+
 				</header>
 
 				<!-- Content -->
 				<section>
 					<header class="main">
-						<h2 style="margin: 0; float: left">訂單管理CRUD　</h2>
+						<h2 style="margin: 0; float: left">訂單管理CRUD</h2>
 						<form method="post"
 							action="<c:url value='/html/_04_shoppingCart/orderInsert.jsp' />">
 							<button name="orderNo" value="${bean.orderNo}">
@@ -84,7 +90,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 									<th>訂單地址</th>
 									<th>訂單狀態</th>
 									<th>付款狀態</th>
-									<th>送貨狀態 </th>
+									<th>送貨狀態</th>
 									<th width=80px>總金額</th>
 									<th width=80px>編輯</th>
 									<th width=80px>新增</th>
@@ -105,7 +111,8 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 										<td>${bean.totalAmount}</td>
 										<td><form method="post"
 												action="<c:url value='/_04_shoppingCart/SearchOrder.do' />">
-												<button name="orderNo" value="${bean.orderNo}">
+												<button class="delete" name="orderNo"
+													value="${bean.orderNo}">
 													<i class="fa-solid fa-pen-to-square"></i>
 												</button>
 											</form></td>
@@ -115,18 +122,18 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 													<i class="fa-solid fa-file-pen"></i>
 												</button>
 											</form></td>
-										<td><form method="post"
-												action="<c:url value='/_04_shoppingCart/DeleteOrder.do' />">
-												<button name="orderNo" value="${bean.orderNo}">
-													<i class="fa-solid fa-xmark"></i>
-												</button>
-											</form></td>
+										<td><button class="deleteThisOrder" name="orderNo"
+												value="${bean.orderNo}">
+												<i class="fa-solid fa-xmark"></i>
+											</button></td>
 									</tr>
 								</tbody>
 							</c:forEach>
 						</table>
-						<div style="display:flex;justify-content:center"><a href="../html/backIndex.jsp">
-								返回<i class="fa-solid fa-left-long"></i></a></div>
+						<div style="display: flex; justify-content: center">
+							<a href="../html/backIndex.jsp"> 返回<i
+								class="fa-solid fa-left-long"></i></a>
+						</div>
 					</div>
 				</section>
 			</div>
@@ -146,11 +153,15 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						</h2>
 					</header>
 					<ul>
-						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i class="fa-solid fa-house"></i></a></li>
-						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理 <i
-								class="fa-solid fa-gears"></i></a></li>
-						<li><a href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料 <i
-								class="fa-solid fa-users-viewfinder"></i></a></li>
+						<li><a href="<c:url value='/html/index.jsp' />">首頁 <i
+								class="fa-solid fa-house"></i></a></li>
+						<li><a href="<c:url value='/html/backIndex.jsp' />">後台管理
+								<i class="fa-solid fa-gears"></i>
+						</a></li>
+						<li><a
+							href="<c:url value='/html/MeetBothMember/admin.jsp' />">會員資料
+								<i class="fa-solid fa-users-viewfinder"></i>
+						</a></li>
 						<li><span class="opener">科目地區資料 <i
 								class="fa-solid fa-magnifying-glass-location"></i></span>
 							<ul>
@@ -166,8 +177,10 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 						<li><span class="opener">老師學生資料 <i
 								class="fa-solid fa-users"></i></span>
 							<ul>
-								<li><a href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
-								<li><a href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllTeacServlet' />">老師貼文資料</a></li>
+								<li><a
+									href="<c:url value='/Servlet/searchAllStudServlet' />">學生貼文資料</a></li>
 							</ul></li>
 						<li><span class="opener">哈拉區 <i
 								class="fa-solid fa-comments"></i></span>
@@ -240,6 +253,56 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 	<script src=<%=basePath5%>></script>
 	<script src="https://kit.fontawesome.com/25590258af.js"
 		crossorigin="anonymous"></script>
+
+
+	<!-- 	<script type="text/javascript"> 
+	// document.getElementById("delete").onclick = function() { //
+	console.log("觸動程式"); // swal({ // title : "你確定要刪除嗎?", // text :
+	"將無法恢復此筆訂單", // type : "warning", // showCancelButton : true, //
+	confirmButtonColor : "#DD6B55", // confirmButtonText : "是的，删除！", //
+	closeOnConfirm : false // }, function() { // swal("刪除!", "您的訂單已被删除！",
+	"success") // }) // };
+	</script> -->
+
+	<script>
+        $(function(){
+            $('.deleteThisOrder').click(function(){
+                let id=$(this).attr("value");
+                Swal.fire({
+                  title: '你確定要刪除嗎?',
+                  text: "將無法恢復此筆訂單!!!",
+                  icon: 'warning',
+                  //icon:  "success", "error", "warning", "info" or "question" 這幾種選項
+                  showCancelButton: true,
+                  confirmButtonColor: '#f7d966',
+                  cancelButtonColor: '#3d3b39',
+                  cancelButtonText: '取消',
+                  confirmButtonText: '確定刪除'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                          //專案名稱+servlet
+                          url:'/Hibernate_Team5/_04_shoppingCart/DeleteOrder.do',
+                          method:"post",
+                          dataType:"text",
+                          //對應name設定的名稱 並非value的名稱
+                          data: {"orderNo":id},
+                        })
+                            .done(function () {
+                                location.reload();
+                                console.log("delete")
+                             })//done
+                             .fail(function(error) {
+                                 console.log(error)
+                             })//fail end
+                    }//if
+                  })//then
+
+              })//click end
+        });
+        //function end
+    </script>
+
 </body>
 </html>
 <!--      <td> -->

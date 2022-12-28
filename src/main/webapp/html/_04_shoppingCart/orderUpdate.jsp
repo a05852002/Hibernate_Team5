@@ -38,6 +38,12 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 <link rel="shortcut icon" href="<%=basePathimg%>" />
 <link rel="bookmark" href="<%=basePathimg%>" />
 <link rel="stylesheet" href="<%=basePath%>" />
+
+<!-- <script src="dist/sweetalert.min.js"></script> -->
+<!-- <link rel="stylesheet" type="text/css" href="dist/sweetalert.css"> -->
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body class="is-preload">
 	<!-- Wrapper -->
@@ -144,6 +150,10 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 												<div id="btnArea" align="center">
 													<input type="submit" name="submit" id="submit" value="儲存" />
 													<input type="reset" name="cancel" id="cancel" value="重填">
+													<button type ="button"
+														class="deleteThisOrder" name="orderNo" value="${bean.orderNo}">
+														<i class="fa-solid fa-xmark"></i>
+													</button>
 												</div>
 											</td>
 										</tr>
@@ -343,6 +353,90 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 			break;
 		}
 	</script>
+		<script type="text/javascript">
+		document.getElementById("deleteThisOrder").onclick = function() {
+			console.log("觸動程式");
+// 			Swal.fire({
+//   				title: 'Submit your Github username',
+//   				input: 'text',
+//   				inputAttributes: {
+//    				 autocapitalize: 'off'
+//   				},
+//   				showCancelButton: true,
+//  				confirmButtonText: 'delete',
+//   				showLoaderOnConfirm: true,
+//   				preConfirm: function() {
+//     			return fetch(`/Hibernate_Team5/_04_shoppingCart/DeleteOrder.do`)
+//       				.then(response => {
+//         		if (!response.ok) {
+//           		throw new Error(response.statusText)
+//         		}
+//         		return response.json()
+//       			})
+//       			.catch(error => {
+//         		Swal.showValidationMessage(
+//           		`Request failed: ${error}`
+//        		 )
+//       		})
+//   		},
+//   			allowOutsideClick: () => !Swal.isLoading()
+// 		}).then((result) => {
+//   			if (result.isConfirmed) {
+//     	Swal.fire({
+//       	title: `${result.value.login}'s avatar`,
+//       	imageUrl: result.value.avatar_url
+//     	})
+//   		}
+// 		})
+			swal({
+				title : "你確定要刪除嗎?",
+				text : "將無法恢復此筆訂單",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : "#DD6B55",
+				confirmButtonText : "是的，删除！",
+				closeOnConfirm : false,
+				timer: 10000,
+			}, function() {
+				swal("刪除!", "您的訂單已被删除！", "success")
+			})
+		};
+	</script>
+	
+	<script>
+        $(function(){
+            $('.deleteThisOrder').click(function(){
+                let id=$(this).attr("value");
+                Swal.fire({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                          url:'/Hibernate_Team5/_04_shoppingCart/DeleteOrder.do',
+                          method:"post",
+                          dataType:"text",
+                          data: {"orderNo":id},
+                        })
+                            .done(function () {
+                                location.reload();
+                                console.log("delete")
+                             })//done
+                             .fail(function(error) {
+                                 console.log(error)
+                             })//fail end
+                    }//if
+                  })//then
+
+              })//click end
+        });
+        //function end
+    </script>
 
 </body>
 </html>
