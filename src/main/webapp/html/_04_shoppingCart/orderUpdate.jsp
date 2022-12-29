@@ -151,7 +151,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 													<input type="submit" name="submit" id="submit" value="儲存" />
 													<input type="reset" name="cancel" id="cancel" value="重填">
 													<button type ="button"
-														class="deleteThisOrder" name="orderNo" value="${bean.orderNo}">
+														class="updateThisOrder" name="orderNo" value="${bean.orderNo}">
 														<i class="fa-solid fa-xmark"></i>
 													</button>
 												</div>
@@ -405,7 +405,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
 	
 	<script>
         $(function(){
-            $('.deleteThisOrder').click(function(){
+            $('.updateThisOrder').click(function(){
                 let id=$(this).attr("value");
                 Swal.fire({
                   title: 'Are you sure?',
@@ -418,7 +418,7 @@ String basePathimg2 = request.getScheme() + "://" + request.getServerName() + ":
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                          url:'/Hibernate_Team5/_04_shoppingCart/DeleteOrder.do',
+                          url:'/Hibernate_Team5/_04_shoppingCart/UpdateOrder.do',
                           method:"post",
                           dataType:"text",
                           data: {"orderNo":id},
